@@ -5,3 +5,22 @@ body{
   padding: 0;
   max-width: 479px;
 }
+
+.font-game{
+  font-family: "Press Start 2P", serif;
+}
+
+.text-stroke-black{
+  -webkit-text-stroke: 5px black;
+  paint-order: stroke fill;
+}
+
+.text-stroke-lime{
+  -webkit-text-stroke: 5px #C5E369;
+  paint-order: stroke fill;
+}
+
+.text-stroke-orange{
+  -webkit-text-stroke: 5px #862A00;
+  paint-order: stroke fill;
+}
