@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import wordsA1 from "./game";
+import LoseModal from "../../components/Modal/LoseModal";
 import { Pause } from "lucide-react";
-
+import PauseModal from "../../components/Modal/PauseModal";
+import WinModal from "../../components/Modal/WinModal"
 export default function Game() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
   const [Quest, setQuest] = useState(Math.floor(Math.random() * 896));
@@ -11,7 +13,12 @@ export default function Game() {
   const [monsterImage, setMonsterImage] = useState("boaridle.gif");
   const [HeartImage, setHeartImage] = useState("Heart.png");
   const [isend, setisend] = useState(true);
+  const [isPause, setIsPause] = useState(true);
+  const [IsWin,setisWin] = useState(true);
+  const [Winstreak,setWinstreak] = useState(1);
+  
   let Heartvalue = 1;
+  
 
   useEffect(() => {
     if (Random === 1) {
@@ -23,6 +30,9 @@ export default function Game() {
     }
   }, [Random, Quest]);
 
+  const handleSetting = () => {
+    setIsPause(!isPause);
+  };
   const Next = () => {
     const newRandom = Math.floor(Math.random() * 2) + 1;
     const newQuest = Math.floor(Math.random() * 896);
@@ -45,6 +55,7 @@ export default function Game() {
   const Correctornot = (choice) => {
     if (choice === Quest) {
       CorrectAnim();
+      
       setTimeout(() => {
         Next();
       }, 500);
@@ -59,7 +70,11 @@ export default function Game() {
   const CorrectAnim = () => {
     setHumanImage("Attack-01.gif");
     setMonsterImage("Hit.gif");
-
+    setWinstreak(Winstreak+1);
+    if(Winstreak===10)
+    {
+      setisWin(false);
+    }
     setTimeout(() => {
       setHumanImage("Idle.gif");
       setMonsterImage("boaridle.gif");
@@ -89,12 +104,29 @@ export default function Game() {
 
   return (
     <div className="grid bg-[url('/background-game_2.png')] bg-no-repeat bg-cover h-screen justify-center">
+      {isend ? (
+              <div
+                onClick={handleSetting}
+                className={`${
+                  isPause
+                    ? "left-[309px] top-[32px] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
+                    : "hidden"
+                }`}
+              >
+                <Pause size={37} />
+              </div>
+            ) : (
+              <LoseModal />
+            )}
+            {IsWin ? null : (<WinModal/>)}
+            {isPause ? "" : <PauseModal setIsPause={setIsPause} />}
+             
       <div className='box1 h-[70vh] font-bold text-[#E29F51] font-[family-name:"Press Start 2P"]'>
         <div className="Heart-box justify-items-center w-full mt-[40px]">
           <img className="w-[134px] h-[36px]  " src={HeartImage} alt="Heart" />
         </div>
-        <div className={`${isend ? "" : "invisible"} font-game`}>
-          <div className="mt-[60px] text-[32px]  text-center">
+        <div className={`${isend&&isPause&&IsWin ? "" : "invisible"} font-game`}>
+          <div className="mt-[60px] text-[32px]  text-center text-stroke-black">
             {wordsA1[Quest].word}
           </div>
         </div>
@@ -113,7 +145,7 @@ export default function Game() {
           </div>
         </div>
       </div>
-      <div className={`${isend ? "" : "hidden"}`}>
+      <div className={`${isend&&isPause&&IsWin ? "" : "hidden"}`}>
         <div className="box2 h-[30vh]">
           <div className="w-full inline-flex gap-5 justify-center pt-5">
             {ch1 !== null && ch2 !== null && Quest !== null && (
