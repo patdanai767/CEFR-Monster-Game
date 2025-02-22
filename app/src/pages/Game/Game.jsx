@@ -4,14 +4,26 @@ import LoseModal from "../../components/Modal/LoseModal";
 import { Pause } from "lucide-react";
 import PauseModal from "../../components/Modal/PauseModal";
 import WinModal from "../../components/Modal/WinModal"
+import Idle from "../../../public/Idle.gif";
+import BoarIdle from "../../../public/boaridle.gif";
+import Attack from "../../../public/Attack-01.gif";
+import Wrong from "../../../public/wrong.gif";
+import BoarAtk from "../../../public/boaratk.gif";
+import Dead from "../../../public/Dead.gif";
+import MonsterHit from "../../../public/Hit.gif";
+import Heart3 from "../../../public/Heart.png"
+import Heart2 from "../../../public/Heart-1.png"
+import Heart1 from "../../../public/Heart-2.png"
+import Heart0 from "../../../public/Heart-3.png"
+
 export default function Game() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
   const [Quest, setQuest] = useState(Math.floor(Math.random() * 896));
   const [ch1, setCh1] = useState(null);
   const [ch2, setCh2] = useState(null);
-  const [humanImage, setHumanImage] = useState("Idle.gif");
-  const [monsterImage, setMonsterImage] = useState("boaridle.gif");
-  const [HeartImage, setHeartImage] = useState("Heart.png");
+  const [humanImage, setHumanImage] = useState(Idle);
+  const [monsterImage, setMonsterImage] = useState(BoarIdle);
+  const [HeartImage, setHeartImage] = useState(Heart3);
   const [isend, setisend] = useState(true);
   const [isPause, setIsPause] = useState(true);
   const [IsWin,setisWin] = useState(true);
@@ -68,36 +80,36 @@ export default function Game() {
   };
 
   const CorrectAnim = () => {
-    setHumanImage("Attack-01.gif");
-    setMonsterImage("Hit.gif");
+    setHumanImage(Attack);
+    setMonsterImage(MonsterHit);
     setWinstreak(Winstreak+1);
     if(Winstreak===10)
     {
       setisWin(false);
     }
     setTimeout(() => {
-      setHumanImage("Idle.gif");
-      setMonsterImage("boaridle.gif");
+      setHumanImage(Idle);
+      setMonsterImage(BoarIdle);
     }, 500);
   };
 
   const WrongAnim = () => {
     Heartvalue -= 1;
-    setHumanImage("wrong.gif");
-    setMonsterImage("boaratk.gif");
-    if (HeartImage === "Heart-2.png") {
-      setHumanImage("Dead.gif");
-      setMonsterImage("boaridle.gif");
-      setHeartImage("Heart-3.png");
+    setHumanImage(Wrong);
+    setMonsterImage(BoarAtk);
+    if (HeartImage === Heart1) {
+      setHumanImage(Dead);
+      setMonsterImage(BoarIdle);
+      setHeartImage(Heart0);
       setisend(false);
     } else {
       setTimeout(() => {
-        setHumanImage("Idle.gif");
-        setMonsterImage("boaridle.gif");
+        setHumanImage(Idle);
+        setMonsterImage(BoarIdle);
       }, 500);
       if (Heartvalue === 0) {
-        if (HeartImage === "Heart.png") setHeartImage("Heart-1.png");
-        else if (HeartImage === "Heart-1.png") setHeartImage("Heart-2.png");
+        if (HeartImage === Heart3) setHeartImage(Heart2);
+        else if (HeartImage === Heart2) setHeartImage(Heart1);
       }
     }
   };
