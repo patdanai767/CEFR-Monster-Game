@@ -11,6 +11,7 @@ import Wrong from "../../../public/wrong.gif";
 import BoarAtk from "../../../public/boaratk.gif";
 import Dead from "../../../public/Dead.gif";
 import MonsterHit from "../../../public/Hit.gif";
+import Boardead from "../../../public/Boardead.gif";
 import Heart3 from "../../../public/Heart.png"
 import Heart2 from "../../../public/Heart-1.png"
 import Heart1 from "../../../public/Heart-2.png"
@@ -86,11 +87,15 @@ export default function Game() {
     if(Winstreak===10)
     {
       setisWin(false);
+      setMonsterImage(Boardead);
+      setHumanImage(Idle);
     }
+    else{
     setTimeout(() => {
       setHumanImage(Idle);
       setMonsterImage(BoarIdle);
     }, 500);
+  }
   };
 
   const WrongAnim = () => {
