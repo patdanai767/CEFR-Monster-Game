@@ -1,17 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import wordsA1 from "./game";
+import LoseModal from "../../components/Modal/LoseModal";
 import { Pause } from "lucide-react";
+import PauseModal from "../../components/Modal/PauseModal";
 
-export default function Game() {
+export default function GameTime() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
   const [Quest, setQuest] = useState(Math.floor(Math.random() * 896));
   const [ch1, setCh1] = useState(null);
   const [ch2, setCh2] = useState(null);
   const [humanImage, setHumanImage] = useState("Idle.gif");
   const [monsterImage, setMonsterImage] = useState("boaridle.gif");
-  const [HeartImage, setHeartImage] = useState("Heart.png");
   const [isend, setisend] = useState(true);
-  let Heartvalue = 1;
+  const [time, setTime] = useState(60);
+  const [isPause, setIsPause] = useState(true);
+  const [isRunning, setIsRunning] = useState(true);
+  //   const [timer, setTimer] = useState(60);
+  var timer = time;
+  if (time < 0) {
+    timer = 0;
+  }
 
   useEffect(() => {
     if (Random === 1) {
@@ -21,7 +29,34 @@ export default function Game() {
       setCh2(Quest);
       setCh1(Math.floor(Math.random() * 896));
     }
-  }, [Random, Quest]);
+
+    let interval = null;
+
+    if (time && isRunning > 0) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime - 1);
+        timer = timer - 1;
+        checkTime(timer);
+      }, 1000);
+    }
+    checkTime(timer);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [Random, Quest, isRunning]);
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    if (seconds > 0) {
+      return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
+        .toString()
+        .padStart(2, "0")}`;
+    } else {
+      return "00:00";
+    }
+  };
 
   const Next = () => {
     const newRandom = Math.floor(Math.random() * 2) + 1;
@@ -67,34 +102,61 @@ export default function Game() {
   };
 
   const WrongAnim = () => {
-    Heartvalue -= 1;
+    if (time > 0) {
+      setTime((prevTime) => prevTime - 5);
+    } else {
+      timer = 0;
+    }
     setHumanImage("wrong.gif");
     setMonsterImage("boaratk.gif");
-    if (HeartImage === "Heart-2.png") {
-      setHumanImage("Dead.gif");
+    setTimeout(() => {
+      setHumanImage("Idle.gif");
       setMonsterImage("boaridle.gif");
-      setHeartImage("Heart-3.png");
+    }, 500);
+  };
+
+  const checkTime = (timer) => {
+    if (timer == 0) {
       setisend(false);
-    } else {
-      setTimeout(() => {
-        setHumanImage("Idle.gif");
-        setMonsterImage("boaridle.gif");
-      }, 500);
-      if (Heartvalue === 0) {
-        if (HeartImage === "Heart.png") setHeartImage("Heart-1.png");
-        else if (HeartImage === "Heart-1.png") setHeartImage("Heart-2.png");
-      }
+      setHumanImage("Dead.gif");
     }
+  };
+
+  const handleSetting = () => {
+    setIsPause(!isPause);
+    setIsRunning(!isRunning);
   };
 
   return (
     <div className="grid bg-[url('/background-game_2.png')] bg-no-repeat bg-cover h-screen justify-center">
-      <div className='box1 h-[70vh] font-bold text-[#E29F51] font-[family-name:"Press Start 2P"]'>
-        <div className="Heart-box justify-items-center w-full mt-[40px]">
-          <img className="w-[134px] h-[36px]  " src={HeartImage} alt="Heart" />
+      {isend ? (
+        <div
+          onClick={handleSetting}
+          className={`${
+            isPause
+              ? "left-[309px] top-[32px] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
+              : "hidden"
+          }`}
+        >
+          <Pause size={37} />
         </div>
-        <div className={`${isend ? "" : "invisible"} font-game`}>
-          <div className="mt-[60px] text-[32px]  text-center">
+      ) : (
+        <LoseModal />
+      )}
+      {isPause ? "" : <PauseModal setIsPause={setIsPause} />}
+      <div className="box1 h-[70vh] font-bold text-[#E29F51] font-game text-stroke-black">
+        {time >= 10 ? (
+          <div className="Heart-box text-center w-full mt-[80px] text-[32px] text-[#C8EDE0]">
+            {formatTime(time)}
+          </div>
+        ) : (
+          <div className="Heart-box text-center w-full mt-[80px] text-[32px]">
+            {formatTime(time)}
+          </div>
+        )}
+
+        <div className={`${isend && isPause ? "" : "invisible"} font-game`}>
+          <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
             {wordsA1[Quest].word}
           </div>
         </div>
@@ -113,7 +175,7 @@ export default function Game() {
           </div>
         </div>
       </div>
-      <div className={`${isend ? "" : "hidden"}`}>
+      <div className={`${isend && isPause ? "" : "hidden"}`}>
         <div className="box2 h-[30vh]">
           <div className="w-full inline-flex gap-5 justify-center pt-5">
             {ch1 !== null && ch2 !== null && Quest !== null && (

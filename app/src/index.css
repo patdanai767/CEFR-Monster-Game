@@ -10,6 +10,10 @@ body{
   font-family: "Press Start 2P", serif;
 }
 
+.font-game-thai{
+  font-family: "Noto Sans",serif;
+}
+
 .text-stroke-black{
   -webkit-text-stroke: 5px black;
   paint-order: stroke fill;
