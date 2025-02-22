@@ -1,7 +1,52 @@
 @import "tailwindcss";
 
+@theme {
+  --color-black: #000;
+  --color-gray: #cdcdcd;
+  --color-brown: #856360;
+  --color-red: #862A00;
+  --color-orange: #c76735;
+  --color-yellow: #e29f51;
+  --color-green: #c5e369;
+  --color-darkgreen: #2e5b3f;
+  --color-mint: #c8ede0;
+}
+
 body{
   margin: 0;
   padding: 0;
   max-width: 479px;
+  font-family: "Press Start 2P","Noto Sans Thai", serif;
+}
+
+.text-outline-2 {
+  text-shadow:
+    -2px -2px 0 black,
+     2px -2px 0 black,
+    -2px  2px 0 black,
+     2px  2px 0 black;
+}
+
+.text-outline-3 {
+  text-shadow:
+    -3px -3px 0 black,
+     3px -3px 0 black,
+    -3px  3px 0 black,
+     3px  3px 0 black;
+}
+
+.text-outline-win {
+  text-shadow:
+    -3px -3px 0 var(--color-green),
+     3px -3px 0 var(--color-green),
+    -3px  3px 0 var(--color-green),
+     3px  3px 0 var(--color-green);
+}
+
+.text-outline-lose {
+  text-shadow:
+    -3px -3px 0 var(--color-red),
+     3px -3px 0 var(--color-red),
+    -3px  3px 0 var(--color-red),
+     3px  3px 0 var(--color-red);
 }

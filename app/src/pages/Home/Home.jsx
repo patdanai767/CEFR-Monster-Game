@@ -2,11 +2,9 @@ import React from "react";
 
 function Home() {
   return (
-    <div className="flex">
-      <div className="text-[100px]">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque porro
-        repellendus sequi excepturi ut quam sit rerum explicabo ratione autem!
-      </div>
+    <div className="flex flex-col">
+      <div className="text-[32px] text-darkgreen text-outline-win">YOU WIN</div>
+      <div className="text-[32px]">สวัสดีจ้า</div>
     </div>
   );
 }
