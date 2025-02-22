@@ -32,7 +32,7 @@ export default function PauseModal({ setIsPause, setIsRunning }) {
         <div className="text-[32px] text-[#C8EDE0]">Pause</div>
         <div onClick={handleResume}>Resume</div>
         <div onClick={handleRetry}>Retry</div>
-        <div>Back to Menu</div>
+        <div>Back to menu</div>
       </div>
     </div>
   );

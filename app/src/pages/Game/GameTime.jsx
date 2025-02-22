@@ -4,25 +4,33 @@ import LoseModal from "../../components/Modal/LoseModal";
 import { Pause } from "lucide-react";
 import PauseModal from "../../components/Modal/PauseModal";
 import WinModal from "../../components/Modal/WinModal";
+import Idle from "../../../public/Idle.gif";
+import BoarIdle from "../../../public/boaridle.gif";
+import Attack from "../../../public/Attack-01.gif";
+import Wrong from "../../../public/wrong.gif";
+import BoarAtk from "../../../public/boaratk.gif";
+import Dead from "../../../public/Dead.gif";
+import MonsterHit from "../../../public/Hit.gif";
 
 export default function GameTime() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
   const [Quest, setQuest] = useState(Math.floor(Math.random() * 896));
   const [ch1, setCh1] = useState(null);
   const [ch2, setCh2] = useState(null);
-  const [humanImage, setHumanImage] = useState("Idle.gif");
-  const [monsterImage, setMonsterImage] = useState("boaridle.gif");
+  const [humanImage, setHumanImage] = useState(Idle);
+  const [monsterImage, setMonsterImage] = useState(BoarIdle);
   const [isend, setisend] = useState(true);
   const [time, setTime] = useState(60);
   const [isPause, setIsPause] = useState(true);
   const [isRunning, setIsRunning] = useState(true);
   const [counts, setCounts] = useState(0);
   const [isWin, setIsWin] = useState(true);
-  //   const [timer, setTimer] = useState(60);
   var timer = time;
   if (time < 0) {
     timer = 0;
   }
+
+  const picture = [];
 
   useEffect(() => {
     if (Random === 1) {
@@ -96,15 +104,15 @@ export default function GameTime() {
   };
 
   const CorrectAnim = () => {
-    setHumanImage("Attack-01.gif");
-    setMonsterImage("Hit.gif");
-    if (counts == 9) {
+    setHumanImage(Attack);
+    setMonsterImage(MonsterHit);
+    if (counts == 2) {
       setIsWin(false);
       setIsRunning(false);
     }
     setTimeout(() => {
-      setHumanImage("Idle.gif");
-      setMonsterImage("boaridle.gif");
+      setHumanImage(Idle);
+      setMonsterImage(BoarIdle);
     }, 500);
   };
 
@@ -114,18 +122,18 @@ export default function GameTime() {
     } else {
       timer = 0;
     }
-    setHumanImage("wrong.gif");
-    setMonsterImage("boaratk.gif");
+    setHumanImage(Wrong);
+    setMonsterImage(BoarAtk);
     setTimeout(() => {
-      setHumanImage("Idle.gif");
-      setMonsterImage("boaridle.gif");
+      setHumanImage(Idle);
+      setMonsterImage(BoarIdle);
     }, 500);
   };
 
   const checkTime = (timer) => {
     if (timer == 0) {
       setisend(false);
-      setHumanImage("Dead.gif");
+      setHumanImage(Dead);
     }
   };
 
