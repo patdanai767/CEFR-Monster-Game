@@ -7,7 +7,7 @@ body{
 }
 
 .font-game{
-  font-family: "Press Start 2P", serif;
+  font-family: "Press Start 2P",serif;
 }
 
 .text-stroke-black{
@@ -23,4 +23,7 @@ body{
 .text-stroke-orange{
   -webkit-text-stroke: 5px #862A00;
   paint-order: stroke fill;
+}
+.font-gameth{
+  font-family: "Noto Sans Thai" ;
 }

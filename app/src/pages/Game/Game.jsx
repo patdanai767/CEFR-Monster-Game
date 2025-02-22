@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import wordsA1 from './game';
-
+import {Pause} from "lucide-react"
 export default function Game() {
     const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
     const [Quest, setQuest] = useState(Math.floor(Math.random() * 896));
@@ -98,6 +98,9 @@ export default function Game() {
 
     return (
         <div className="grid bg-[url('/background-game_2.png')] bg-no-repeat bg-cover h-screen justify-center">
+            <div className='absolute w-[52px] h-[52px] bg-[#E29F51] left-[309px] top-[32px] content-center justify-items-center  '>
+              <Pause width={36} height={36} strokeWidth={1}></Pause>
+            </div>
             <div className='box1 h-[70vh] font-bold text-[#E29F51] font-[family-name:"Press Start 2P"]'>
             
             <div className='Heart-box justify-items-center w-full mt-[40px]'>
@@ -108,11 +111,11 @@ export default function Game() {
                     />
                     </div>
                     <div className={`${isend ? '' : 'invisible'}`}>    
-                <div className='mt-[60px] text-[32px]  text-center'>{wordsA1[Quest].word}</div>
+                <div className='mt-[60px] text-[32px]  text-center font-game text-stroke-black'>{wordsA1[Quest].word}</div>
                 </div>
                 <div className="gif_box pt-60 flex justify-center">
                     <img
-                        className="w-[197px] h-[246px] pb-12"
+                        className="w-[197px] h-[246px] pb-12 object-cover"
                         src={humanImage}
                         alt="Human"
                     />
@@ -127,7 +130,7 @@ export default function Game() {
             </div>
             <div className={`${isend ? '' : 'hidden'}`}>
             <div className="box2 h-[30vh]">
-                <div className='w-full inline-flex gap-5 justify-center pt-5'>
+                <div className='w-full inline-flex gap-5 justify-center pt-5 font-gameth'>
                     {ch1 !== null && ch2 !== null && Quest !== null && (
                         <>
                             <button
