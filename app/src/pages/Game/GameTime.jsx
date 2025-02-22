@@ -143,7 +143,7 @@ export default function GameTime() {
       ) : (
         <LoseModal />
       )}
-      {isPause ? "" : <PauseModal setIsPause={setIsPause} />}
+      {isPause ? "" : <PauseModal setIsPause={setIsPause} setIsRunning={setIsRunning} />}
       <div className="box1 h-[70vh] font-bold text-[#E29F51] font-game text-stroke-black">
         {time >= 10 ? (
           <div className="Heart-box text-center w-full mt-[80px] text-[32px] text-[#C8EDE0]">
