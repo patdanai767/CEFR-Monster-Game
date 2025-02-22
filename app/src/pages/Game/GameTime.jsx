@@ -3,23 +3,34 @@ import wordsA1 from "./game";
 import LoseModal from "../../components/Modal/LoseModal";
 import { Pause } from "lucide-react";
 import PauseModal from "../../components/Modal/PauseModal";
+import WinModal from "../../components/Modal/WinModal";
+import Idle from "../../../public/Idle.gif";
+import BoarIdle from "../../../public/boaridle.gif";
+import Attack from "../../../public/Attack-01.gif";
+import Wrong from "../../../public/wrong.gif";
+import BoarAtk from "../../../public/boaratk.gif";
+import Dead from "../../../public/Dead.gif";
+import MonsterHit from "../../../public/Hit.gif";
 
 export default function GameTime() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
   const [Quest, setQuest] = useState(Math.floor(Math.random() * 896));
   const [ch1, setCh1] = useState(null);
   const [ch2, setCh2] = useState(null);
-  const [humanImage, setHumanImage] = useState("Idle.gif");
-  const [monsterImage, setMonsterImage] = useState("boaridle.gif");
+  const [humanImage, setHumanImage] = useState(Idle);
+  const [monsterImage, setMonsterImage] = useState(BoarIdle);
   const [isend, setisend] = useState(true);
   const [time, setTime] = useState(60);
   const [isPause, setIsPause] = useState(true);
   const [isRunning, setIsRunning] = useState(true);
-  //   const [timer, setTimer] = useState(60);
+  const [counts, setCounts] = useState(0);
+  const [isWin, setIsWin] = useState(true);
   var timer = time;
   if (time < 0) {
     timer = 0;
   }
+
+  const picture = [];
 
   useEffect(() => {
     if (Random === 1) {
@@ -29,7 +40,6 @@ export default function GameTime() {
       setCh2(Quest);
       setCh1(Math.floor(Math.random() * 896));
     }
-
     let interval = null;
 
     if (time && isRunning > 0) {
@@ -38,6 +48,7 @@ export default function GameTime() {
         timer = timer - 1;
         checkTime(timer);
       }, 1000);
+      console.log(counts);
     }
     checkTime(timer);
 
@@ -79,6 +90,7 @@ export default function GameTime() {
 
   const Correctornot = (choice) => {
     if (choice === Quest) {
+      setCounts(counts + 1);
       CorrectAnim();
       setTimeout(() => {
         Next();
@@ -92,12 +104,15 @@ export default function GameTime() {
   };
 
   const CorrectAnim = () => {
-    setHumanImage("Attack-01.gif");
-    setMonsterImage("Hit.gif");
-
+    setHumanImage(Attack);
+    setMonsterImage(MonsterHit);
+    if (counts == 2) {
+      setIsWin(false);
+      setIsRunning(false);
+    }
     setTimeout(() => {
-      setHumanImage("Idle.gif");
-      setMonsterImage("boaridle.gif");
+      setHumanImage(Idle);
+      setMonsterImage(BoarIdle);
     }, 500);
   };
 
@@ -107,18 +122,18 @@ export default function GameTime() {
     } else {
       timer = 0;
     }
-    setHumanImage("wrong.gif");
-    setMonsterImage("boaratk.gif");
+    setHumanImage(Wrong);
+    setMonsterImage(BoarAtk);
     setTimeout(() => {
-      setHumanImage("Idle.gif");
-      setMonsterImage("boaridle.gif");
+      setHumanImage(Idle);
+      setMonsterImage(BoarIdle);
     }, 500);
   };
 
   const checkTime = (timer) => {
     if (timer == 0) {
       setisend(false);
-      setHumanImage("Dead.gif");
+      setHumanImage(Dead);
     }
   };
 
@@ -129,11 +144,12 @@ export default function GameTime() {
 
   return (
     <div className="grid bg-[url('/background-game_2.png')] bg-no-repeat bg-cover h-screen justify-center">
+      {}
       {isend ? (
         <div
           onClick={handleSetting}
           className={`${
-            isPause
+            isPause && isWin
               ? "left-[309px] top-[32px] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
               : "hidden"
           }`}
@@ -143,7 +159,13 @@ export default function GameTime() {
       ) : (
         <LoseModal />
       )}
-      {isPause ? "" : <PauseModal setIsPause={setIsPause} setIsRunning={setIsRunning} />}
+      {isPause ? (
+        ""
+      ) : (
+        <PauseModal setIsPause={setIsPause} setIsRunning={setIsRunning} />
+      )}
+
+      {isWin ? "" : <WinModal />}
       <div className="box1 h-[70vh] font-bold text-[#E29F51] font-game text-stroke-black">
         {time >= 10 ? (
           <div className="Heart-box text-center w-full mt-[80px] text-[32px] text-[#C8EDE0]">
@@ -154,8 +176,11 @@ export default function GameTime() {
             {formatTime(time)}
           </div>
         )}
-
-        <div className={`${isend && isPause ? "" : "invisible"} font-game`}>
+        <div
+          className={`${
+            isend && isPause && isWin ? "" : "invisible"
+          } font-game`}
+        >
           <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
             {wordsA1[Quest].word}
           </div>
@@ -175,7 +200,7 @@ export default function GameTime() {
           </div>
         </div>
       </div>
-      <div className={`${isend && isPause ? "" : "hidden"}`}>
+      <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
         <div className="box2 h-[30vh]">
           <div className="w-full inline-flex gap-5 justify-center pt-5">
             {ch1 !== null && ch2 !== null && Quest !== null && (
