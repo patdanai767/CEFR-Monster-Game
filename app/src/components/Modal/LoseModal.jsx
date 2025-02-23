@@ -10,7 +10,7 @@ export default function LoseModal() {
   };
 
   return (
-    <div className="justify-items-center absolute top-[200px] w-full font-game">
+    <div className="justify-items-center absolute top-[200px] w-full font-game z-[1000]">
       <div className="text-[32px] drop-shadow-2xl text-[#C76735] text-stroke-orange">
         YOU LOSE
       </div>

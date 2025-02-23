@@ -10,7 +10,7 @@ export default function WinModal() {
   };
 
   return (
-    <div className="justify-items-center absolute top-[200px] w-full font-game">
+    <div className="justify-items-center absolute top-[200px] w-full font-game z-[1000]">
       <div className="text-[32px] drop-shadow-2xl text-[#2E5B3F] text-stroke-lime">
         YOU WIN
       </div>

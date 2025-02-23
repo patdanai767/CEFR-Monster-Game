@@ -21,7 +21,7 @@ export default function PauseModal({ setIsPause, setIsRunning }) {
   };
 
   return (
-    <div className="justify-items-center absolute top-[220px] w-full font-game">
+    <div className="justify-items-center absolute top-[220px] w-full font-game z-[1000]">
       <div>
         {isVolumeOn ? (
           <div className="left-[40%] -top-10 justify-items-center content-center absolute w-[80px] h-[80px] rounded-[100%] border-3 bg-[#E29F51]">
