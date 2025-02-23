@@ -22,7 +22,7 @@ export default function Level() {
   useEffect(() => {
     
     const savedlevel = JSON.parse(localStorage.getItem("tmlevel"));
-    setTmlevel(levels.filter((level) => savedlevel.includes(level.id)));
+    //setTmlevel(levels.filter((level) => savedlevel.includes(level.id)));
     tmlevel.forEach((tmlvl) => console.log(tmlvl));
     levels.forEach((level) => console.log(level));
   }, []);

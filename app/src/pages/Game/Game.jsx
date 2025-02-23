@@ -19,6 +19,7 @@ import Heart0 from "/public/Heart-3.png"
 import Slashsound from "/public/Swordslash.mp3"
 import Homemu from "../../../public/Homemu.wav"
 
+
 export default function Game() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
   const [Quest, setQuest] = useState(Math.floor(Math.random() * 896));
