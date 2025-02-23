@@ -17,10 +17,11 @@ export default function Level() {
     { id: 9, x: "67%", y: "16.5%", isOpen: false },
     { id: 10, x: "32%", y: "8.5%", isOpen: false },
   ];
-  const savedlevel = JSON.parse(localStorage.getItem("tmlevel"));
   const [isVolumeOn, setIsVolumeOn] = useState(true);
 
   useEffect(() => {
+    
+    const savedlevel = JSON.parse(localStorage.getItem("tmlevel"));
     setTmlevel(levels.filter((level) => savedlevel.includes(level.id)));
     tmlevel.forEach((tmlvl) => console.log(tmlvl));
     levels.forEach((level) => console.log(level));
