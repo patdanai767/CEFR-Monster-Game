@@ -19,10 +19,10 @@ export default function Level() {
   return (
     
     /*background*/
-    <div className="relative w-screen h-screen bg-cover bg-center" style={{ backgroundImage: "url('/background-game_2.png')" }}>
+    <div className="relative w-screen h-screen bg-cover bg-center font-game   " style={{ backgroundImage: "url('/backgroundlevel.png')" }}>
       
       {/* ปุ่มย้อนกลับ */}
-      <buttonback className="absolute top-6 left-6 bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[2px] bg-contain bg-center  "
+      <button className="absolute top-6 left-6 bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[2px] bg-contain bg-center  "
         style = {{ 
           backgroundImage: "url('/right-arrow.png')",
           backgroundSize: "30px 30px",
@@ -32,9 +32,9 @@ export default function Level() {
 
         >
         
-      </buttonback>
+      </button>
       
-      <iconsound className="absolute top-[809px] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] bg-contain bg-center " 
+      <button className="absolute top-[809px] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] bg-contain bg-center " 
       
           style = {{ 
             backgroundImage: "url('/volume.png')",
@@ -42,7 +42,7 @@ export default function Level() {
             backgroundRepeat: "no-repeat"
           }} >
 
-      </iconsound>
+      </button>
 
       {levels.map((level) => (
         <div
