@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Volume2, VolumeOff } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 export default function PauseModal({ setIsPause, setIsRunning }) {
   const [isVolumeOn, setIsVolumeOn] = useState(true);
+  const location = useLocation();
+  const pathname = location.pathname.split("/")[1];
 
   const handleVolume = () => {
     setIsVolumeOn(!isVolumeOn);
@@ -32,7 +35,11 @@ export default function PauseModal({ setIsPause, setIsRunning }) {
         <div className="text-[32px] text-[#C8EDE0]">Pause</div>
         <div onClick={handleResume}>Resume</div>
         <div onClick={handleRetry}>Retry</div>
-        <div>Back to menu</div>
+        {pathname === "gametime" ? (
+          <a href="/tmlevel" className="text-stroke-black">Back to menu</a>
+        ) : (
+          <a href="/hmlevel" className="text-stroke-black">Back to menu</a>
+        )}
       </div>
     </div>
   );

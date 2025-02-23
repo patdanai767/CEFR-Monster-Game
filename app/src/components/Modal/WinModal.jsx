@@ -1,7 +1,9 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 export default function WinModal() {
+  const location = useLocation();
+  const pathname = location.pathname.split("/")[1];
   const params = useParams();
 
   const handleRetry = () => {
@@ -21,7 +23,15 @@ export default function WinModal() {
           Next
         </a>
         <div onClick={handleRetry}>Retry</div>
-        <div>Back to Menu</div>
+        {pathname === "gametime" ? (
+          <a href="/tmlevel" className="text-stroke-black">
+            Back to menu
+          </a>
+        ) : (
+          <a href="/hmlevel" className="text-stroke-black">
+            Back to menu
+          </a>
+        )}
       </div>
     </div>
   );
