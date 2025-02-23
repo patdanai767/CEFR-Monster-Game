@@ -29,6 +29,7 @@ export default function GameTime() {
   const [isWin, setIsWin] = useState(true);
   const params = useParams();
   const router = useNavigate();
+  const bgImage = backgrounds.find((bg) => bg.id === Number(params.id))?.bg;
   var timer = time;
   if (time < 0) {
     timer = 0;
@@ -149,95 +150,88 @@ export default function GameTime() {
   };
 
   return (
-    <div>
-      {backgrounds[params.id - 1] ? (
+    <div
+      className={`grid bg-no-repeat bg-cover h-screen justify-center`}
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
+      {isend ? (
         <div
-          className={`grid bg-[url(${
-            backgrounds[params.id - 1].bg
-          })] bg-no-repeat bg-cover h-screen justify-center`}
+          onClick={handleSetting}
+          className={`${
+            isPause && isWin
+              ? "left-[309px] top-[32px] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
+              : "hidden"
+          }`}
         >
-          {isend ? (
-            <div
-              onClick={handleSetting}
-              className={`${
-                isPause && isWin
-                  ? "left-[309px] top-[32px] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
-                  : "hidden"
-              }`}
-            >
-              <Pause size={37} />
-            </div>
-          ) : (
-            <LoseModal />
-          )}
-          {isPause ? (
-            ""
-          ) : (
-            <PauseModal setIsPause={setIsPause} setIsRunning={setIsRunning} />
-          )}
-
-          {isWin ? "" : <WinModal />}
-          <div className="box1 h-[70vh] font-bold text-[#E29F51] font-game text-stroke-black">
-            {time >= 10 ? (
-              <div className="Heart-box text-center w-full mt-[80px] text-[32px] text-[#C8EDE0]">
-                {formatTime(time)}
-              </div>
-            ) : (
-              <div className="Heart-box text-center w-full mt-[80px] text-[32px]">
-                {formatTime(time)}
-              </div>
-            )}
-            <div
-              className={`${
-                isend && isPause && isWin ? "" : "invisible"
-              } font-game`}
-            >
-              <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
-                {wordsA1[Quest].word}
-              </div>
-            </div>
-            <div className="gif_box pt-60 flex justify-center">
-              <img
-                className="w-[197px] h-[246px] pb-12"
-                src={humanImage}
-                alt="Human"
-              />
-              <div className="pt-14.5">
-                <img
-                  className="w-[196px] h-[140px]"
-                  src={monsterImage}
-                  alt="Monster"
-                />
-              </div>
-            </div>
-          </div>
-          <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
-            <div className="box2 h-[30vh]">
-              <div className="w-full inline-flex gap-5 justify-center pt-5">
-                {ch1 !== null && ch2 !== null && Quest !== null && (
-                  <>
-                    <button
-                      onClick={() => Correctornot(ch1)}
-                      className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
-                    >
-                      {wordsA1[ch1].answer}
-                    </button>
-                    <button
-                      onClick={() => Correctornot(ch2)}
-                      type="button"
-                      className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
-                    >
-                      {wordsA1[ch2].answer}
-                    </button>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
+          <Pause size={37} />
         </div>
       ) : (
-        ""
+        <LoseModal />
       )}
+      {isPause ? (
+        ""
+      ) : (
+        <PauseModal setIsPause={setIsPause} setIsRunning={setIsRunning} />
+      )}
+
+      {isWin ? "" : <WinModal />}
+      <div className="box1 h-[70vh] font-bold text-[#E29F51] font-game text-stroke-black">
+        {time >= 10 ? (
+          <div className="Heart-box text-center w-full mt-[80px] text-[32px] text-[#C8EDE0]">
+            {formatTime(time)}
+          </div>
+        ) : (
+          <div className="Heart-box text-center w-full mt-[80px] text-[32px]">
+            {formatTime(time)}
+          </div>
+        )}
+        <div
+          className={`${
+            isend && isPause && isWin ? "" : "invisible"
+          } font-game`}
+        >
+          <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
+            {wordsA1[Quest].word}
+          </div>
+        </div>
+        <div className="gif_box pt-60 flex justify-center">
+          <img
+            className="w-[197px] h-[246px] pb-12"
+            src={humanImage}
+            alt="Human"
+          />
+          <div className="pt-14.5">
+            <img
+              className="w-[196px] h-[140px]"
+              src={monsterImage}
+              alt="Monster"
+            />
+          </div>
+        </div>
+      </div>
+      <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
+        <div className="box2 h-[30vh]">
+          <div className="w-full inline-flex gap-5 justify-center pt-5">
+            {ch1 !== null && ch2 !== null && Quest !== null && (
+              <>
+                <button
+                  onClick={() => Correctornot(ch1)}
+                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
+                >
+                  {wordsA1[ch1].answer}
+                </button>
+                <button
+                  onClick={() => Correctornot(ch2)}
+                  type="button"
+                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
+                >
+                  {wordsA1[ch2].answer}
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
