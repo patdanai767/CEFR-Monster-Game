@@ -1,6 +1,15 @@
 import React from "react";
+import { useState } from "react";
+import { Volume2, VolumeOff, ChevronLeft } from "lucide-react";
+import { PersonStanding } from "lucide-react";
+
 
 function Home() {
+  const [isVolumeOn, setIsVolumeOn] = useState(true);
+  const handleVolume = () => {
+    setIsVolumeOn(!isVolumeOn);
+  };
+
   return (
     <div className="bg-[url(/src/assets/Home-Background.jpg)] h-[100vh] bg-cover bg-no-repeat overflow-hidden">
       <div className="flex text-center justify-center font-game ">
@@ -20,6 +29,21 @@ function Home() {
             </a>
           </div>
         </div>
+        <ChevronLeft strokeWidth={1} size={45} />
+      {isVolumeOn ? (
+        <div className="absolute top-[809px] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
+          <Volume2 strokeWidth={1} size={40} onClick={handleVolume} />
+        </div>
+      ) : (
+        <div className="absolute top-[809px] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
+          <VolumeOff strokeWidth={1} size={40} onClick={handleVolume} />
+        </div>
+      )}
+      <a href="">
+      <div className="absolute top-[809px] left-80 bg-[#C8EDE0] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
+          <PersonStanding strokeWidth={1} size={40}  />
+        </div>
+        </a>
       </div>
     </div>
   );

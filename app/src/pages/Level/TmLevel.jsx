@@ -21,7 +21,7 @@ export default function Level() {
   const [isVolumeOn, setIsVolumeOn] = useState(true);
 
   useEffect(() => {
-    setTmlevel(levels.filter((level) => savedlevel.includes(level.id)));
+    //setTmlevel(levels.filter((level) => savedlevel.includes(level.id)));
     tmlevel.forEach((tmlvl) => console.log(tmlvl));
     levels.forEach((level) => console.log(level));
   }, []);
