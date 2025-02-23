@@ -6,20 +6,20 @@ function Mode() {
     <div className="bg-[url(/src/assets/Background-home.png)] h-[100vh] bg-cover">
       <div className="flex text-center justify-center ">
         <div className="text-[100px]">
-          <div class="text-[36px] p-[50px] mt-20 text-green-800">
+          <div className="text-[36px] p-[50px] mt-20 text-green-800">
             <h1
             >Choose
             </h1>
             <p>mode</p>
           </div>
-          <div class="mt-20 flex flex-col ">
-          <botton class="text-[24px] bg-amber-400 p-5 px-8 "
+          <div className="mt-12 flex flex-col ">
+          <botton className="text-[18px] bg-amber-400 p-4 px-8 mx-18"
           >Heart mode
           </botton>
-          <botton class="mt-20 text-[24px] bg-amber-400 p-5 px-8 "
+          <botton className="mt-12 text-[18px] bg-amber-400 p-4 px-8 mx-18"
           >Time attack
           </botton>
-          <botton class="mt-20 text-[24px] bg-lime-400 p-5 px-8 "
+          <botton className="mt-12 text-[18px] bg-lime-400 p-4 px-8 mx-18"
           >Flashcard
           </botton>
           
