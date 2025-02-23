@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import wordsA1 from "./game";
+import wordsA1 from "./gameA1";
 import LoseModal from "../../components/Modal/LoseModal";
 import { Pause } from "lucide-react";
 import PauseModal from "../../components/Modal/PauseModal";

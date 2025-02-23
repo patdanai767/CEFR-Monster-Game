@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import wordsA1 from "./game";
+import wordsA1 from "./gameA1";
 import LoseModal from "../../components/Modal/LoseModal";
-import { Pause } from "lucide-react";
+import { Pause, SortAsc } from "lucide-react";
 import PauseModal from "../../components/Modal/PauseModal";
 import WinModal from "../../components/Modal/WinModal"
 import Idle from "../../../public/Idle.gif";
@@ -16,7 +16,8 @@ import Heart3 from "../../../public/Heart.png"
 import Heart2 from "../../../public/Heart-1.png"
 import Heart1 from "../../../public/Heart-2.png"
 import Heart0 from "../../../public/Heart-3.png"
-
+import Slashsound from "../../../public/Swordslash.mp3"
+import Homemu from "../../../public/Homemu.wav"
 export default function Game() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
   const [Quest, setQuest] = useState(Math.floor(Math.random() * 896));
@@ -41,11 +42,17 @@ export default function Game() {
       setCh2(Quest);
       setCh1(Math.floor(Math.random() * 896));
     }
+    
   }, [Random, Quest]);
 
   const handleSetting = () => {
     setIsPause(!isPause);
   };
+  function slash()
+  {
+    new Audio(Slashsound).play()
+  }
+  
   const Next = () => {
     const newRandom = Math.floor(Math.random() * 2) + 1;
     const newQuest = Math.floor(Math.random() * 896);
@@ -64,7 +71,6 @@ export default function Game() {
     setCh1(newCh1);
     setCh2(newCh2);
   };
-
   const Correctornot = (choice) => {
     if (choice === Quest) {
       CorrectAnim();
@@ -82,18 +88,25 @@ export default function Game() {
 
   const CorrectAnim = () => {
     setHumanImage(Attack);
+    slash()
     setMonsterImage(MonsterHit);
     setWinstreak(Winstreak+1);
     if(Winstreak===10)
     {
       setisWin(false);
       setMonsterImage(Boardead);
-      setHumanImage(Idle);
+      setHumanImage(Attack);
+      setTimeout(() => {
+        setHumanImage(Idle);
+        
+      }, 500);
+      
     }
     else{
     setTimeout(() => {
       setHumanImage(Idle);
       setMonsterImage(BoarIdle);
+      
     }, 500);
   }
   };
@@ -120,6 +133,7 @@ export default function Game() {
   };
 
   return (
+    
     <div className="grid bg-[url('/background-game_2.png')] bg-no-repeat bg-cover h-screen justify-center">
       {isend ? (
               <div
