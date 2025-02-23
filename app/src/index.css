@@ -1,13 +1,30 @@
 @import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 body{
   margin: 0;
   padding: 0;
   max-width: 479px;
-  font-family: "Press Start 2P", serif;
+}
 
+.font-game{
+  font-family: "Press Start 2P", serif;
+}
+
+.font-game-thai{
+  font-family: "Noto Sans",serif;
+}
+
+.text-stroke-black{
+  -webkit-text-stroke: 5px black;
+  paint-order: stroke fill;
+}
+
+.text-stroke-lime{
+  -webkit-text-stroke: 5px #C5E369;
+  paint-order: stroke fill;
+}
+
+.text-stroke-orange{
+  -webkit-text-stroke: 5px #862A00;
+  paint-order: stroke fill;
 }

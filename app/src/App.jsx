@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Mode from "./pages/Mode/Mode";
+import Game from "./pages/Game/Game.jsx";
+import GameTime from "./pages/Game/GameTime.jsx";
 
 function App() {
   return (
@@ -8,6 +10,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/mode" element={<Mode />} />
+        <Route path="/Game" element={<Game />} />
+        <Route path="/gametime/:id" element={<GameTime />} />
       </Routes>
     </BrowserRouter>
   );
