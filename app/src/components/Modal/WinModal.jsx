@@ -18,7 +18,7 @@ export default function WinModal() {
         {pathname === "gametime" ? (
           <a
             className="text-stroke-black"
-            href={`/game/${Number(params.id) + 1}`}
+            href={`/gametime/${Number(params.id) + 1}`}
           >
             Next
           </a>
