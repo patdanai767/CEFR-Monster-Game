@@ -4,20 +4,21 @@ import LoseModal from "../../components/Modal/LoseModal";
 import { Pause, SortAsc } from "lucide-react";
 import PauseModal from "../../components/Modal/PauseModal";
 import WinModal from "../../components/Modal/WinModal"
-import Idle from "../../../public/Idle.gif";
-import BoarIdle from "../../../public/boaridle.gif";
-import Attack from "../../../public/Attack-01.gif";
-import Wrong from "../../../public/wrong.gif";
-import BoarAtk from "../../../public/boaratk.gif";
-import Dead from "../../../public/Dead.gif";
-import MonsterHit from "../../../public/Hit.gif";
-import Boardead from "../../../public/Boardead.gif";
-import Heart3 from "../../../public/Heart.png"
-import Heart2 from "../../../public/Heart-1.png"
-import Heart1 from "../../../public/Heart-2.png"
-import Heart0 from "../../../public/Heart-3.png"
-import Slashsound from "../../../public/Swordslash.mp3"
+import Idle from "/public/Idle.gif";
+import BoarIdle from "/public/boaridle.gif";
+import Attack from "/public/Attack-01.gif";
+import Wrong from "/public/wrong.gif";
+import BoarAtk from "/public/boaratk.gif";
+import Dead from "/public/Dead.gif";
+import MonsterHit from "/public/Hit.gif";
+import Boardead from "/public/Boardead.gif";
+import Heart3 from "/public/Heart.png"
+import Heart2 from "/public/Heart-1.png"
+import Heart1 from "/public/Heart-2.png"
+import Heart0 from "/public/Heart-3.png"
+import Slashsound from "/public/Swordslash.mp3"
 import Homemu from "../../../public/Homemu.wav"
+
 export default function Game() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
   const [Quest, setQuest] = useState(Math.floor(Math.random() * 896));
