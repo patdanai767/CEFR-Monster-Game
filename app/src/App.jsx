@@ -12,9 +12,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/mode" element={<Mode />} />
-        <Route path="/Game" element={<Game />} />
         <Route path="/HMlevel" element={<Hmlevel />} />
         <Route path="/Tmlevel" element={<TmLevel />} />
+        <Route path="/Game/:id" element={<Game />} />
         <Route path="/gametime/:id" element={<GameTime />} />
       </Routes>
     </BrowserRouter>
