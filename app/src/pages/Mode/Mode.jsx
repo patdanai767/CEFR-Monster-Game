@@ -19,6 +19,9 @@ function Mode() {
           <botton class="mt-20 text-[24px] bg-amber-400 p-5 px-8 "
           >Time attack
           </botton>
+          <botton class="mt-20 text-[24px] bg-lime-400 p-5 px-8 "
+          >Flashcard
+          </botton>
           
           
           </div>
