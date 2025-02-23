@@ -4,13 +4,15 @@ import LoseModal from "../../components/Modal/LoseModal";
 import { Pause } from "lucide-react";
 import PauseModal from "../../components/Modal/PauseModal";
 import WinModal from "../../components/Modal/WinModal";
-import Idle from "../../../public/Idle.gif";
-import BoarIdle from "../../../public/boaridle.gif";
-import Attack from "../../../public/Attack-01.gif";
-import Wrong from "../../../public/wrong.gif";
-import BoarAtk from "../../../public/boaratk.gif";
-import Dead from "../../../public/Dead.gif";
-import MonsterHit from "../../../public/Hit.gif";
+import Idle from "/Idle.gif";
+import BoarIdle from "/boaridle.gif";
+import Attack from "/Attack-01.gif";
+import Wrong from "/wrong.gif";
+import BoarAtk from "/boaratk.gif";
+import Dead from "/Dead.gif";
+import MonsterHit from "/Hit.gif";
+import { backgrounds } from "../../constants/background";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function GameTime() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
@@ -25,12 +27,12 @@ export default function GameTime() {
   const [isRunning, setIsRunning] = useState(true);
   const [counts, setCounts] = useState(0);
   const [isWin, setIsWin] = useState(true);
+  const params = useParams();
+  const router = useNavigate();
   var timer = time;
   if (time < 0) {
     timer = 0;
   }
-
-  const picture = [];
 
   useEffect(() => {
     if (Random === 1) {
@@ -51,6 +53,10 @@ export default function GameTime() {
       console.log(counts);
     }
     checkTime(timer);
+
+    if (Number(params.id) > 10) {
+      router("/level");
+    }
 
     return () => {
       clearInterval(interval);
@@ -143,86 +149,95 @@ export default function GameTime() {
   };
 
   return (
-    <div className="grid bg-[url('/background-game_2.png')] bg-no-repeat bg-cover h-screen justify-center">
-      {}
-      {isend ? (
+    <div>
+      {backgrounds[params.id - 1] ? (
         <div
-          onClick={handleSetting}
-          className={`${
-            isPause && isWin
-              ? "left-[309px] top-[32px] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
-              : "hidden"
-          }`}
+          className={`grid bg-[url(${
+            backgrounds[params.id - 1].bg
+          })] bg-no-repeat bg-cover h-screen justify-center`}
         >
-          <Pause size={37} />
-        </div>
-      ) : (
-        <LoseModal />
-      )}
-      {isPause ? (
-        ""
-      ) : (
-        <PauseModal setIsPause={setIsPause} setIsRunning={setIsRunning} />
-      )}
+          {isend ? (
+            <div
+              onClick={handleSetting}
+              className={`${
+                isPause && isWin
+                  ? "left-[309px] top-[32px] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
+                  : "hidden"
+              }`}
+            >
+              <Pause size={37} />
+            </div>
+          ) : (
+            <LoseModal />
+          )}
+          {isPause ? (
+            ""
+          ) : (
+            <PauseModal setIsPause={setIsPause} setIsRunning={setIsRunning} />
+          )}
 
-      {isWin ? "" : <WinModal />}
-      <div className="box1 h-[70vh] font-bold text-[#E29F51] font-game text-stroke-black">
-        {time >= 10 ? (
-          <div className="Heart-box text-center w-full mt-[80px] text-[32px] text-[#C8EDE0]">
-            {formatTime(time)}
-          </div>
-        ) : (
-          <div className="Heart-box text-center w-full mt-[80px] text-[32px]">
-            {formatTime(time)}
-          </div>
-        )}
-        <div
-          className={`${
-            isend && isPause && isWin ? "" : "invisible"
-          } font-game`}
-        >
-          <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
-            {wordsA1[Quest].word}
-          </div>
-        </div>
-        <div className="gif_box pt-60 flex justify-center">
-          <img
-            className="w-[197px] h-[246px] pb-12"
-            src={humanImage}
-            alt="Human"
-          />
-          <div className="pt-14.5">
-            <img
-              className="w-[196px] h-[140px]"
-              src={monsterImage}
-              alt="Monster"
-            />
-          </div>
-        </div>
-      </div>
-      <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
-        <div className="box2 h-[30vh]">
-          <div className="w-full inline-flex gap-5 justify-center pt-5">
-            {ch1 !== null && ch2 !== null && Quest !== null && (
-              <>
-                <button
-                  onClick={() => Correctornot(ch1)}
-                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
-                >
-                  {wordsA1[ch1].answer}
-                </button>
-                <button
-                  onClick={() => Correctornot(ch2)}
-                  type="button"
-                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
-                >
-                  {wordsA1[ch2].answer}
-                </button>
-              </>
+          {isWin ? "" : <WinModal />}
+          <div className="box1 h-[70vh] font-bold text-[#E29F51] font-game text-stroke-black">
+            {time >= 10 ? (
+              <div className="Heart-box text-center w-full mt-[80px] text-[32px] text-[#C8EDE0]">
+                {formatTime(time)}
+              </div>
+            ) : (
+              <div className="Heart-box text-center w-full mt-[80px] text-[32px]">
+                {formatTime(time)}
+              </div>
             )}
+            <div
+              className={`${
+                isend && isPause && isWin ? "" : "invisible"
+              } font-game`}
+            >
+              <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
+                {wordsA1[Quest].word}
+              </div>
+            </div>
+            <div className="gif_box pt-60 flex justify-center">
+              <img
+                className="w-[197px] h-[246px] pb-12"
+                src={humanImage}
+                alt="Human"
+              />
+              <div className="pt-14.5">
+                <img
+                  className="w-[196px] h-[140px]"
+                  src={monsterImage}
+                  alt="Monster"
+                />
+              </div>
+            </div>
+          </div>
+          <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
+            <div className="box2 h-[30vh]">
+              <div className="w-full inline-flex gap-5 justify-center pt-5">
+                {ch1 !== null && ch2 !== null && Quest !== null && (
+                  <>
+                    <button
+                      onClick={() => Correctornot(ch1)}
+                      className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
+                    >
+                      {wordsA1[ch1].answer}
+                    </button>
+                    <button
+                      onClick={() => Correctornot(ch2)}
+                      type="button"
+                      className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
+                    >
+                      {wordsA1[ch2].answer}
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
