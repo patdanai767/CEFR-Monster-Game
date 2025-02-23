@@ -29,7 +29,9 @@ export default function GameTime() {
   const [isWin, setIsWin] = useState(true);
   const params = useParams();
   const router = useNavigate();
+  const pathname = location.pathname.split("/")[1];
   const bgImage = backgrounds.find((bg) => bg.id === Number(params.id))?.bg;
+  const [tmlevel, setTmlevel] = useState([]);
   var timer = time;
   if (time < 0) {
     timer = 0;
@@ -51,12 +53,23 @@ export default function GameTime() {
         timer = timer - 1;
         checkTime(timer);
       }, 1000);
-      console.log(counts);
     }
     checkTime(timer);
 
-    if (Number(params.id) > 10) {
-      router("/level");
+    if (Number(params.id) > 10 && pathname === "gametime") {
+      router("/tmlevel");
+    } else if (Number(params.id) > 10 && pathname === "game") {
+      router("/hmlevel");
+    }
+
+    const savedlevel = JSON.parse(localStorage.getItem("tmlevel"));
+    if (savedlevel) {
+      setTmlevel(savedlevel);
+    }
+
+    if (isWin == false) {
+      setTmlevel([...tmlevel, Number(params.id) + 1]);
+      localStorage.setItem("tmlevel", JSON.stringify(tmlevel));
     }
 
     return () => {

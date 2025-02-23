@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Volume2, VolumeOff } from "lucide-react";
 import { useLocation } from "react-router-dom";
 
@@ -36,9 +36,13 @@ export default function PauseModal({ setIsPause, setIsRunning }) {
         <div onClick={handleResume}>Resume</div>
         <div onClick={handleRetry}>Retry</div>
         {pathname === "gametime" ? (
-          <a href="/tmlevel" className="text-stroke-black">Back to menu</a>
+          <a href="/tmlevel" className="text-stroke-black">
+            Back to menu
+          </a>
         ) : (
-          <a href="/hmlevel" className="text-stroke-black">Back to menu</a>
+          <a href="/hmlevel" className="text-stroke-black">
+            Back to menu
+          </a>
         )}
       </div>
     </div>
