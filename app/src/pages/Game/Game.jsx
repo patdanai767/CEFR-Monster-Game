@@ -21,6 +21,7 @@ import { backgrounds } from "../../constants/background";
 import Homemu from "../../../public/Homemu.wav";
 import { useNavigate, useParams } from "react-router-dom";
 
+
 export default function Game() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
   const [Quest, setQuest] = useState(Math.floor(Math.random() * 896));
@@ -144,7 +145,7 @@ export default function Game() {
 
   return (
     <div
-      className="grid bg-no-repeat bg-cover h-screen justify-center"
+      className="overflow-hidden grid bg-no-repeat bg-cover h-screen justify-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       {isend ? (
@@ -165,7 +166,7 @@ export default function Game() {
       {isPause ? "" : <PauseModal setIsPause={setIsPause} />}
 
       <div className='h-[70vh] font-bold text-[#E29F51] font-[family-name:"Press Start 2P"]'>
-        <div className="w-full mt-[40px] absolute top-[60px] justify-items-center right-[0.5px]">
+        <div className="w-full  flex justify-center p-[90px] right-[0.5px] h-[10px]">
           <img className="w-[134px] h-[36px]  " src={HeartImage} alt="Heart" />
         </div>
         <div
@@ -173,19 +174,19 @@ export default function Game() {
             isend && isPause && isWin ? "" : "invisible"
           } font-game`}
         >
-          <div className="mt-[158px] text-[32px]  text-center text-stroke-black">
+          <div className=" text-[32px]  text-center text-stroke-black">
             {wordsA1[Quest].word}
           </div>
         </div>
-        <div className="gif_box pt-50 flex justify-center">
+        <div className="gif_box relative  justify-items-center ">
           <img
-            className="w-[197px] h-[246px] pb-12"
+            className=" z-[0] w-[204.12px] h-[255.15px] top-[16.59vh] pb-12 absolute left-[-15%]"
             src={humanImage}
             alt="Human"
           />
           <div className="pt-14.5">
             <img
-              className="w-[196px] h-[140px]"
+              className="w-[196px] h-[145.53px] top-[23.3vh] absolute"
               src={monsterImage}
               alt="Monster"
             />
@@ -193,20 +194,20 @@ export default function Game() {
         </div>
       </div>
       <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
-        <div className="box2 h-[30vh]">
+        <div className="box2 top-[75%] absolute left-[10%]">
           <div className="w-full inline-flex gap-5 justify-center pt-5">
             {ch1 !== null && ch2 !== null && Quest !== null && (
               <>
                 <button
                   onClick={() => Correctornot(ch1)}
-                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
+                  className="w-[17.5vh] h-[7vh] bg-[#E29F51] text-center border-2 text-2xl"
                 >
                   {wordsA1[ch1].answer}
                 </button>
                 <button
                   onClick={() => Correctornot(ch2)}
                   type="button"
-                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
+                  className="w-[17.5vh] h-[7vh] bg-[#E29F51] text-center border-2 text-2xl"
                 >
                   {wordsA1[ch2].answer}
                 </button>
