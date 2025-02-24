@@ -157,7 +157,7 @@ export default function Game() {
         <div
           onClick={handleSetting}
           className={`${
-            isPause
+            isPause && isWin
               ? "left-[80%] top-[4%] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
               : "hidden"
           }`}
@@ -170,9 +170,9 @@ export default function Game() {
       {isWin ? null : <WinModal />}
       {isPause ? "" : <PauseModal setIsPause={setIsPause} />}
 
-      <div className='h-[70vh] font-bold text-[#E29F51] font-[family-name:"Press Start 2P"]'>
+      <div className="h-[70vh] font-bold text-[#E29F51] font-game">
         <div className="w-full  flex justify-center p-[90px] right-[0.5px] h-[10px]">
-          <img className="w-[134px] h-[36px]  " src={HeartImage} alt="Heart" />
+          <img className="w-[134px] h-[36px]" src={HeartImage} alt="Heart" />
         </div>
         <div
           className={`${
@@ -183,19 +183,15 @@ export default function Game() {
             {wordsA1[Quest].word}
           </div>
         </div>
-        <div className="absolute -left-[3%] top-[45%]">
+        <div className="absolute left-[5vw] top-[40%]">
           <img
-            className="h-[25vh] w-fit object-cover"
+            className="h-[30vh] w-[55vw] object-cover"
             src={humanImage}
             alt="Human"
           />
         </div>
-        <div className="absolute left-[50%] top-[55%]">
-          <img
-            className="h-[15vh] w-fit object-cover"
-            src={monsterImage}
-            alt="Monster"
-          />
+        <div className="absolute left-[50vw] top-[55%]">
+          <img className="h-[15vh] w-[50vw]" src={monsterImage} alt="Monster" />
         </div>
       </div>
       <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>

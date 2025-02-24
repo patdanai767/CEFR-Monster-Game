@@ -54,9 +54,19 @@ export default function Member() {
         className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] flex justify-center items-center"
       >
         {isVolumeOn ? (
-          <Volume2 strokeWidth={1} size={40} />
+          <Volume2
+            strokeWidth={1}
+            size={40}
+            onClick={handleVolume}
+            className="ml-[1.5vw]"
+          />
         ) : (
-          <VolumeOff strokeWidth={1} size={40} />
+          <VolumeOff
+            strokeWidth={1}
+            size={40}
+            onClick={handleVolume}
+            className="ml-[1.5vw]"
+          />
         )}
       </button>
 

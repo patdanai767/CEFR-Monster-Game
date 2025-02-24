@@ -37,12 +37,22 @@ export default function Level() {
         <ChevronLeft strokeWidth={1.7} size={45} />
       </div>
       {isVolumeOn ? (
-        <div className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
-          <Volume2 strokeWidth={1} size={40} onClick={handleVolume} />
+        <div className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] bg-contain bg-center content-center justify-items-center">
+          <Volume2
+            strokeWidth={1}
+            size={40}
+            onClick={handleVolume}
+            className="ml-[1.5vw]"
+          />
         </div>
       ) : (
-        <div className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
-          <VolumeOff strokeWidth={1} size={40} onClick={handleVolume} />
+        <div className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] bg-contain bg-center content-center justify-items-center">
+          <VolumeOff
+            strokeWidth={1}
+            size={40}
+            onClick={handleVolume}
+            className="ml-[1.5vw]"
+          />
         </div>
       )}
       {storagetm

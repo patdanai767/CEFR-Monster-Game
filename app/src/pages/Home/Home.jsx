@@ -35,8 +35,8 @@ function Home() {
             <h1>CEFR</h1>
             <p>MONSTER</p>
           </div>
-          <div className="absolute top-[27%] justify-items-center left-[10%]">
-            <img className="h-[50vh] w-fit object-cover" src="/Idle2.gif"></img>
+          <div className="absolute top-[26%] left-[5vw]">
+              <img className="h-full w-[80vw]" src="/Idle2.gif" />
           </div>
           <div className="absolute top-[76%] w-full text-center">
             <a href="/mode">

@@ -210,16 +210,16 @@ export default function GameTime() {
             {wordsA1[Quest].word}
           </div>
         </div>
-        <div className="absolute -left-[3%] top-[45%]">
+        <div className="absolute left-[5vw] top-[40%]">
           <img
-            className="h-[25vh] w-fit object-cover"
+            className="h-[30vh] w-[55vw] object-cover"
             src={humanImage}
             alt="Human"
           />
         </div>
-        <div className="absolute left-[50%] top-[55%]">
+        <div className="absolute left-[50vw] top-[55%]">
           <img
-            className=" h-[15vh] w-fit object-cover"
+            className=" h-[15vh] w-[50vw]"
             src={monsterImage}
             alt="Monster"
           />
