@@ -28,19 +28,19 @@ function Home() {
   }, []);
 
   return (
-    <div className="bg-[url(/src/assets/Home-Background.jpg)] h-[100vh] bg-cover bg-no-repeat overflow-hidden">
-      <div className="flex text-center justify-center font-game ">
+    <div className="relative bg-[url(/src/assets/Home-Background.jpg)] bg-center h-screen bg-cover bg-no-repeat overflow-hidden">
+      <div className="font-game ">
         <div className="text-[50px]">
-          <div className="text-[46px] p-[50px] mt-12 text-[#31744A] text-stroke-black">
-            <h1 className="">CEFR</h1>
+          <div className="absolute justify-items-center w-full text-[5vh] -space-y-4 top-[10%] text-center text-[#E29F51] text-stroke-black">
+            <h1>CEFR</h1>
             <p>MONSTER</p>
           </div>
-          <div className="absolute  content-center justify-items-center w-full top-[200px]">
-            <img className=" w-[368px] h-[460px] " src="/Idle2.gif"></img>
+          <div className="absolute top-[27%] justify-items-center left-[10%]">
+            <img className="h-[50vh] w-fit object-cover" src="/Idle2.gif"></img>
           </div>
-          <div className="mt-90">
+          <div className="absolute top-[76%] w-full text-center">
             <a href="/mode">
-              <button className="text-[30px] bg-[#E29F51] p-5 px-10  border-2 border-black ">
+              <button className="px-6 py-1 text-[30px] bg-[#E29F51] border-2 border-black ">
                 Play
               </button>
             </a>

@@ -26,8 +26,8 @@ export default function Level() {
   return (
     /*background*/
     <div
-      className="overflow-hidden bg-no-repeat h-screen bg-cover font-game"
-      style={{ backgroundImage: "url('/background-game_2.png')" }}
+      className="relative overflow-hidden bg-no-repeat h-screen bg-cover font-game"
+      style={{ backgroundImage: "url('/backgroundlevel.png')" }}
     >
       {/* ปุ่มย้อนกลับ */}
       <div

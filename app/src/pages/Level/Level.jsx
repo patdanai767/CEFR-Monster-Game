@@ -26,13 +26,13 @@ export default function Level() {
   return (
     /*background*/
     <div
-      className="overflow-hidden bg-no-repeat h-screen bg-cover font-game"
-      style={{ backgroundImage: "url('/background-game_2.png')" }}
+      className="relative overflow-hidden bg-no-repeat h-screen bg-cover font-game"
+      style={{ backgroundImage: "url('/backgroundlevel.png')" }}
     >
       {/* ปุ่มย้อนกลับ */}
       <div
         onClick={handleBack}
-        className="absolute top-[4%] left-[8%] bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[2px] bg-contain bg-center content-center justify-items-center"
+        className="absolute top-[4%] left-[8%] bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[2px] content-center justify-items-center"
       >
         <ChevronLeft strokeWidth={1} size={45} />
       </div>
@@ -56,7 +56,7 @@ export default function Level() {
                 ? "bg-[#C8EDE0] text-black"
                 : "bg-[#856360] text-black"
             } 
-            font-bold flex justify-center items-center shadow-md text-2xl`}
+            font-bold flex justify-center items-center text-xl`}
               style={{ left: level.x, top: level.y }}
             >
               {level.id}

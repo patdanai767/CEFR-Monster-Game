@@ -18,9 +18,8 @@ import Heart1 from "/Heart-2.png";
 import Heart0 from "/Heart-3.png";
 import Slashsound from "/Swordslash.mp3";
 import { backgrounds } from "../../constants/background";
-import Homemu from "../../../public/Homemu.wav";
+import Homemu from "/Homemu.wav";
 import { useNavigate, useParams } from "react-router-dom";
-
 
 export default function Game() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
@@ -50,9 +49,15 @@ export default function Game() {
       setCh1(Math.floor(Math.random() * 896));
     }
 
-    if (Number(params.id) > 10 && pathname === "gametime") {
+    if (
+      (Number(params.id) > 10 && pathname === "gametime") ||
+      (savedlevel[params.id - 1].isOpen === false && pathname === "gametime")
+    ) {
       router("/tmlevel");
-    } else if (Number(params.id) > 10 && pathname === "game") {
+    } else if (
+      (Number(params.id) > 10 && pathname === "game") ||
+      (savedlevel[params.id - 1].isOpen === false && pathname === "game")
+    ) {
       router("/hmlevel");
     }
   }, [Random, Quest]);
@@ -145,7 +150,7 @@ export default function Game() {
 
   return (
     <div
-      className="overflow-hidden grid bg-no-repeat bg-cover h-screen justify-center"
+      className="grid bg-no-repeat bg-cover bg-center h-screen justify-center relative"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       {isend ? (
@@ -153,7 +158,7 @@ export default function Game() {
           onClick={handleSetting}
           className={`${
             isPause
-              ? "left-[309px] top-[32px] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
+              ? "left-[80%] top-[4%] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
               : "hidden"
           }`}
         >
@@ -174,40 +179,40 @@ export default function Game() {
             isend && isPause && isWin ? "" : "invisible"
           } font-game`}
         >
-          <div className=" text-[32px]  text-center text-stroke-black">
+          <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
             {wordsA1[Quest].word}
           </div>
         </div>
-        <div className="gif_box relative  justify-items-center ">
+        <div className="absolute -left-[3%] top-[45%]">
           <img
-            className=" z-[0] w-[204.12px] h-[255.15px] top-[16.59vh] pb-12 absolute left-[-15%]"
+            className="h-[25vh] w-fit object-cover"
             src={humanImage}
             alt="Human"
           />
-          <div className="pt-14.5">
-            <img
-              className="w-[196px] h-[145.53px] top-[23.3vh] absolute"
-              src={monsterImage}
-              alt="Monster"
-            />
-          </div>
+        </div>
+        <div className="absolute left-[50%] top-[55%]">
+          <img
+            className="h-[15vh] w-fit object-cover"
+            src={monsterImage}
+            alt="Monster"
+          />
         </div>
       </div>
       <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
-        <div className="box2 top-[75%] absolute left-[10%]">
+        <div className="box2 h-[30vh]">
           <div className="w-full inline-flex gap-5 justify-center pt-5">
             {ch1 !== null && ch2 !== null && Quest !== null && (
               <>
                 <button
                   onClick={() => Correctornot(ch1)}
-                  className="w-[17.5vh] h-[7vh] bg-[#E29F51] text-center border-2 text-2xl"
+                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
                 >
                   {wordsA1[ch1].answer}
                 </button>
                 <button
                   onClick={() => Correctornot(ch2)}
                   type="button"
-                  className="w-[17.5vh] h-[7vh] bg-[#E29F51] text-center border-2 text-2xl"
+                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
                 >
                   {wordsA1[ch2].answer}
                 </button>

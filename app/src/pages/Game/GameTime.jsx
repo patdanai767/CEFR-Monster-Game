@@ -56,9 +56,15 @@ export default function GameTime() {
     }
     checkTime(timer);
 
-    if (Number(params.id) > 10 && pathname === "gametime") {
+    if (
+      (Number(params.id) > 10 && pathname === "gametime") ||
+      (savedlevel[params.id - 1].isOpen === false && pathname === "gametime")
+    ) {
       router("/tmlevel");
-    } else if (Number(params.id) > 10 && pathname === "game") {
+    } else if (
+      (Number(params.id) > 10 && pathname === "game") ||
+      (savedlevel[params.id - 1].isOpen === false && pathname === "game")
+    ) {
       router("/hmlevel");
     }
 
@@ -161,7 +167,7 @@ export default function GameTime() {
 
   return (
     <div
-      className={`grid bg-no-repeat bg-cover h-screen justify-center`}
+      className={`grid bg-no-repeat bg-cover bg-center h-screen justify-center relative`}
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       {isend ? (
@@ -169,7 +175,7 @@ export default function GameTime() {
           onClick={handleSetting}
           className={`${
             isPause && isWin
-              ? "left-[309px] top-[32px] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
+              ? "left-[80%] top-[4%] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
               : "hidden"
           }`}
         >
@@ -204,19 +210,19 @@ export default function GameTime() {
             {wordsA1[Quest].word}
           </div>
         </div>
-        <div className="gif_box pt-60 flex justify-center">
+        <div className="absolute -left-[3%] top-[45%]">
           <img
-            className="w-[197px] h-[246px] pb-12"
+            className="h-[25vh] w-fit object-cover"
             src={humanImage}
             alt="Human"
           />
-          <div className="pt-14.5">
-            <img
-              className="w-[196px] h-[140px]"
-              src={monsterImage}
-              alt="Monster"
-            />
-          </div>
+        </div>
+        <div className="absolute left-[50%] top-[55%]">
+          <img
+            className=" h-[15vh] w-fit object-cover"
+            src={monsterImage}
+            alt="Monster"
+          />
         </div>
       </div>
       <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
