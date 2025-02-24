@@ -22,7 +22,7 @@ export default function Level() {
   useEffect(() => {
     
     const savedlevel = JSON.parse(localStorage.getItem("tmlevel"));
-    setTmlevel(levels.filter((level) => savedlevel.includes(level.id)));
+    //setTmlevel(levels.filter((level) => savedlevel.includes(level.id)));
     tmlevel.forEach((tmlvl) => console.log(tmlvl));
     levels.forEach((level) => console.log(level));
   }, []);
@@ -48,9 +48,9 @@ export default function Level() {
       {/* ปุ่มย้อนกลับ */}
       <div
         onClick={handleBack}
-        className="absolute top-[32px] left-[32px] bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[2px] bg-contain bg-center content-center justify-items-center"
+        className="absolute top-[32px] left-[32px] bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[3px] bg-contain bg-center content-center justify-items-center"
       >
-        <ChevronLeft strokeWidth={1} size={45} />
+        <ChevronLeft strokeWidth={1.7} size={45} />
       </div>
       {isVolumeOn ? (
         <div className="absolute top-[809px] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
