@@ -53,21 +53,7 @@ function Home() {
             </a>
           </div>
         </div>
-        <ChevronLeft strokeWidth={1} size={45} />
-      {isVolumeOn ? (
-        <div className="absolute top-[809px] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
-          <Volume2 strokeWidth={1} size={40} onClick={handleVolume} />
-        </div>
-      ) : (
-        <div className="absolute top-[809px] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
-          <VolumeOff strokeWidth={1} size={40} onClick={handleVolume} />
-        </div>
-      )}
-      <a href="">
-      <div className="absolute top-[809px] left-80 bg-[#C8EDE0] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
-          <PersonStanding strokeWidth={1} size={40}  />
-        </div>
-        </a>
+        
       </div>
       {isVolumeOn ? (
         <div className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
@@ -88,7 +74,7 @@ function Home() {
           />
         </div>
       )}
-      <a href="">
+      <a href="/member">
         <div className="absolute top-[90%] left-[80%] bg-[#C8EDE0] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
           <User strokeWidth={1} size={40} className="ml-[1.5vw]" />
         </div>
