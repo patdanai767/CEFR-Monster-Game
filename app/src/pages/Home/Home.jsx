@@ -57,7 +57,7 @@ function Home() {
             <p>MONSTER</p>
           </motion.div>
           <div className="absolute top-[26%] left-[5vw]">
-            <img className="h-fit w-[80vw]" src="/Idle2.gif" />
+            <img className="h-full w-[80vw]" src="/Idle2.gif" />
           </div>
           <div className="absolute top-[76%] w-full text-center">
             <motion.button
