@@ -28,7 +28,7 @@ function Mode() {
         <ChevronLeft strokeWidth={1} size={45} />
       </div>
       <div className="flex text-center justify-center font-game ">
-        <div className="text-[100px]">
+        <div className="">
           <div className="text-[42px] p-[50px] mt-27 text-[#C8EDE0] text-stroke-black">
             <h1>Choose</h1>
             <p>mode</p>

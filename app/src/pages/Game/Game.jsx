@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from "react";
 import wordsA1 from "./gameA1";
 import LoseModal from "../../components/Modal/LoseModal";
-import { Pause, SortAsc } from "lucide-react";
+import { Pause } from "lucide-react";
 import PauseModal from "../../components/Modal/PauseModal";
-import WinModal from "../../components/Modal/WinModal"
-import Idle from "../../../public/Idle.gif";
-import BoarIdle from "../../../public/boaridle.gif";
-import Attack from "../../../public/Attack-01.gif";
-import Wrong from "../../../public/wrong.gif";
-import BoarAtk from "../../../public/boaratk.gif";
-import Dead from "../../../public/Dead.gif";
-import MonsterHit from "../../../public/Hit.gif";
-import Boardead from "../../../public/Boardead.gif";
-import Heart3 from "../../../public/Heart.png"
-import Heart2 from "../../../public/Heart-1.png"
-import Heart1 from "../../../public/Heart-2.png"
-import Heart0 from "../../../public/Heart-3.png"
-import Slashsound from "../../../public/Swordslash.mp3"
-import Homemu from "../../../public/Homemu.wav"
+import WinModal from "../../components/Modal/WinModal";
+import Idle from "/Idle.gif";
+import BoarIdle from "/boaridle.gif";
+import Attack from "/Attack-01.gif";
+import Wrong from "/wrong.gif";
+import BoarAtk from "/boaratk.gif";
+import Dead from "/Dead.gif";
+import MonsterHit from "/Hit.gif";
+import Boardead from "/Boardead.gif";
+import Heart3 from "/Heart.png";
+import Heart2 from "/Heart-1.png";
+import Heart1 from "/Heart-2.png";
+import Heart0 from "/Heart-3.png";
+import Slashsound from "/Swordslash.mp3";
+import { backgrounds } from "../../constants/background";
+import Homemu from "/Homemu.wav";
+import { useNavigate, useParams } from "react-router-dom";
+
 export default function Game() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
   const [Quest, setQuest] = useState(Math.floor(Math.random() * 896));
@@ -28,11 +31,14 @@ export default function Game() {
   const [HeartImage, setHeartImage] = useState(Heart3);
   const [isend, setisend] = useState(true);
   const [isPause, setIsPause] = useState(true);
-  const [IsWin,setisWin] = useState(true);
-  const [Winstreak,setWinstreak] = useState(1);
-  
+  const [isWin, setIsWin] = useState(true);
+  const [Winstreak, setWinstreak] = useState(1);
+  const params = useParams();
+  const router = useNavigate();
+  const pathname = location.pathname.split("/")[1];
+  const savedlevel = JSON.parse(localStorage.getItem("hmlevel"));
+  const bgImage = backgrounds.find((bg) => bg.id === Number(params.id))?.bg;
   let Heartvalue = 1;
-  
 
   useEffect(() => {
     if (Random === 1) {
@@ -42,17 +48,28 @@ export default function Game() {
       setCh2(Quest);
       setCh1(Math.floor(Math.random() * 896));
     }
-    
+
+    if (
+      (Number(params.id) > 10 && pathname === "gametime") ||
+      (savedlevel[params.id - 1].isOpen === false && pathname === "gametime")
+    ) {
+      router("/tmlevel");
+    } else if (
+      (Number(params.id) > 10 && pathname === "game") ||
+      (savedlevel[params.id - 1].isOpen === false && pathname === "game")
+    ) {
+      router("/hmlevel");
+    }
   }, [Random, Quest]);
 
   const handleSetting = () => {
     setIsPause(!isPause);
   };
-  function slash()
-  {
-    new Audio(Slashsound).play()
+
+  function slash() {
+    new Audio(Slashsound).play();
   }
-  
+
   const Next = () => {
     const newRandom = Math.floor(Math.random() * 2) + 1;
     const newQuest = Math.floor(Math.random() * 896);
@@ -74,7 +91,7 @@ export default function Game() {
   const Correctornot = (choice) => {
     if (choice === Quest) {
       CorrectAnim();
-      
+
       setTimeout(() => {
         Next();
       }, 500);
@@ -88,27 +105,26 @@ export default function Game() {
 
   const CorrectAnim = () => {
     setHumanImage(Attack);
-    slash()
+    slash();
     setMonsterImage(MonsterHit);
-    setWinstreak(Winstreak+1);
-    if(Winstreak===10)
-    {
-      setisWin(false);
+    setWinstreak(Winstreak + 1);
+    if (Winstreak === 3) {
+      setIsWin(false);
+      const updatedHm = savedlevel.map((level) =>
+        level.id === Number(params.id) + 1 ? { ...level, isOpen: true } : level
+      );
+      localStorage.setItem("hmlevel", JSON.stringify(updatedHm));
       setMonsterImage(Boardead);
       setHumanImage(Attack);
       setTimeout(() => {
         setHumanImage(Idle);
-        
       }, 500);
-      
+    } else {
+      setTimeout(() => {
+        setHumanImage(Idle);
+        setMonsterImage(BoarIdle);
+      }, 500);
     }
-    else{
-    setTimeout(() => {
-      setHumanImage(Idle);
-      setMonsterImage(BoarIdle);
-      
-    }, 500);
-  }
   };
 
   const WrongAnim = () => {
@@ -133,50 +149,52 @@ export default function Game() {
   };
 
   return (
-    
-    <div className="grid bg-[url('/background-game_2.png')] bg-no-repeat bg-cover h-screen justify-center">
+    <div
+      className="grid bg-no-repeat bg-cover bg-center h-screen justify-center relative"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
       {isend ? (
-              <div
-                onClick={handleSetting}
-                className={`${
-                  isPause
-                    ? "left-[309px] top-[32px] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
-                    : "hidden"
-                }`}
-              >
-                <Pause size={37} />
-              </div>
-            ) : (
-              <LoseModal />
-            )}
-            {IsWin ? null : (<WinModal/>)}
-            {isPause ? "" : <PauseModal setIsPause={setIsPause} />}
-             
-      <div className='box1 h-[70vh] font-bold text-[#E29F51] font-[family-name:"Press Start 2P"]'>
-        <div className="Heart-box justify-items-center w-full mt-[40px]">
-          <img className="w-[134px] h-[36px]  " src={HeartImage} alt="Heart" />
+        <div
+          onClick={handleSetting}
+          className={`${
+            isPause && isWin
+              ? "left-[80%] top-[4%] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
+              : "hidden"
+          }`}
+        >
+          <Pause size={37} />
         </div>
-        <div className={`${isend&&isPause&&IsWin ? "" : "invisible"} font-game`}>
-          <div className="mt-[60px] text-[32px]  text-center text-stroke-black">
+      ) : (
+        <LoseModal />
+      )}
+      {isWin ? null : <WinModal />}
+      {isPause ? "" : <PauseModal setIsPause={setIsPause} />}
+
+      <div className="h-[70vh] font-bold text-[#E29F51] font-game">
+        <div className="w-full  flex justify-center p-[90px] right-[0.5px] h-[10px]">
+          <img className="w-[134px] h-[36px]" src={HeartImage} alt="Heart" />
+        </div>
+        <div
+          className={`${
+            isend && isPause && isWin ? "" : "invisible"
+          } font-game`}
+        >
+          <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
             {wordsA1[Quest].word}
           </div>
         </div>
-        <div className="gif_box pt-60 flex justify-center">
+        <div className="absolute left-[5vw] top-[40%]">
           <img
-            className="w-[197px] h-[246px] pb-12"
+            className="h-[30vh] w-[55vw] object-cover"
             src={humanImage}
             alt="Human"
           />
-          <div className="pt-14.5">
-            <img
-              className="w-[196px] h-[140px]"
-              src={monsterImage}
-              alt="Monster"
-            />
-          </div>
+        </div>
+        <div className="absolute left-[50vw] top-[55%]">
+          <img className="h-[15vh] w-[50vw]" src={monsterImage} alt="Monster" />
         </div>
       </div>
-      <div className={`${isend&&isPause&&IsWin ? "" : "hidden"}`}>
+      <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
         <div className="box2 h-[30vh]">
           <div className="w-full inline-flex gap-5 justify-center pt-5">
             {ch1 !== null && ch2 !== null && Quest !== null && (
