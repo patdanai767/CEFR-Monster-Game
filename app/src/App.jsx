@@ -12,6 +12,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/Word" element={<WordIndex />} />
         <Route path="/mode" element={<Mode />} />
         <Route path="/hmlevel" element={<Level />} />
         <Route path="/tmlevel" element={<TmLevel />} />
