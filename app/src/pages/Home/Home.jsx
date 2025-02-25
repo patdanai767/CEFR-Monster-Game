@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Volume2, VolumeOff, ChevronLeft } from "lucide-react";
+import { User } from "lucide-react";
 
 function Home() {
   const storagetm = localStorage.getItem("tmlevel");
@@ -15,6 +17,11 @@ function Home() {
     { id: 9, x: "67%", y: "16.5%", isOpen: false },
     { id: 10, x: "32%", y: "8.5%", isOpen: false },
   ];
+  const [isVolumeOn, setIsVolumeOn] = useState(true);
+
+  const handleVolume = () => {
+    setIsVolumeOn(!isVolumeOn);
+  };
 
   useEffect(() => {
     if (!storagetm) {
@@ -36,7 +43,7 @@ function Home() {
             <p>MONSTER</p>
           </div>
           <div className="absolute top-[26%] left-[5vw]">
-              <img className="h-full w-[80vw]" src="/Idle2.gif" />
+            <img className="h-full w-[80vw]" src="/Idle2.gif" />
           </div>
           <div className="absolute top-[76%] w-full text-center">
             <a href="/mode">
@@ -47,6 +54,30 @@ function Home() {
           </div>
         </div>
       </div>
+      {isVolumeOn ? (
+        <div className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
+          <Volume2
+            strokeWidth={1}
+            size={40}
+            onClick={handleVolume}
+            className="ml-[1.5vw]"
+          />
+        </div>
+      ) : (
+        <div className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
+          <VolumeOff
+            strokeWidth={1}
+            size={40}
+            onClick={handleVolume}
+            className="ml-[1.5vw]"
+          />
+        </div>
+      )}
+      <a href="">
+        <div className="absolute top-[90%] left-[80%] bg-[#C8EDE0] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
+          <User strokeWidth={1} size={40} className="ml-[1.5vw]" />
+        </div>
+      </a>
     </div>
   );
 }
