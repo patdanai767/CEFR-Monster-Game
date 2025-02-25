@@ -1,10 +1,11 @@
 import { Volume2, VolumeOff, ChevronLeft } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie"
 
 export default function Level() {
   const router = useNavigate();
-  const storagetm = JSON.parse(localStorage.getItem("tmlevel"));
+  const storagetm = JSON.parse(Cookies.get("tmlevel"));
   const [isVolumeOn, setIsVolumeOn] = useState(true);
 
   const handleVolume = () => {

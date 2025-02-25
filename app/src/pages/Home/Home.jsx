@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Volume2, VolumeOff, ChevronLeft } from "lucide-react";
+import { Volume2, VolumeOff } from "lucide-react";
 import { User } from "lucide-react";
+import Cookies from "js-cookie";
+
 
 function Home() {
-  const storagetm = localStorage.getItem("tmlevel");
-  const storagehm = localStorage.getItem("hmlevel");
+  const storagetm = Cookies.get("tmlevel");
+  const storagehm = Cookies.get("hmlevel");
   const levels = [
     { id: 1, x: "76%", y: "88%", isOpen: true },
     { id: 2, x: "33%", y: "80%", isOpen: false },
@@ -25,12 +27,12 @@ function Home() {
 
   useEffect(() => {
     if (!storagetm) {
-      localStorage.removeItem("tmlevel");
-      localStorage.setItem("tmlevel", JSON.stringify(levels));
+      Cookies.remove("tmlevel");
+      Cookies.set("tmlevel", JSON.stringify(levels));
     }
     if (!storagehm) {
-      localStorage.removeItem("hmlevel");
-      localStorage.setItem("hmlevel", JSON.stringify(levels));
+      Cookies.remove("hmlevel");
+      Cookies.set("hmlevel", JSON.stringify(levels));
     }
   }, []);
 

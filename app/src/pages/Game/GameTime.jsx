@@ -13,6 +13,7 @@ import Dead from "/Dead.gif";
 import MonsterHit from "/Hit.gif";
 import { backgrounds } from "../../constants/background";
 import { useNavigate, useParams } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function GameTime() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
@@ -31,7 +32,7 @@ export default function GameTime() {
   const router = useNavigate();
   const pathname = location.pathname.split("/")[1];
   const bgImage = backgrounds.find((bg) => bg.id === Number(params.id))?.bg;
-  const savedlevel = JSON.parse(localStorage.getItem("tmlevel"));
+  const savedlevel = JSON.parse(Cookies.get("tmlevel"));
   var timer = time;
   if (time < 0) {
     timer = 0;
@@ -72,7 +73,7 @@ export default function GameTime() {
       const updatedTm = savedlevel.map((level) =>
         level.id === Number(params.id) + 1 ? { ...level, isOpen: true } : level
       );
-      localStorage.setItem("tmlevel", JSON.stringify(updatedTm));
+      Cookies.set("tmlevel", JSON.stringify(updatedTm));
     }
 
     return () => {

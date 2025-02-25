@@ -20,6 +20,7 @@ import Slashsound from "/Swordslash.mp3";
 import { backgrounds } from "../../constants/background";
 import Homemu from "/Homemu.wav";
 import { useNavigate, useParams } from "react-router-dom";
+import Cookies from "js-cookie"
 
 export default function Game() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
@@ -36,7 +37,7 @@ export default function Game() {
   const params = useParams();
   const router = useNavigate();
   const pathname = location.pathname.split("/")[1];
-  const savedlevel = JSON.parse(localStorage.getItem("hmlevel"));
+  const savedlevel = JSON.parse(Cookies.get("hmlevel"));
   const bgImage = backgrounds.find((bg) => bg.id === Number(params.id))?.bg;
   let Heartvalue = 1;
 
@@ -113,7 +114,7 @@ export default function Game() {
       const updatedHm = savedlevel.map((level) =>
         level.id === Number(params.id) + 1 ? { ...level, isOpen: true } : level
       );
-      localStorage.setItem("hmlevel", JSON.stringify(updatedHm));
+      Cookies.set("hmlevel", JSON.stringify(updatedHm));
       setMonsterImage(Boardead);
       setHumanImage(Attack);
       setTimeout(() => {
