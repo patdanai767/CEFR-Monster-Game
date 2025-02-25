@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import wordsA1 from "./gameA1";
 import wordsA2 from "./gameA2";
+import wordsB1 from "./gameB1";
 import LoseModal from "../../components/Modal/LoseModal";
 import { Pause } from "lucide-react";
 import PauseModal from "../../components/Modal/PauseModal";
@@ -61,7 +62,7 @@ export default function Game() {
         }
         else if(Number(params.id) <= 8)
           {
-            setwordLevel(null);
+            setwordLevel(wordsB1);
           }
       
     if (
