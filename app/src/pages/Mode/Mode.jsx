@@ -37,9 +37,9 @@ function Mode() {
             <botton className="mt-12 text-[20px] w-[360px] h-[68px] bg-[#E29F51] p-4 px-8 mx-18 border-3 flex items-center justify-center"
             >Time attack <Clock fill="#C8EDE0" size={30} className="ml-8"/>
             </botton>
-            <botton className="mt-12 text-[20px] bg-lime-400 p-4 px-8 mx-18 border-3 flex items-center justify-center"
+            <a href="/Word" className="mt-12 text-[20px] bg-lime-400 p-4 px-8 mx-18 border-3 flex items-center justify-center"
             >Flashcard <WalletCards  size={30} className="ml-8"/>
-            </botton>
+            </a>
             
             
 

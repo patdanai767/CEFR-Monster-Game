@@ -4,6 +4,7 @@ import WordIndex from "./pages/WordIndex/WordIndex";
 import Mode from "./pages/Mode/Mode";
 import Game from "./pages/Game/Game.jsx";
 import GameTime from "./pages/Game/GameTime.jsx";
+import TmLevel from "./pages/Level/TmLevel.jsx"
 
 function App() {
   return (
@@ -13,7 +14,6 @@ function App() {
         <Route path="/Word" element={<WordIndex />} />
         <Route path="/mode" element={<Mode />} />
         <Route path="/Game" element={<Game />} />
-        <Route path="/HMlevel" element={<HMLevel />} />
         <Route path="/Tmlevel" element={<TmLevel />} />
         <Route path="/gametime/:id" element={<GameTime />} />
       </Routes>
