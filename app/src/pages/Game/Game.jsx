@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import wordsA1 from "./gameA1";
+import wordsA2 from "./gameA2";
 import LoseModal from "../../components/Modal/LoseModal";
 import { Pause } from "lucide-react";
 import PauseModal from "../../components/Modal/PauseModal";
@@ -26,6 +27,7 @@ export default function Game() {
   const [Quest, setQuest] = useState(Math.floor(Math.random() * 896));
   const [ch1, setCh1] = useState(null);
   const [ch2, setCh2] = useState(null);
+  const [wordLevel,setwordLevel] = useState(wordsA1)
   const [humanImage, setHumanImage] = useState(Idle);
   const [monsterImage, setMonsterImage] = useState(BoarIdle);
   const [HeartImage, setHeartImage] = useState(Heart3);
@@ -41,6 +43,7 @@ export default function Game() {
   let Heartvalue = 1;
 
   useEffect(() => {
+    
     if (Random === 1) {
       setCh1(Quest);
       setCh2(Math.floor(Math.random() * 896));
@@ -48,7 +51,19 @@ export default function Game() {
       setCh2(Quest);
       setCh1(Math.floor(Math.random() * 896));
     }
-
+    if(Number(params.id) <= 3)
+      {
+        setwordLevel(wordsA1);
+      }
+      else if(Number(params.id) <= 6)
+        {
+          setwordLevel(wordsA2);
+        }
+        else if(Number(params.id) <= 8)
+          {
+            setwordLevel(null);
+          }
+      
     if (
       (Number(params.id) > 10 && pathname === "gametime") ||
       (savedlevel[params.id - 1].isOpen === false && pathname === "gametime")
@@ -60,12 +75,13 @@ export default function Game() {
     ) {
       router("/hmlevel");
     }
-  }, [Random, Quest]);
 
+  }, [Random, Quest ,wordLevel]);
+  
   const handleSetting = () => {
     setIsPause(!isPause);
   };
-
+  
   function slash() {
     new Audio(Slashsound).play();
   }
@@ -180,7 +196,7 @@ export default function Game() {
           } font-game`}
         >
           <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
-            {wordsA1[Quest].word}
+            {wordLevel[Quest].word}
           </div>
         </div>
         <div className="absolute left-[5vw] top-[40%]">
@@ -203,14 +219,14 @@ export default function Game() {
                   onClick={() => Correctornot(ch1)}
                   className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
                 >
-                  {wordsA1[ch1].answer}
+                  {wordLevel[ch1].answer}
                 </button>
                 <button
                   onClick={() => Correctornot(ch2)}
                   type="button"
                   className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
                 >
-                  {wordsA1[ch2].answer}
+                  {wordLevel[ch2].answer}
                 </button>
               </>
             )}
