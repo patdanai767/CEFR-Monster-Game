@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import wordsA1 from '../Game/game'
+import wordsA1 from '../Game/gameA1'
 import Pagination from '../../components/Pagination/Pagination'
 import EnemyCard from '../../components/EnemyCard/EnemyCard'
 import {ChevronLeft,Volume2,Search} from "lucide-react"
@@ -29,7 +29,7 @@ function WordIndex() {
 
   return (
     <div className='bg-[url(/src/backgrounds/bg-map.jpg)] h-[896px] bg-cover p-4 flex flex-col justify-between'>
-      <a href="/" className='h-[48px] w-[48px] border-[3px] rounded-[2px]  bg-[#E29F51] grid place-items-center'>
+      <a href="/mode" className='h-[48px] w-[48px] border-[3px] rounded-[2px]  bg-[#E29F51] grid place-items-center'>
         <ChevronLeft className='h-[40px] w-[40px]'/>
       </a>
       <div>

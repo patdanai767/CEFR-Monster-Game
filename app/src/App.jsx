@@ -1,10 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import WordIndex from "./pages/WordIndex/WordIndex";
+import Game from "./pages/Game/Game";
 import Mode from "./pages/Mode/Mode";
-import Game from "./pages/Game/Game.jsx";
-import GameTime from "./pages/Game/GameTime.jsx";
-import TmLevel from "./pages/Level/TmLevel.jsx"
+import Level from "./pages/Level/Level";
+import TmLevel from "./pages/Level/TmLevel";
+import GameTime from "./pages/Game/GameTime";
+import Member from "./pages/Member/Member";
+import WordIndex from "./pages/WordIndex/WordIndex";
 
 function App() {
   return (
@@ -13,9 +15,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Word" element={<WordIndex />} />
         <Route path="/mode" element={<Mode />} />
-        <Route path="/Game" element={<Game />} />
-        <Route path="/Tmlevel" element={<TmLevel />} />
+        <Route path="/hmlevel" element={<Level />} />
+        <Route path="/tmlevel" element={<TmLevel />} />
+        <Route path="/game/:id" element={<Game />} />
         <Route path="/gametime/:id" element={<GameTime />} />
+        <Route path="/member" element={<Member />} />
       </Routes>
     </BrowserRouter>
   );
