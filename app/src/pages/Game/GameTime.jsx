@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import wordsA1 from "./game";
+import wordsA1 from "./gameA1";
 import LoseModal from "../../components/Modal/LoseModal";
 import { Pause } from "lucide-react";
 import PauseModal from "../../components/Modal/PauseModal";
@@ -29,7 +29,9 @@ export default function GameTime() {
   const [isWin, setIsWin] = useState(true);
   const params = useParams();
   const router = useNavigate();
+  const pathname = location.pathname.split("/")[1];
   const bgImage = backgrounds.find((bg) => bg.id === Number(params.id))?.bg;
+  const savedlevel = JSON.parse(localStorage.getItem("tmlevel"));
   var timer = time;
   if (time < 0) {
     timer = 0;
@@ -51,12 +53,26 @@ export default function GameTime() {
         timer = timer - 1;
         checkTime(timer);
       }, 1000);
-      console.log(counts);
     }
     checkTime(timer);
 
-    if (Number(params.id) > 10) {
-      router("/level");
+    if (
+      (Number(params.id) > 10 && pathname === "gametime") ||
+      (savedlevel[params.id - 1].isOpen === false && pathname === "gametime")
+    ) {
+      router("/tmlevel");
+    } else if (
+      (Number(params.id) > 10 && pathname === "game") ||
+      (savedlevel[params.id - 1].isOpen === false && pathname === "game")
+    ) {
+      router("/hmlevel");
+    }
+
+    if (isWin == false) {
+      const updatedTm = savedlevel.map((level) =>
+        level.id === Number(params.id) + 1 ? { ...level, isOpen: true } : level
+      );
+      localStorage.setItem("tmlevel", JSON.stringify(updatedTm));
     }
 
     return () => {
@@ -151,7 +167,7 @@ export default function GameTime() {
 
   return (
     <div
-      className={`grid bg-no-repeat bg-cover h-screen justify-center`}
+      className={`grid bg-no-repeat bg-cover bg-center h-screen justify-center relative`}
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       {isend ? (
@@ -159,7 +175,7 @@ export default function GameTime() {
           onClick={handleSetting}
           className={`${
             isPause && isWin
-              ? "left-[309px] top-[32px] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
+              ? "left-[80%] top-[4%] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
               : "hidden"
           }`}
         >
@@ -194,19 +210,19 @@ export default function GameTime() {
             {wordsA1[Quest].word}
           </div>
         </div>
-        <div className="gif_box pt-60 flex justify-center">
+        <div className="absolute left-[5vw] top-[40%]">
           <img
-            className="w-[197px] h-[246px] pb-12"
+            className="h-[30vh] w-[55vw] object-cover"
             src={humanImage}
             alt="Human"
           />
-          <div className="pt-14.5">
-            <img
-              className="w-[196px] h-[140px]"
-              src={monsterImage}
-              alt="Monster"
-            />
-          </div>
+        </div>
+        <div className="absolute left-[50vw] top-[55%]">
+          <img
+            className=" h-[15vh] w-[50vw]"
+            src={monsterImage}
+            alt="Monster"
+          />
         </div>
       </div>
       <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
