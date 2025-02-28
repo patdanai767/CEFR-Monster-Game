@@ -1,17 +1,11 @@
-import { Volume2, VolumeOff, ChevronLeft } from "lucide-react";
-import React, { useState } from "react";
+import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function Member() {
   const router = useNavigate();
-  const [isVolumeOn, setIsVolumeOn] = useState(true);
 
   const handleBack = () => {
     router("/");
-  };
-
-  const handleVolume = () => {
-    setIsVolumeOn(!isVolumeOn);
   };
 
   const members = [
@@ -58,28 +52,6 @@ export default function Member() {
         className="absolute top-[4%] left-[8%] bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[3px] flex justify-center items-center"
       >
         <ChevronLeft strokeWidth={1.7} size={45} />
-      </button>
-
-      {/* ปุ่มเสียง */}
-      <button
-        onClick={handleVolume}
-        className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] flex justify-center items-center"
-      >
-        {isVolumeOn ? (
-          <Volume2
-            strokeWidth={1}
-            size={40}
-            onClick={handleVolume}
-            className="sm:ml-[0vw] ml-[1.5vw]"
-          />
-        ) : (
-          <VolumeOff
-            strokeWidth={1}
-            size={40}
-            onClick={handleVolume}
-            className="sm:ml-[0vw] ml-[1.5vw]"
-          />
-        )}
       </button>
 
       {/* หัวข้อ Members Group 2 */}
