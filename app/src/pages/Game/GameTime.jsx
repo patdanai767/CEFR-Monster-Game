@@ -13,6 +13,7 @@ import Dead from "/Dead.gif";
 import MonsterHit from "/Hit.gif";
 import { backgrounds } from "../../constants/background";
 import { useNavigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function GameTime() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
@@ -27,11 +28,14 @@ export default function GameTime() {
   const [isRunning, setIsRunning] = useState(true);
   const [counts, setCounts] = useState(0);
   const [isWin, setIsWin] = useState(true);
+  const [isNext, setIsNext] = useState(false);
   const params = useParams();
   const router = useNavigate();
   const pathname = location.pathname.split("/")[1];
   const bgImage = backgrounds.find((bg) => bg.id === Number(params.id))?.bg;
   const savedlevel = JSON.parse(localStorage.getItem("tmlevel"));
+  const [nextBgImage, setNextBgImage] = useState(null);
+  const [changeBg, setChangeBg] = useState(false);
   var timer = time;
   if (time < 0) {
     timer = 0;
@@ -68,6 +72,12 @@ export default function GameTime() {
       router("/hmlevel");
     }
 
+    if (isWin && !changeBg) {
+      const nextLevel = Number(params.id) + 1;
+      const nextBg = backgrounds.find((bg) => bg.id === nextLevel)?.bg;
+      setNextBgImage(nextBg);
+    }
+
     if (isWin == false) {
       const updatedTm = savedlevel.map((level) =>
         level.id === Number(params.id) + 1 ? { ...level, isOpen: true } : level
@@ -78,7 +88,7 @@ export default function GameTime() {
     return () => {
       clearInterval(interval);
     };
-  }, [Random, Quest, isRunning]);
+  }, [Random, Quest, isRunning, isWin, params.id, changeBg]);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -90,6 +100,19 @@ export default function GameTime() {
     } else {
       return "00:00";
     }
+  };
+
+  const handleNextLevel = () => {
+    setChangeBg(true);
+    setIsNext(true);
+    setTimeout(() => {
+      router(
+        pathname === "gametime"
+          ? `/gametime/${Number(params.id) + 1}`
+          : `/game/${Number(params.id) + 1}`
+      );
+      setChangeBg(false);
+    }, 400);
   };
 
   const Next = () => {
@@ -167,87 +190,134 @@ export default function GameTime() {
 
   return (
     <div
-      className={`grid bg-no-repeat bg-cover bg-center h-screen justify-center relative`}
-      style={{ backgroundImage: `url(${bgImage})` }}
+      className=" bg-no-repeat bg-cover bg-center h-screen justify-center relative"
+      style={{ backgroundImage: `url(${isNext ? nextBgImage : bgImage})` }}
     >
-      {isend ? (
-        <div
-          onClick={handleSetting}
-          className={`${
-            isPause && isWin
-              ? "left-[80%] top-[4%] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
-              : "hidden"
-          }`}
-        >
-          <Pause size={37} />
-        </div>
-      ) : (
-        <LoseModal />
-      )}
-      {isPause ? (
-        ""
-      ) : (
-        <PauseModal setIsPause={setIsPause} setIsRunning={setIsRunning} />
-      )}
-
-      {isWin ? "" : <WinModal />}
-      <div className="box1 h-[70vh] font-bold text-[#E29F51] font-game text-stroke-black">
-        {time >= 10 ? (
-          <div className="Heart-box text-center w-full mt-[80px] text-[32px] text-[#C8EDE0]">
-            {formatTime(time)}
-          </div>
+      <motion.div
+        initial={{ x: 0, y: 0, opacity: 1 }}
+        animate={
+          isNext
+            ? {
+                x: "-100vw",
+                y: 0,
+                opacity: 1,
+                transition: { duration: 0.4 },
+              }
+            : { x: 0, y: 0, opacity: 1 }
+        }
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className={`grid bg-no-repeat bg-cover bg-center h-screen justify-center relative`}
+        style={{ backgroundImage: `url(${bgImage})` }}
+      >
+        {isend ? (
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            onClick={handleSetting}
+            className={`${
+              isPause && isWin
+                ? "left-[80%] top-[4%] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
+                : "hidden"
+            }`}
+          >
+            <Pause size={37} />
+          </motion.div>
         ) : (
-          <div className="Heart-box text-center w-full mt-[80px] text-[32px]">
-            {formatTime(time)}
-          </div>
+          <LoseModal />
         )}
-        <div
-          className={`${
-            isend && isPause && isWin ? "" : "invisible"
-          } font-game`}
-        >
-          <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
-            {wordsA1[Quest].word}
+        {isPause ? (
+          ""
+        ) : (
+          <PauseModal setIsPause={setIsPause} setIsRunning={setIsRunning} />
+        )}
+
+        {isWin ? "" : <WinModal onNext={handleNextLevel} />}
+        <div className="box1 h-[70vh] font-bold text-yellow font-game text-stroke-black">
+          {time > 10 ? (
+            <motion.div
+              initial={{ x: 0, y: "-100vh", opacity: 1 }}
+              animate={{
+                x: 0,
+                y: 0,
+                opacity: 1,
+              }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+              className="Heart-box text-center w-full mt-[80px] text-[32px] text-mint"
+            >
+              {formatTime(time)}
+            </motion.div>
+          ) : (
+            <div className="Heart-box text-center w-full mt-[80px] text-[32px] text-orange">
+              {formatTime(time)}
+            </div>
+          )}
+          <div
+            className={`${
+              isend && isPause && isWin ? "" : "invisible"
+            } font-game`}
+          >
+            <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
+              {wordsA1[Quest].word}
+            </div>
+          </div>
+          <motion.div
+            initial={{ x: "-100vw", y: 0, opacity: 1 }}
+            animate={{
+              x: 0,
+              y: 0,
+              opacity: 1,
+            }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            className="absolute left-[5vw] top-[40%]"
+          >
+            <img
+              className="h-[30vh] w-[55vw] object-cover"
+              src={humanImage}
+              alt="Human"
+            />
+          </motion.div>
+          <motion.div
+            initial={{ x: "100vw", y: 0, opacity: 1 }}
+            animate={{
+              x: 0,
+              y: 0,
+              opacity: 1,
+            }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            className="absolute left-[50vw] top-[55%]"
+          >
+            <img
+              className=" h-[15vh] w-[50vw]"
+              src={monsterImage}
+              alt="Monster"
+            />
+          </motion.div>
+        </div>
+        <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
+          <div className="box2 h-[30vh]">
+            <div className="w-full inline-flex gap-5 justify-center pt-5">
+              {ch1 !== null && ch2 !== null && Quest !== null && (
+                <>
+                  <motion.button
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => Correctornot(ch1)}
+                    className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
+                  >
+                    {wordsA1[ch1].answer}
+                  </motion.button>
+                  <motion.button
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => Correctornot(ch2)}
+                    type="button"
+                    className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
+                  >
+                    {wordsA1[ch2].answer}
+                  </motion.button>
+                </>
+              )}
+            </div>
           </div>
         </div>
-        <div className="absolute left-[5vw] top-[40%]">
-          <img
-            className="h-[30vh] w-[55vw] object-cover"
-            src={humanImage}
-            alt="Human"
-          />
-        </div>
-        <div className="absolute left-[50vw] top-[55%]">
-          <img
-            className=" h-[15vh] w-[50vw]"
-            src={monsterImage}
-            alt="Monster"
-          />
-        </div>
-      </div>
-      <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
-        <div className="box2 h-[30vh]">
-          <div className="w-full inline-flex gap-5 justify-center pt-5">
-            {ch1 !== null && ch2 !== null && Quest !== null && (
-              <>
-                <button
-                  onClick={() => Correctornot(ch1)}
-                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
-                >
-                  {wordsA1[ch1].answer}
-                </button>
-                <button
-                  onClick={() => Correctornot(ch2)}
-                  type="button"
-                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
-                >
-                  {wordsA1[ch2].answer}
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

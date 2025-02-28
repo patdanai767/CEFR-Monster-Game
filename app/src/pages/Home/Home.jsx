@@ -21,7 +21,7 @@ function Home() {
   const navigate = useNavigate();
   const [isTap, setIsTap] = useState(false);
 
-  const handleButton = () => {
+  const handleNext = () => {
     setIsTap(true);
     setTimeout(() => {
       navigate("/mode");
@@ -62,7 +62,7 @@ function Home() {
           <div className="absolute top-[76%] w-full text-center">
             <motion.button
               whileTap={{ scale: 0.9 }}
-              onClick={handleButton}
+              onClick={handleNext}
               className="px-6 py-1 text-[30px] bg-yellow border-2 border-black "
             >
               Play
