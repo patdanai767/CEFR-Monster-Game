@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import wordsA1 from "./gameA1";
+import wordsA2 from "./gameA2";
+import wordsB1 from "./gameB1";
+import wordsB2 from "./gameB2";
+import wordsC1 from "./gameC1";
 import LoseModal from "../../components/Modal/LoseModal";
 import { Pause } from "lucide-react";
 import PauseModal from "../../components/Modal/PauseModal";
@@ -9,23 +13,39 @@ import BoarIdle from "/boaridle.gif";
 import Attack from "/Attack-01.gif";
 import Wrong from "/wrong.gif";
 import BoarAtk from "/boaratk.gif";
-import SnailIdle from "/snailIdle.gif"
-import SnailHit from "/snailHit.gif"
-import Snaildead from "/snailDead.gif"
-import SnailAtk from "/snailAttack.gif"
 import Dead from "/Dead.gif";
 import BoarHit from "/Hit.gif";
+import Boardead from "/Boardead.gif";
+import SnailIdle from "/snailIdle.gif";
+import SnailHit from "/snailHit.gif";
+import Snaildead from "/snailDead.gif";
+import SnailAtk from "/snailAttack.gif";
+import BeeIdle from "/bee_idle.gif";
+import BeeHit from "/bee_hit.gif";
+import Beedead from "/bee_dead.gif";
+import BeeAtk from "/bee_attack.gif";
+import BatIdle from "/bat_idle.gif";
+import BatHit from "/bat_hit.gif";
+import Batdead from "/bat_death2.gif";
+import BatAtk from "/bat_attack.gif";
+import BossIdle from "/Toad_Idle.gif";
+import BossHit from "/Toad_Damage.gif";
+import Bossdead from "/Toad_Death.gif";
+import BossAtk from "/Toad_Attack.gif";
+import Slashsound from "/Swordslash.mp3";
 import { backgrounds } from "../../constants/background";
 import { useNavigate, useParams } from "react-router-dom";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
 import { motion } from "framer-motion";
 
 export default function GameTime() {
-  const [wordLevel,setwordLevel] = useState(wordsA1);
-  const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
-  const [Quest, setQuest] = useState(Math.floor(Math.random() * wordLevel.length));
   const [ch1, setCh1] = useState(null);
   const [ch2, setCh2] = useState(null);
+  const [wordLevel, setwordLevel] = useState(wordsA1);
+  const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
+  const [Quest, setQuest] = useState(
+    Math.floor(Math.random() * wordLevel.length)
+  );
   const [humanImage, setHumanImage] = useState(Idle);
   const [monsterImage, setMonsterImage] = useState(null);
   const [isend, setisend] = useState(true);
@@ -35,12 +55,11 @@ export default function GameTime() {
   const [counts, setCounts] = useState(0);
   const [isWin, setIsWin] = useState(true);
   const [isNext, setIsNext] = useState(false);
-  const [Winstreak, setWinstreak] = useState(1);
   const params = useParams();
   const router = useNavigate();
   const pathname = location.pathname.split("/")[1];
   const bgImage = backgrounds.find((bg) => bg.id === Number(params.id))?.bg;
-  const savedlevel = JSON.parse(localStorage.getItem("tmlevel"));
+  const savedlevel = JSON.parse(Cookies.get("tmlevel"));
   const [nextBgImage, setNextBgImage] = useState(null);
   const [changeBg, setChangeBg] = useState(false);
   var timer = time;
@@ -66,47 +85,55 @@ export default function GameTime() {
       }, 1000);
     }
     checkTime(timer);
-    if(Number(params.id) <= 2)
-      {
-        setwordLevel(wordsA1);
-        if(Winstreak===4)
-        {
-          setMonsterImage(Boardead);
-        }
-        else
-        {
-          setMonsterImage(BoarIdle);
-        }
-        
-      }
-      else if(Number(params.id) <= 4)
-        {
-          setwordLevel(wordsA2);
-          if(Winstreak===4)
-            {
-              setMonsterImage(Snaildead);
-            }
-            else
-            {
-              setMonsterImage(SnailIdle);
-            }
-        
-        }
-        else if(Number(params.id) <= 6)
-          {
-            setwordLevel(wordsB1);
-          }
-          else if(Number(params.id) <= 9)
-            {
-              setwordLevel(wordsB2);
-            }
-    if (Number(params.id) > 10 && pathname === "gametime") {
+
+    if (
+      (Number(params.id) > 10 && pathname === "gametime") ||
+      (savedlevel[params.id - 1].isOpen === false && pathname === "gametime")
+    ) {
       router("/tmlevel");
-    } else if (Number(params.id) > 10 && pathname === "game") {
+    } else if (
+      (Number(params.id) > 10 && pathname === "game") ||
+      (savedlevel[params.id - 1].isOpen === false && pathname === "game")
+    ) {
       router("/hmlevel");
     }
-
-    if (isWin && !changeBg) {
+    if (Number(params.id) <= 2) {
+      setwordLevel(wordsA1);
+      if (counts === 3) {
+        setMonsterImage(Boardead);
+      } else {
+        setMonsterImage(BoarIdle);
+      }
+    } else if (Number(params.id) <= 4) {
+      setwordLevel(wordsA2);
+      if (counts === 3) {
+        setMonsterImage(Snaildead);
+      } else {
+        setMonsterImage(SnailIdle);
+      }
+    } else if (Number(params.id) <= 6) {
+      setwordLevel(wordsB1);
+      if (counts === 3) {
+        setMonsterImage(Beedead);
+      } else {
+        setMonsterImage(BeeIdle);
+      }
+    } else if (Number(params.id) <= 9) {
+      setwordLevel(wordsB2);
+      if (counts === 3) {
+        setMonsterImage(Batdead);
+      } else {
+        setMonsterImage(BatIdle);
+      }
+    } else if (Number(params.id) <= 10) {
+      setwordLevel(wordsC1);
+      if (counts === 3) {
+        setMonsterImage(Bossdead);
+      } else {
+        setMonsterImage(BossIdle);
+      }
+    }
+    if (isWin) {
       const nextLevel = Number(params.id) + 1;
       const nextBg = backgrounds.find((bg) => bg.id === nextLevel)?.bg;
       setNextBgImage(nextBg);
@@ -116,13 +143,13 @@ export default function GameTime() {
       const updatedTm = savedlevel.map((level) =>
         level.id === Number(params.id) + 1 ? { ...level, isOpen: true } : level
       );
-      localStorage.setItem("tmlevel", JSON.stringify(updatedTm));
+      Cookies.set("tmlevel", JSON.stringify(updatedTm));
     }
 
     return () => {
       clearInterval(interval);
     };
-  }, [Random, Quest, isRunning,wordLevel, isWin, params.id, changeBg]);
+  }, [Random, Quest, isRunning, isWin, params.id, changeBg]);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -148,6 +175,9 @@ export default function GameTime() {
       setChangeBg(false);
     }, 400);
   };
+  function slash() {
+    new Audio(Slashsound).play();
+  }
 
   const Next = () => {
     const newRandom = Math.floor(Math.random() * 2) + 1;
@@ -185,22 +215,46 @@ export default function GameTime() {
 
   const CorrectAnim = () => {
     setHumanImage(Attack);
-    if(Number(params.id) <= 2)
-        {
-        setMonsterImage(BoarHit);
-        }
-        else if(Number(params.id) <= 4)
-          {
-          setMonsterImage(SnailHit);
-          }
-          setWinstreak(Winstreak + 1);
-    if (Winsteak == 2) {
+    slash();
+    if (Number(params.id) <= 2) {
+      setMonsterImage(BoarHit);
+    } else if (Number(params.id) <= 4) {
+      setMonsterImage(SnailHit);
+    } else if (Number(params.id) <= 6) {
+      setMonsterImage(BeeHit);
+    } else if (Number(params.id) <= 9) {
+      setMonsterImage(BatHit);
+    } else if (Number(params.id) <= 10) {
+      setMonsterImage(BossHit);
+    }
+    if (counts == 2) {
       setIsWin(false);
       setIsRunning(false);
+      if (Number(params.id) <= 2) {
+        setMonsterImage(Boardead);
+      } else if (Number(params.id) <= 4) {
+        setMonsterImage(Snaildead);
+      } else if (Number(params.id) <= 6) {
+        setMonsterImage(Beedead);
+      } else if (Number(params.id) <= 9) {
+        setMonsterImage(Batdead);
+      } else if (Number(params.id) <= 10) {
+        setMonsterImage(Bossdead);
+      }
     }
     setTimeout(() => {
       setHumanImage(Idle);
-      setMonsterImage(BoarIdle);
+      if (Number(params.id) <= 2) {
+        setMonsterImage(BoarIdle);
+      } else if (Number(params.id) <= 4) {
+        setMonsterImage(SnailIdle);
+      } else if (Number(params.id) <= 6) {
+        setMonsterImage(BeeIdle);
+      } else if (Number(params.id) <= 9) {
+        setMonsterImage(BatlIdle);
+      } else if (Number(params.id) <= 10) {
+        setMonsterImage(BossIdle);
+      }
     }, 500);
   };
 
@@ -211,10 +265,30 @@ export default function GameTime() {
       timer = 0;
     }
     setHumanImage(Wrong);
-    setMonsterImage(BoarAtk);
+    if (Number(params.id) <= 2) {
+      setMonsterImage(BoarAtk);
+    } else if (Number(params.id) <= 4) {
+      setMonsterImage(SnailAtk);
+    } else if (Number(params.id) <= 6) {
+      setMonsterImage(BeeAtk);
+    } else if (Number(params.id) <= 9) {
+      setMonsterImage(BatAtk);
+    } else if (Number(params.id) <= 10) {
+      setMonsterImage(BossAtk);
+    }
     setTimeout(() => {
       setHumanImage(Idle);
-      setMonsterImage(BoarIdle);
+      if (Number(params.id) <= 2) {
+        setMonsterImage(BoarIdle);
+      } else if (Number(params.id) <= 4) {
+        setMonsterImage(SnailIdle);
+      } else if (Number(params.id) <= 6) {
+        setMonsterImage(BeeIdle);
+      } else if (Number(params.id) <= 9) {
+        setMonsterImage(BatlIdle);
+      } else if (Number(params.id) <= 10) {
+        setMonsterImage(BossIdle);
+      }
     }, 500);
   };
 
@@ -232,30 +306,9 @@ export default function GameTime() {
 
   return (
     <div
-      className={`grid bg-no-repeat bg-cover h-screen justify-center`}
-      style={{ backgroundImage: `url(${bgImage})` }}
+      className=" bg-no-repeat bg-cover bg-center h-screen justify-center relative"
+      style={{ backgroundImage: `url(${isNext ? nextBgImage : bgImage})` }}
     >
-      {isend ? (
-        <div
-          onClick={handleSetting}
-          className={`${
-            isPause && isWin
-              ? "left-[309px] top-[32px] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
-              : "hidden"
-          }`}
-        >
-          <Pause size={37} />
-        </div>
-      ) : (
-        <LoseModal />
-      )}
-      {isPause ? (
-        ""
-      ) : (
-        <PauseModal setIsPause={setIsPause} setIsRunning={setIsRunning} />
-      )}
-       
-    
       <motion.div
         initial={{ x: 0, y: 0, opacity: 1 }}
         animate={
@@ -293,67 +346,9 @@ export default function GameTime() {
           <PauseModal setIsPause={setIsPause} setIsRunning={setIsRunning} />
         )}
 
-      {isWin ? "" : <WinModal />}
-      <div className="box1 h-[70vh] font-bold text-[#E29F51] font-game text-stroke-black">
-        {time >= 10 ? (
-          <div className="Heart-box text-center w-full mt-[80px] text-[32px] text-[#C8EDE0]">
-            {formatTime(time)}
-          </div>
-        ) : (
-          <div className="Heart-box text-center w-full mt-[80px] text-[32px]">
-            {formatTime(time)}
-          </div>
-        )}
-        <div
-          className={`${
-            isend && isPause && isWin ? "" : "invisible"
-          } font-game`}
-        >
-          <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
-            {wordLevel[Quest].word}
-          </div>
-        </div>
-        <div className="gif_box pt-60 flex justify-center">
-          <img
-            className="w-[197px] h-[246px] pb-12"
-            src={humanImage}
-            alt="Human"
-          />
-          <div className="pt-14.5">
-            <img
-              className="w-[196px] h-[140px]"
-              src={monsterImage}
-              alt="Monster"
-            />
-          </div>
-        </div>
-      </div>
-      <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
-        <div className="box2 h-[30vh]">
-          <div className="w-full inline-flex gap-5 justify-center pt-5">
-            {ch1 !== null && ch2 !== null && Quest !== null && (
-              <>
-                <button
-                  onClick={() => Correctornot(ch1)}
-                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
-                >
-                  {wordLevel[ch1].answer}
-                </button>
-                <button
-                  onClick={() => Correctornot(ch2)}
-                  type="button"
-                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
-                >
-                  {wordLevel[ch2].answer}
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
         {isWin ? "" : <WinModal onNext={handleNextLevel} />}
-        <div className="box1 h-[70vh] font-bold text-yellow font-game text-stroke-black">
-          {time > 10 ? (
+        <div className="box1 h-[70vh] font-bold text-[#E29F51] font-game text-stroke-black">
+          {time >= 10 ? (
             <motion.div
               initial={{ x: 0, y: "-100vh", opacity: 1 }}
               animate={{
@@ -362,12 +357,12 @@ export default function GameTime() {
                 opacity: 1,
               }}
               transition={{ duration: 0.7, ease: "easeInOut" }}
-              className="Heart-box text-center w-full mt-[80px] text-[32px] text-mint"
+              className="Heart-box text-center w-full mt-[80px] text-[32px] text-[#C8EDE0]"
             >
               {formatTime(time)}
             </motion.div>
           ) : (
-            <div className="Heart-box text-center w-full mt-[80px] text-[32px] text-orange">
+            <div className="Heart-box text-center w-full mt-[80px] text-[32px]">
               {formatTime(time)}
             </div>
           )}
@@ -377,7 +372,7 @@ export default function GameTime() {
             } font-game`}
           >
             <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
-              {wordsA1[Quest].word}
+              {wordLevel[Quest].word}
             </div>
           </div>
           <motion.div
@@ -388,26 +383,26 @@ export default function GameTime() {
               opacity: 1,
             }}
             transition={{ duration: 0.7, ease: "easeInOut" }}
-            className="absolute left-[5vw] top-[40%]"
+            className="absolute sm:-left-[3%] sm:top-[45%] left-[5vw] top-[40%]"
           >
             <img
-              className="h-[30vh] w-[55vw] object-cover"
+              className="sm:h-[25vh] sm:w-fit h-[30vh] w-[55vw] object-cover"
               src={humanImage}
               alt="Human"
             />
           </motion.div>
           <motion.div
-            initial={{ x: "100vw", y: 0, opacity: 1 }}
+            initial={{ x: "-100vw", y: 0, opacity: 1 }}
             animate={{
               x: 0,
               y: 0,
               opacity: 1,
             }}
             transition={{ duration: 0.7, ease: "easeInOut" }}
-            className="absolute left-[50vw] top-[55%]"
+            className="absolute sm:left-[50%] sm:top-[55%] left-[50vw] top-[55%]"
           >
             <img
-              className=" h-[15vh] w-[50vw]"
+              className="sm:h-[15vh] sm:w-fit h-[15vh] w-[50vw]"
               src={monsterImage}
               alt="Monster"
             />
@@ -419,19 +414,17 @@ export default function GameTime() {
               {ch1 !== null && ch2 !== null && Quest !== null && (
                 <>
                   <motion.button
-                    whileTap={{ scale: 0.9 }}
                     onClick={() => Correctornot(ch1)}
                     className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
                   >
-                    {wordsA1[ch1].answer}
+                    {wordLevel[ch1].answer}
                   </motion.button>
                   <motion.button
-                    whileTap={{ scale: 0.9 }}
                     onClick={() => Correctornot(ch2)}
                     type="button"
                     className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
                   >
-                    {wordsA1[ch2].answer}
+                    {wordLevel[ch2].answer}
                   </motion.button>
                 </>
               )}

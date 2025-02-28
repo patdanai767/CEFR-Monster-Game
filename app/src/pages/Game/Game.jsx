@@ -16,22 +16,22 @@ import BoarAtk from "/boaratk.gif";
 import Dead from "/Dead.gif";
 import BoarHit from "/Hit.gif";
 import Boardead from "/Boardead.gif";
-import SnailIdle from "/snailIdle.gif"
-import SnailHit from "/snailHit.gif"
-import Snaildead from "/snailDead.gif"
-import SnailAtk from "/snailAttack.gif"
-import BeeIdle from "/bee_idle.gif"
-import BeeHit from "/bee_hit.gif"
-import Beedead from "/bee_dead.gif"
-import BeeAtk from "/bee_attack.gif"
-import BatIdle from "/bat_idle.gif"
-import BatHit from "/bat_hit.gif"
-import Batdead from "/bat_death2.gif"
-import BatAtk from "/bat_attack.gif"
-import BossIdle from "/Toad_Idle.gif"
-import BossHit from "/Toad_Damage.gif"
-import Bossdead from "/Toad_Death.gif"
-import BossAtk from "/Toad_Attack.gif"
+import SnailIdle from "/snailIdle.gif";
+import SnailHit from "/snailHit.gif";
+import Snaildead from "/snailDead.gif";
+import SnailAtk from "/snailAttack.gif";
+import BeeIdle from "/bee_idle.gif";
+import BeeHit from "/bee_hit.gif";
+import Beedead from "/bee_dead.gif";
+import BeeAtk from "/bee_attack.gif";
+import BatIdle from "/bat_idle.gif";
+import BatHit from "/bat_hit.gif";
+import Batdead from "/bat_death2.gif";
+import BatAtk from "/bat_attack.gif";
+import BossIdle from "/Toad_Idle.gif";
+import BossHit from "/Toad_Damage.gif";
+import Bossdead from "/Toad_Death.gif";
+import BossAtk from "/Toad_Attack.gif";
 import Heart3 from "/Heart.png";
 import Heart2 from "/Heart-1.png";
 import Heart1 from "/Heart-2.png";
@@ -41,14 +41,16 @@ import { backgrounds } from "../../constants/background";
 import Homemu from "/Homemu.wav";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
 
 export default function Game() {
   const [ch1, setCh1] = useState(null);
   const [ch2, setCh2] = useState(null);
-  const [wordLevel,setwordLevel] = useState(wordsA1);
+  const [wordLevel, setwordLevel] = useState(wordsA1);
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
-  const [Quest, setQuest] = useState(Math.floor(Math.random() * wordLevel.length));
+  const [Quest, setQuest] = useState(
+    Math.floor(Math.random() * wordLevel.length)
+  );
   const [humanImage, setHumanImage] = useState(Idle);
   const [monsterImage, setMonsterImage] = useState(null);
   const [HeartImage, setHeartImage] = useState(Heart3);
@@ -86,72 +88,42 @@ export default function Game() {
       setCh2(Quest);
       setCh1(Math.floor(Math.random() * wordLevel.length));
     }
-    if(Number(params.id) <= 2)
-      {
-        setwordLevel(wordsA1);
-        if(Winstreak===4)
-        {
-          setMonsterImage(Boardead);
-        }
-        else
-        {
-          setMonsterImage(BoarIdle);
-        }
-        
+    if (Number(params.id) <= 2) {
+      setwordLevel(wordsA1);
+      if (Winstreak === 4) {
+        setMonsterImage(Boardead);
+      } else {
+        setMonsterImage(BoarIdle);
       }
-      else if(Number(params.id) <= 4)
-        {
-          setwordLevel(wordsA2);
-          if(Winstreak===4)
-            {
-              setMonsterImage(Snaildead);
-            }
-            else
-            {
-              setMonsterImage(SnailIdle);
-            }
-            
-            
-        
-        }
-        else if(Number(params.id) <= 6)
-          {
-            setwordLevel(wordsB1);
-            if(Winstreak===4)
-                {
-                  setMonsterImage(Beedead);
-                }
-                else
-                {
-                  setMonsterImage(BeeIdle);
-                }
-          }
-          else if(Number(params.id) <= 9)
-            {
-              setwordLevel(wordsB2);
-              if(Winstreak===4)
-                {
-                  setMonsterImage(Batdead);
-                }
-                else
-                {
-                  setMonsterImage(BatIdle);
-                }
-            }
-            else if (Number(params.id) <= 10)
-            {
-              setwordLevel(wordsC1);
-              if(Winstreak===4)
-                {
-                  setMonsterImage(Bossdead);
-                }
-                else
-                {
-                  setMonsterImage(BossIdle);
-                }
-            }
-      
-    
+    } else if (Number(params.id) <= 4) {
+      setwordLevel(wordsA2);
+      if (Winstreak === 4) {
+        setMonsterImage(Snaildead);
+      } else {
+        setMonsterImage(SnailIdle);
+      }
+    } else if (Number(params.id) <= 6) {
+      setwordLevel(wordsB1);
+      if (Winstreak === 4) {
+        setMonsterImage(Beedead);
+      } else {
+        setMonsterImage(BeeIdle);
+      }
+    } else if (Number(params.id) <= 9) {
+      setwordLevel(wordsB2);
+      if (Winstreak === 4) {
+        setMonsterImage(Batdead);
+      } else {
+        setMonsterImage(BatIdle);
+      }
+    } else if (Number(params.id) <= 10) {
+      setwordLevel(wordsC1);
+      if (Winstreak === 4) {
+        setMonsterImage(Bossdead);
+      } else {
+        setMonsterImage(BossIdle);
+      }
+    }
 
     if (isNext) {
       setTimeout(() => {}, 500);
@@ -221,26 +193,17 @@ export default function Game() {
   const CorrectAnim = () => {
     setHumanImage(Attack);
     slash();
-    if(Number(params.id) <= 2)
-    {
-    setMonsterImage(BoarHit);
-    }
-    else if(Number(params.id) <= 4)
-      {
+    if (Number(params.id) <= 2) {
+      setMonsterImage(BoarHit);
+    } else if (Number(params.id) <= 4) {
       setMonsterImage(SnailHit);
-      }
-      else if(Number(params.id) <= 6)
-        {
-        setMonsterImage(BeeHit);
-        }
-      else if(Number(params.id) <= 9)
-        {
-        setMonsterImage(BatHit);
-        }
-      else if(Number(params.id) <= 10)
-        {
-        setMonsterImage(BossHit);
-        }
+    } else if (Number(params.id) <= 6) {
+      setMonsterImage(BeeHit);
+    } else if (Number(params.id) <= 9) {
+      setMonsterImage(BatHit);
+    } else if (Number(params.id) <= 10) {
+      setMonsterImage(BossHit);
+    }
     setWinstreak(Winstreak + 1);
     if (Winstreak === 3) {
       setIsWin(false);
@@ -248,26 +211,17 @@ export default function Game() {
         level.id === Number(params.id) + 1 ? { ...level, isOpen: true } : level
       );
       Cookies.set("hmlevel", JSON.stringify(updatedHm));
-      if(Number(params.id) <= 2)
-        {
+      if (Number(params.id) <= 2) {
         setMonsterImage(Boardead);
-        }
-        else if(Number(params.id) <= 4)
-          {
-          setMonsterImage(Snaildead);
-          }
-          else if(Number(params.id) <= 6)
-            {
-            setMonsterImage(Beedead);
-            }
-          else if(Number(params.id) <= 9)
-            {
-            setMonsterImage(Batdead);
-            }
-          else if(Number(params.id) <= 10)
-            {
-            setMonsterImage(Bossdead);
-            }
+      } else if (Number(params.id) <= 4) {
+        setMonsterImage(Snaildead);
+      } else if (Number(params.id) <= 6) {
+        setMonsterImage(Beedead);
+      } else if (Number(params.id) <= 9) {
+        setMonsterImage(Batdead);
+      } else if (Number(params.id) <= 10) {
+        setMonsterImage(Bossdead);
+      }
       setHumanImage(Attack);
       setTimeout(() => {
         setHumanImage(Idle);
@@ -275,26 +229,17 @@ export default function Game() {
     } else {
       setTimeout(() => {
         setHumanImage(Idle);
-        if(Number(params.id) <= 2)
-          {
-            setMonsterImage(BoarIdle);
-          }
-          else if(Number(params.id) <= 4)
-            {
-              setMonsterImage(SnailIdle);
-            }
-            else if(Number(params.id) <= 6)
-              {
-                setMonsterImage(BeeIdle);
-              }
-            else if(Number(params.id) <= 9)
-              {
-                setMonsterImage(BatlIdle);
-              }
-            else if(Number(params.id) <= 10)
-              {
-                setMonsterImage(BossIdle);
-              }
+        if (Number(params.id) <= 2) {
+          setMonsterImage(BoarIdle);
+        } else if (Number(params.id) <= 4) {
+          setMonsterImage(SnailIdle);
+        } else if (Number(params.id) <= 6) {
+          setMonsterImage(BeeIdle);
+        } else if (Number(params.id) <= 9) {
+          setMonsterImage(BatlIdle);
+        } else if (Number(params.id) <= 10) {
+          setMonsterImage(BossIdle);
+        }
       }, 500);
     }
   };
@@ -302,86 +247,47 @@ export default function Game() {
   const WrongAnim = () => {
     Heartvalue -= 1;
     setHumanImage(Wrong);
-    if(Number(params.id) <= 2)
-      {
-        setMonsterImage(BoarAtk);
-      }
-      else if(Number(params.id) <= 4)
-        {
+    if (Number(params.id) <= 2) {
+      setMonsterImage(BoarAtk);
+    } else if (Number(params.id) <= 4) {
+      setMonsterImage(SnailAtk);
+    } else if (Number(params.id) <= 6) {
+      setMonsterImage(BeeAtk);
+    } else if (Number(params.id) <= 9) {
+      setMonsterImage(BatAtk);
+    } else if (Number(params.id) <= 10) {
+      setMonsterImage(BossAtk);
+    }
 
-          setMonsterImage(SnailAtk);
-        
-        }
-        else if(Number(params.id) <= 6)
-          {
-  
-            setMonsterImage(BeeAtk);
-          
-          }
-        else if(Number(params.id) <= 9)
-          {
-  
-            setMonsterImage(BatAtk);
-          
-          }
-        else if(Number(params.id) <= 10)
-          {
-  
-            setMonsterImage(BossAtk);
-          
-          }
-    
-    
-    
     if (HeartImage === Heart1) {
       setHumanImage(Dead);
-      if(Number(params.id) <= 2)
-        {
-          setMonsterImage(BoarAtk);
-        }
-        else if(Number(params.id) <= 4)
-          {
-            setMonsterImage(SnailAtk);
-          }
-          else if(Number(params.id) <= 6)
-            {
-              setMonsterImage(BeeAtk);
-            }
-          else if(Number(params.id) <= 9)
-            {
-              setMonsterImage(BatAtk);
-            }
-          else if(Number(params.id) <= 10)
-            {
-    
-              setMonsterImage(BossAtk);
-            
-            }
+      if (Number(params.id) <= 2) {
+        setMonsterImage(BoarAtk);
+      } else if (Number(params.id) <= 4) {
+        setMonsterImage(SnailAtk);
+      } else if (Number(params.id) <= 6) {
+        setMonsterImage(BeeAtk);
+      } else if (Number(params.id) <= 9) {
+        setMonsterImage(BatAtk);
+      } else if (Number(params.id) <= 10) {
+        setMonsterImage(BossAtk);
+      }
       setHeartImage(Heart0);
       setisend(false);
     } else {
       setTimeout(() => {
         setHumanImage(Idle);
-        if(Number(params.id) <= 2)
-          {
-            setMonsterImage(BoarIdle);
-          }
-          else if(Number(params.id) <= 4)
-            {
-              setMonsterImage(SnailIdle);
-            }
-            else if(Number(params.id) <= 6)
-              {
-                setMonsterImage(BeeIdle);
-              }
-            else if(Number(params.id) <= 9)
-              {
-                setMonsterImage(BatIdle);
-              }
-            else if(Number(params.id) <= 10)
-              {
-                setMonsterImage(BossIdle);
-              }
+        if (Number(params.id) <= 2) {
+          setMonsterImage(BoarIdle);
+        } else if (Number(params.id) <= 4) {
+          setMonsterImage(SnailIdle);
+        } else if (Number(params.id) <= 6) {
+          setMonsterImage(BeeIdle);
+        } else if (Number(params.id) <= 9) {
+          setMonsterImage(BatIdle);
+        } else if (Number(params.id) <= 10) {
+          setMonsterImage(BossIdle);
+        }
       }, 500);
       if (Heartvalue === 0) {
         if (HeartImage === Heart3) setHeartImage(Heart2);
