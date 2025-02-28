@@ -23,6 +23,7 @@ import { backgrounds } from "../../constants/background";
 import Homemu from "/Homemu.wav";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
+import { motion } from "framer-motion";
 
 export default function Game() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
@@ -36,12 +37,16 @@ export default function Game() {
   const [isend, setisend] = useState(true);
   const [isPause, setIsPause] = useState(true);
   const [isWin, setIsWin] = useState(true);
+  const [isNext, setIsNext] = useState(false);
   const [Winstreak, setWinstreak] = useState(1);
   const params = useParams();
   const router = useNavigate();
   const pathname = location.pathname.split("/")[1];
   const savedlevel = JSON.parse(Cookies.get("hmlevel"));
   const bgImage = backgrounds.find((bg) => bg.id === Number(params.id))?.bg;
+  const [nextBgImage, setNextBgImage] = useState(null);
+  const [changeBg, setChangeBg] = useState(false);
+
   let Heartvalue = 1;
 
   useEffect(() => {
@@ -75,6 +80,19 @@ export default function Game() {
 
   const handleSetting = () => {
     setIsPause(!isPause);
+  };
+
+  const handleNextLevel = () => {
+    setChangeBg(true);
+    setIsNext(true);
+    setTimeout(() => {
+      router(
+        pathname === "gametime"
+          ? `/gametime/${Number(params.id) + 1}`
+          : `/game/${Number(params.id) + 1}`
+      );
+      setChangeBg(false);
+    }, 400);
   };
 
   function slash() {
@@ -161,30 +179,53 @@ export default function Game() {
 
   return (
     <div
-      className="grid bg-no-repeat bg-cover bg-center h-screen justify-center relative"
-      style={{ backgroundImage: `url(${bgImage})` }}
+      className=" bg-no-repeat bg-cover bg-center h-screen justify-center relative"
+      style={{ backgroundImage: `url(${isNext ? nextBgImage : bgImage})` }}
     >
-      {isend ? (
-        <div
-          onClick={handleSetting}
-          className={`${
-            isPause && isWin
-              ? "left-[80%] top-[4%] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
-              : "hidden"
-          }`}
-        >
-          <Pause size={37} />
-        </div>
-      ) : (
-        <LoseModal />
-      )}
-      {isWin ? null : <WinModal />}
-      {isPause ? "" : <PauseModal setIsPause={setIsPause} />}
+      <motion.div
+        initial={{ x: 0, y: 0, opacity: 1 }}
+        animate={
+          isNext
+            ? {
+                x: "-100vw",
+                y: 0,
+                opacity: 1,
+                transition: { duration: 0.4 },
+              }
+            : { x: 0, y: 0, opacity: 1 }
+        }
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="grid bg-no-repeat bg-cover bg-center h-screen justify-center relative"
+        style={{ backgroundImage: `url(${bgImage})` }}
+      >
+        {isend ? (
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            onClick={handleSetting}
+            className={`${
+              isPause && isWin
+                ? "left-[80%] top-[4%] absolute border-[3px] bg-yellow rounded-sm w-[48px] h-[48px] content-center justify-items-center"
+                : "hidden"
+            }`}
+          >
+            <Pause size={37} />
+          </motion.div>
+        ) : (
+          <LoseModal />
+        )}
+        {isWin ? null : <WinModal onNext={handleNextLevel} />}
+        {isPause ? "" : <PauseModal setIsPause={setIsPause} />}
 
-      <div className="h-[70vh] font-bold text-[#E29F51] font-game">
-        <div className="w-full  flex justify-center p-[90px] right-[0.5px] h-[10px]">
+      <motion.div className="h-[70vh] font-bold text-[#E29F51] font-game">
+        <motion.div initial={{ x: 0, y: "-100vh", opacity: 1 }}
+            animate={{
+              x: 0,
+              y: 0,
+              opacity: 1,
+            }}
+            transition={{ duration: 0.7, ease: "easeInOut" }} className="w-full  flex justify-center p-[90px] right-[0.5px] h-[10px]">
           <img className="w-[134px] h-[36px]" src={HeartImage} alt="Heart" />
-        </div>
+        </motion.div>
         <div
           className={`${
             isend && isPause && isWin ? "" : "invisible"
@@ -194,44 +235,59 @@ export default function Game() {
             {wordLevel[Quest].word}
           </div>
         </div>
-        <div className="absolute sm:-left-[3%] sm:top-[45%] left-[5vw] top-[40%]">
+        <motion.div nitial={{ x: "-100vw", y: 0, opacity: 1 }}
+            animate={{
+              x: 0,
+              y: 0,
+              opacity: 1,
+            }}
+            transition={{ duration: 0.7, ease: "easeInOut" }} className="absolute sm:-left-[3%] sm:top-[45%] left-[5vw] top-[40%]">
           <img
             className="sm:h-[25vh] sm:w-fit h-[30vh] w-[55vw] object-cover"
             src={humanImage}
             alt="Human"
           />
-        </div>
-        <div className="absolute sm:left-[50%] sm:top-[55%] left-[50vw] top-[55%]">
+        </motion.div>
+        <motion.div initial={{ x: "-100vw", y: 0, opacity: 1 }}
+            animate={{
+              x: 0,
+              y: 0,
+              opacity: 1,
+            }}
+            transition={{ duration: 0.7, ease: "easeInOut" }} className="absolute sm:left-[50%] sm:top-[55%] left-[50vw] top-[55%]">
           <img
             className="sm:h-[15vh] sm:w-fit h-[15vh] w-[50vw]"
             src={monsterImage}
             alt="Monster"
           />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
       <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
         <div className="box2 h-[30vh]">
           <div className="w-full inline-flex gap-5 justify-center pt-5">
             {ch1 !== null && ch2 !== null && Quest !== null && (
               <>
-                <button
+                <motion.button
+                whileTap={{ scale: 0.9 }}
                   onClick={() => Correctornot(ch1)}
                   className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
                 >
                   {wordLevel[ch1].answer}
-                </button>
-                <button
+                </motion.button>
+                <motion.button
+                whileTap={{ scale: 0.9 }}
                   onClick={() => Correctornot(ch2)}
                   type="button"
                   className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
                 >
                   {wordLevel[ch2].answer}
-                </button>
+                </motion.button>
               </>
             )}
           </div>
         </div>
       </div>
+      <motion.div/>
     </div>
   );
 }
