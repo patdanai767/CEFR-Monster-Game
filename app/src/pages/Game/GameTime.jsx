@@ -14,6 +14,7 @@ import MonsterHit from "/Hit.gif";
 import { backgrounds } from "../../constants/background";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
+import { motion } from "framer-motion";
 
 export default function GameTime() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
@@ -34,6 +35,8 @@ export default function GameTime() {
   const pathname = location.pathname.split("/")[1];
   const bgImage = backgrounds.find((bg) => bg.id === Number(params.id))?.bg;
   const savedlevel = JSON.parse(Cookies.get("tmlevel"));
+  const [nextBgImage, setNextBgImage] = useState(null);
+  const [changeBg, setChangeBg] = useState(false);
   var timer = time;
   if (time < 0) {
     timer = 0;
@@ -70,7 +73,7 @@ export default function GameTime() {
       router("/hmlevel");
     }
 
-    if (isWin && !changeBg) {
+    if (isWin) {
       const nextLevel = Number(params.id) + 1;
       const nextBg = backgrounds.find((bg) => bg.id === nextLevel)?.bg;
       setNextBgImage(nextBg);
@@ -228,82 +231,92 @@ export default function GameTime() {
           <PauseModal setIsPause={setIsPause} setIsRunning={setIsRunning} />
         )}
 
-      {isWin ? "" : <WinModal />}
-      <div className="box1 h-[70vh] font-bold text-[#E29F51] font-game text-stroke-black">
-        {time >= 10 ? (
-          <motion.div initial={{ x: 0, y: "-100vh", opacity: 1 }}
-          animate={{
-            x: 0,
-            y: 0,
-            opacity: 1,
-          }}
-          transition={{ duration: 0.7, ease: "easeInOut" }} className="Heart-box text-center w-full mt-[80px] text-[32px] text-[#C8EDE0]">
-            {formatTime(time)}
+        {isWin ? "" : <WinModal onNext={handleNextLevel} />}
+        <div className="box1 h-[70vh] font-bold text-[#E29F51] font-game text-stroke-black">
+          {time >= 10 ? (
+            <motion.div
+              initial={{ x: 0, y: "-100vh", opacity: 1 }}
+              animate={{
+                x: 0,
+                y: 0,
+                opacity: 1,
+              }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+              className="Heart-box text-center w-full mt-[80px] text-[32px] text-[#C8EDE0]"
+            >
+              {formatTime(time)}
+            </motion.div>
+          ) : (
+            <div className="Heart-box text-center w-full mt-[80px] text-[32px]">
+              {formatTime(time)}
+            </div>
+          )}
+          <div
+            className={`${
+              isend && isPause && isWin ? "" : "invisible"
+            } font-game`}
+          >
+            <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
+              {wordsA1[Quest].word}
+            </div>
+          </div>
+          <motion.div
+            initial={{ x: "-100vw", y: 0, opacity: 1 }}
+            animate={{
+              x: 0,
+              y: 0,
+              opacity: 1,
+            }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            className="absolute sm:-left-[3%] sm:top-[45%] left-[5vw] top-[40%]"
+          >
+            <img
+              className="sm:h-[25vh] sm:w-fit h-[30vh] w-[55vw] object-cover"
+              src={humanImage}
+              alt="Human"
+            />
           </motion.div>
-        ) : (
-          <div className="Heart-box text-center w-full mt-[80px] text-[32px]">
-            {formatTime(time)}
-          </div>
-        )}
-        <div
-          className={`${
-            isend && isPause && isWin ? "" : "invisible"
-          } font-game`}
-        >
-          <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
-            {wordsA1[Quest].word}
-          </div>
-        </div>
-        <motion.div initial={{ x: "-100vw", y: 0, opacity: 1 }}
+          <motion.div
+            initial={{ x: "-100vw", y: 0, opacity: 1 }}
             animate={{
               x: 0,
               y: 0,
               opacity: 1,
             }}
-            transition={{ duration: 0.7, ease: "easeInOut" }} className="absolute sm:-left-[3%] sm:top-[45%] left-[5vw] top-[40%]">
-          <img
-            className="sm:h-[25vh] sm:w-fit h-[30vh] w-[55vw] object-cover"
-            src={humanImage}
-            alt="Human"
-          />
-        </motion.div>
-        <motion.div initial={{ x: "-100vw", y: 0, opacity: 1 }}
-            animate={{
-              x: 0,
-              y: 0,
-              opacity: 1,
-            }}
-            transition={{ duration: 0.7, ease: "easeInOut" }} className="absolute sm:left-[50%] sm:top-[55%] left-[50vw] top-[55%]">
-          <img
-            className="sm:h-[15vh] sm:w-fit h-[15vh] w-[50vw]"
-            src={monsterImage}
-            alt="Monster"
-          />
-        </motion.div>
-      </div>
-      <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
-        <div className="box2 h-[30vh]">
-          <div className="w-full inline-flex gap-5 justify-center pt-5">
-            {ch1 !== null && ch2 !== null && Quest !== null && (
-              <>
-                <motion.button
-                  onClick={() => Correctornot(ch1)}
-                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
-                >
-                  {wordsA1[ch1].answer}
-                </motion.button>
-                <motion.button
-                  onClick={() => Correctornot(ch2)}
-                  type="button"
-                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
-                >
-                  {wordsA1[ch2].answer}
-                </motion.button>
-              </>
-            )}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            className="absolute sm:left-[50%] sm:top-[55%] left-[50vw] top-[55%]"
+          >
+            <img
+              className="sm:h-[15vh] sm:w-fit h-[15vh] w-[50vw]"
+              src={monsterImage}
+              alt="Monster"
+            />
+          </motion.div>
+        </div>
+        <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
+          <div className="box2 h-[30vh]">
+            <div className="w-full inline-flex gap-5 justify-center pt-5">
+              {ch1 !== null && ch2 !== null && Quest !== null && (
+                <>
+                  <motion.button
+                    onClick={() => Correctornot(ch1)}
+                    className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
+                  >
+                    {wordsA1[ch1].answer}
+                  </motion.button>
+                  <motion.button
+                    onClick={() => Correctornot(ch2)}
+                    type="button"
+                    className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
+                  >
+                    {wordsA1[ch2].answer}
+                  </motion.button>
+                </>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

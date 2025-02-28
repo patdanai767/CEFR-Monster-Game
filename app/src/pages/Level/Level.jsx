@@ -1,7 +1,9 @@
 import { Volume2, VolumeOff, ChevronLeft, Scale } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
+import { motion } from "framer-motion";
+import backgrounds from "../../backgrounds/backgrounds";
 
 export default function Level() {
   const router = useNavigate();
@@ -34,8 +36,12 @@ export default function Level() {
 
   return (
     /*background*/
-    <motion.div
-    initial={{ x: 0, y: 0, opacity: 1 }}
+    <div
+      className="relative overflow-hidden bg-no-repeat h-screen bg-cover font-game"
+      style={{ backgroundImage: `url(${backgrounds[levelNumber]})` }}
+    >
+      <motion.div
+        initial={{ x: 0, y: 0, opacity: 1 }}
         animate={
           isTap
             ? {
@@ -47,43 +53,49 @@ export default function Level() {
             : { x: 0, y: 0, opacity: 1 }
         }
         transition={{ duration: 0.4, ease: "easeInOut" }}
-      className="relative overflow-hidden bg-no-repeat h-screen bg-cover font-game"
-      style={{ backgroundImage: "url('/backgroundlevel.png')" }}
-    >
-      {/* ปุ่มย้อนกลับ */}
-      <motion.div
-      whileTap={{ scale: 0.9 }}
-        onClick={handleBack}
-        className="absolute top-[4%] left-[8%] bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[2px] content-center justify-items-center"
+        className="relative overflow-hidden bg-no-repeat h-screen bg-cover font-game"
+        style={{ backgroundImage: "url('/backgroundlevel.png')" }}
       >
-        <ChevronLeft strokeWidth={1} size={45} />
-      </motion.div>
-      {isVolumeOn ? (
-        <motion.div whileTap={{ scale: 0.9 }} className="absolute top-[90%] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
-          <Volume2
-            strokeWidth={1}
-            size={40}
-            onClick={handleVolume}
-            className="sm:ml-[0vw] ml-[1.5vw]"
-          />
+        {/* ปุ่มย้อนกลับ */}
+        <motion.div
+          whileTap={{ scale: 0.9 }}
+          onClick={handleBack}
+          className="absolute top-[4%] left-[8%] bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[2px] content-center justify-items-center"
+        >
+          <ChevronLeft strokeWidth={1} size={45} />
         </motion.div>
-      ) : (
-        <motion.div whileTap={{ scale: 0.9 }} className="absolute top-[90%] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
-          <VolumeOff
-            strokeWidth={1}
-            size={40}
-            onClick={handleVolume}
-            className="sm:ml-[0vw] ml-[1.5vw]"
-          />
-        </motion.div>
-      )}
-      {storagetm
-        ? storagetm.map((level) => (
-            <motion.div
+        {isVolumeOn ? (
+          <motion.div
             whileTap={{ scale: 0.9 }}
-              onClick={() => handleLevel(level.id, level.isOpen)}
-              key={level.id}
-              className={`absolute w-[56px] h-[56px] rounded 
+            className="absolute top-[90%] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center"
+          >
+            <Volume2
+              strokeWidth={1}
+              size={40}
+              onClick={handleVolume}
+              className="sm:ml-[0vw] ml-[1.5vw]"
+            />
+          </motion.div>
+        ) : (
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            className="absolute top-[90%] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center"
+          >
+            <VolumeOff
+              strokeWidth={1}
+              size={40}
+              onClick={handleVolume}
+              className="sm:ml-[0vw] ml-[1.5vw]"
+            />
+          </motion.div>
+        )}
+        {storagetm
+          ? storagetm.map((level) => (
+              <motion.div
+                whileTap={{ scale: 0.9 }}
+                onClick={() => handleLevel(level.id, level.isOpen)}
+                key={level.id}
+                className={`absolute w-[56px] h-[56px] rounded 
             ${
               level.isOpen
                 ? "bg-[#C8EDE0] text-black"
