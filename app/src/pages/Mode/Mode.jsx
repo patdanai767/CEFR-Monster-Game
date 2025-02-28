@@ -1,6 +1,8 @@
 import React from "react";
 import { Clock, WalletCards, Heart, ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Volume2, VolumeOff } from "lucide-react";
+import { useEffect, useState } from "react";
 
 function Mode() {
   const router = useNavigate();
@@ -8,6 +10,15 @@ function Mode() {
   const handleBack = () => {
     router("/");
   };
+
+  const [isVolumeOn, setIsVolumeOn] = useState(true);
+
+  const handleVolume = () => {
+    setIsVolumeOn(!isVolumeOn);
+  };
+
+
+
   return (
     <div className="bg-[url(/src/assets/Home-Background.jpg)] h-screen bg-cover bg-no-repeat overflow-hidden">
       <div
@@ -48,6 +59,17 @@ function Mode() {
               </div>
             </div>
           </div>
+          {isVolumeOn ? (
+            <div className="absolute top-[809px] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
+              <Volume2 strokeWidth={1} size={40} onClick={handleVolume} />
+            </div>
+          ) : (
+            <div className="absolute top-[809px] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
+              <VolumeOff strokeWidth={1} size={40} onClick={handleVolume} />
+            </div>
+          )}
+
+
         </div>
       </div>
     </div>
