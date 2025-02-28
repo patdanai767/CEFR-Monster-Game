@@ -16,6 +16,16 @@ export default function Member() {
 
   const members = [
     {
+      id: "66010583",
+      name: ["นายพิรณัฐ จงรักดี", ""],
+      image: "/src/assets/IdleGet.gif",
+    },
+    {
+      id: "66010608",
+      name: ["นายภวดล เนื้อสะอาด", ""],
+      image: "/src/assets/IdlePhu.gif",
+    },
+    {
       id: "66010725",
       name: ["นางสาววณิชญา", "เรืองรักเรียน"],
       image: "/src/assets/IdleBow.gif",
@@ -30,9 +40,11 @@ export default function Member() {
       name: ["นายเตชะไพบูลย์", "สร้อยสระคู"],
       image: "/src/assets/IdleFord.gif",
     },
-    { id: "66011448", name: ["นายภัทรดนัย จำรัส", ""], image: "/src/assets/IdlePat.gif" },
-    { id: "66010583", name: ["นายพิรณัฐ จงรักดี", ""], image: "/src/assets/IdleGet.gif" },
-    { id: "66010608", name: ["นายภวดล เนื้อสะอาด", ""], image: "/src/assets/IdlePhu.gif" },
+    {
+      id: "66011448",
+      name: ["นายภัทรดนัย จำรัส", ""],
+      image: "/src/assets/IdlePat.gif",
+    },
   ];
 
   return (
@@ -83,7 +95,11 @@ export default function Member() {
           <div key={member.id} className="text-center">
             {/* รูปภาพ */}
             <div className="sm:ml-0 h-[16vh] w-[14vh] overflow-hidden ">
-              <img src={member.image} alt={member.name[0]} className="h-full w-full " />
+              <img
+                src={member.image}
+                alt={member.name[0]}
+                className="h-full w-full "
+              />
             </div>
             {/* หมายเลข */}
             <div className=" text-[#C8EDE0] text-[1.75vh] text-stroke-black mt-1 ">

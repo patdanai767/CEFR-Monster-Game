@@ -85,7 +85,7 @@ function Mode() {
                 <motion.div
                   whileTap={{ scale: 0.9 }}
                   onClick={handleNextToHeartMode}
-                  className="text-[20px] w-[360px] h-[12vh] bg-[#E29F51]  border-3 flex items-center justify-center"
+                  className="text-[20px] w-[352px] h-[12vh] bg-[#E29F51]  border-3 flex items-center justify-center"
                 >
                   Heart mode <Heart fill="red" size={30} className="ml-8" />
                 </motion.div>
@@ -94,7 +94,7 @@ function Mode() {
                 <motion.div
                   whileTap={{ scale: 0.9 }}
                   onClick={handleNextToTimeMode}
-                  className=" text-[20px] w-[360px] h-[12vh] bg-[#E29F51]  border-3 flex items-center justify-center"
+                  className="text-[20px] w-[352px] h-[12vh] bg-[#E29F51]  border-3 flex items-center justify-center"
                 >
                   Time attack{" "}
                   <Clock fill="#C8EDE0" size={30} className="ml-8" />
@@ -106,7 +106,7 @@ function Mode() {
               >
                 <div
                   onClick={handleNextToFlashCardMode}
-                  className=" text-[20px] w-[360px] h-[12vh] bg-[#C5E369]  border-3 flex items-center justify-center"
+                  className=" text-[20px] w-[352px] h-[12vh] bg-[#C5E369]  border-3 flex items-center justify-center"
                 >
                   Flashcard <WalletCards size={30} className="ml-8" />
                 </div>

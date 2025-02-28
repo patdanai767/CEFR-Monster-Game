@@ -233,7 +233,7 @@ export default function GameTime() {
 
         {isWin ? "" : <WinModal onNext={handleNextLevel} />}
         <div className="box1 h-[70vh] font-bold text-[#E29F51] font-game text-stroke-black">
-          {time >= 10 ? (
+          {time >= 10 === true ? (
             <motion.div
               initial={{ x: 0, y: "-100vh", opacity: 1 }}
               animate={{
@@ -242,12 +242,18 @@ export default function GameTime() {
                 opacity: 1,
               }}
               transition={{ duration: 0.7, ease: "easeInOut" }}
-              className="Heart-box text-center w-full mt-[80px] text-[32px] text-[#C8EDE0]"
+              className={`Heart-box text-center w-full mt-[80px] text-[32px] ${
+                isWin ? "text-[#C8EDE0]" : "hidden"
+              }`}
             >
               {formatTime(time)}
             </motion.div>
           ) : (
-            <div className="Heart-box text-center w-full mt-[80px] text-[32px]">
+            <div
+              className={`Heart-box text-center w-full mt-[80px] text-[32px] ${
+                isend ? "" : "hidden"
+              }`}
+            >
               {formatTime(time)}
             </div>
           )}
