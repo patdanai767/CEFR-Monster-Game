@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { motion } from "framer-motion";
 import backgrounds from "../../backgrounds/backgrounds";
+import { useMusic } from "../../provider/MusicProvide";
 
 export default function Level() {
   const router = useNavigate();
   const storagetm = JSON.parse(Cookies.get("hmlevel"));
-  const [isVolumeOn, setIsVolumeOn] = useState(true);
+  const { isVolumeOn, setIsVolumeOn } = useMusic();
   const [isTap, setIsTap] = useState(false);
   const [currentLevel, setCurrentLevel] = useState(null);
 
@@ -25,7 +26,7 @@ export default function Level() {
       setIsTap(true);
       setCurrentLevel(level);
       setTimeout(() => {
-        router(`/game/${level}`);
+        window.location.href = `/game/${level}`;
       }, 400);
       return;
     }

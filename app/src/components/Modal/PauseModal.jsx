@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Volume2, VolumeOff } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useMusic } from "../../provider/MusicProvide";
 
 export default function PauseModal({ setIsPause, setIsRunning }) {
-  const [isVolumeOn, setIsVolumeOn] = useState(true);
+  const { isVolumeOn, setIsVolumeOn } = useMusic();
   const location = useLocation();
   const pathname = location.pathname.split("/")[1];
 

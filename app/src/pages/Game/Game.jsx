@@ -38,7 +38,6 @@ import Heart1 from "/Heart-2.png";
 import Heart0 from "/Heart-3.png";
 import Slashsound from "/Swordslash.mp3";
 import { backgrounds } from "../../constants/background";
-import Homemu from "/Homemu.wav";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";

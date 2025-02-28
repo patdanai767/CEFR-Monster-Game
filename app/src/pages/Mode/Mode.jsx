@@ -1,29 +1,23 @@
 import React, { useState, useEffect } from "react";
-import {
-  Clock,
-  WalletCards,
-  Heart,
-  ChevronLeft,
-  HandHelping,
-} from "lucide-react";
+import { Clock, WalletCards, Heart, ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Volume2, VolumeOff } from "lucide-react";
 import { motion } from "framer-motion";
+import ReactHowler from "react-howler";
+import { useMusic } from "../../provider/MusicProvide";
 
 function Mode() {
+  const { isVolumeOn, setIsVolumeOn } = useMusic();
+  const [isTap, setIsTap] = useState(false);
   const router = useNavigate();
-
-  const handleBack = () => {
-    router("/");
-  };
-
-  const [isVolumeOn, setIsVolumeOn] = useState(true);
 
   const handleVolume = () => {
     setIsVolumeOn(!isVolumeOn);
   };
 
-  const [isTap, setIsTap] = useState(false);
+  const handleBack = () => {
+    router("/");
+  };
 
   const handleNextToHeartMode = () => {
     setIsTap(true);
