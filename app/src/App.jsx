@@ -6,12 +6,14 @@ import Level from "./pages/Level/Level";
 import TmLevel from "./pages/Level/TmLevel";
 import GameTime from "./pages/Game/GameTime";
 import Member from "./pages/Member/Member";
+import WordIndex from "./pages/WordIndex/WordIndex"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/Word" element={<WordIndex />} />
         <Route path="/mode" element={<Mode />} />
         <Route path="/hmlevel" element={<Level />} />
         <Route path="/tmlevel" element={<TmLevel />} />
