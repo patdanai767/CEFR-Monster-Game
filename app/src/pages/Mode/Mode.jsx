@@ -40,12 +40,12 @@ function Mode() {
               </a>
             </div>
             <div className="mt-12 mx-18">
-              <div
-                href="#"
+              <a
+                href="/word"
                 className=" text-[20px] w-[360px] h-[68px] bg-[#C5E369]  border-3 flex items-center justify-center"
               >
                 Flashcard <WalletCards size={30} className="ml-8" />
-              </div>
+              </a>
             </div>
           </div>
         </div>
