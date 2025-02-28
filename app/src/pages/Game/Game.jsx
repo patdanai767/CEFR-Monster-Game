@@ -22,14 +22,14 @@ import Slashsound from "/Swordslash.mp3";
 import { backgrounds } from "../../constants/background";
 import Homemu from "/Homemu.wav";
 import { useNavigate, useParams } from "react-router-dom";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
 
 export default function Game() {
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
   const [Quest, setQuest] = useState(Math.floor(Math.random() * 896));
   const [ch1, setCh1] = useState(null);
   const [ch2, setCh2] = useState(null);
-  const [wordLevel,setwordLevel] = useState(wordsA1)
+  const [wordLevel, setwordLevel] = useState(wordsA1);
   const [humanImage, setHumanImage] = useState(Idle);
   const [monsterImage, setMonsterImage] = useState(BoarIdle);
   const [HeartImage, setHeartImage] = useState(Heart3);
@@ -45,7 +45,6 @@ export default function Game() {
   let Heartvalue = 1;
 
   useEffect(() => {
-    
     if (Random === 1) {
       setCh1(Quest);
       setCh2(Math.floor(Math.random() * 896));
@@ -53,19 +52,14 @@ export default function Game() {
       setCh2(Quest);
       setCh1(Math.floor(Math.random() * 896));
     }
-    if(Number(params.id) <= 3)
-      {
-        setwordLevel(wordsA1);
-      }
-      else if(Number(params.id) <= 6)
-        {
-          setwordLevel(wordsA2);
-        }
-        else if(Number(params.id) <= 8)
-          {
-            setwordLevel(wordsB1);
-          }
-      
+    if (Number(params.id) <= 3) {
+      setwordLevel(wordsA1);
+    } else if (Number(params.id) <= 6) {
+      setwordLevel(wordsA2);
+    } else if (Number(params.id) <= 8) {
+      setwordLevel(wordsB1);
+    }
+
     if (
       (Number(params.id) > 10 && pathname === "gametime") ||
       (savedlevel[params.id - 1].isOpen === false && pathname === "gametime")
@@ -77,13 +71,12 @@ export default function Game() {
     ) {
       router("/hmlevel");
     }
+  }, [Random, Quest, wordLevel]);
 
-  }, [Random, Quest ,wordLevel]);
-  
   const handleSetting = () => {
     setIsPause(!isPause);
   };
-  
+
   function slash() {
     new Audio(Slashsound).play();
   }
@@ -201,15 +194,19 @@ export default function Game() {
             {wordLevel[Quest].word}
           </div>
         </div>
-        <div className="absolute left-[5vw] top-[40%]">
+        <div className="absolute sm:-left-[3%] sm:top-[45%] left-[5vw] top-[40%]">
           <img
-            className="h-[30vh] w-[55vw] object-cover"
+            className="sm:h-[25vh] sm:w-fit h-[30vh] w-[55vw] object-cover"
             src={humanImage}
             alt="Human"
           />
         </div>
-        <div className="absolute left-[50vw] top-[55%]">
-          <img className="h-[15vh] w-[50vw]" src={monsterImage} alt="Monster" />
+        <div className="absolute sm:left-[50%] sm:top-[55%] left-[50vw] top-[55%]">
+          <img
+            className="sm:h-[15vh] sm:w-fit h-[15vh] w-[50vw]"
+            src={monsterImage}
+            alt="Monster"
+          />
         </div>
       </div>
       <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>

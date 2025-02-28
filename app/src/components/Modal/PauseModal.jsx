@@ -24,12 +24,22 @@ export default function PauseModal({ setIsPause, setIsRunning }) {
     <div className="justify-items-center relative top-[220px] w-full font-game z-[1000]">
       <div>
         {isVolumeOn ? (
-          <div className="-top-10 left-[30vw] absolute w-[80px] h-[80px] rounded-[100%] border-3 bg-[#E29F51]">
-            <Volume2 height={45} width={45} onClick={handleVolume} className="ml-[3.7vw] mt-[3.7vw]"/>
+          <div className="sm:left-[40%] sm:justify-items-center content-center -top-10 left-[30vw] absolute w-[80px] h-[80px] rounded-[100%] border-3 bg-[#E29F51]">
+            <Volume2
+              height={45}
+              width={45}
+              onClick={handleVolume}
+              className="sm:ml-0 sm:mt-0 ml-[3.7vw] mt-[3.7vw]"
+            />
           </div>
         ) : (
           <div className="-top-10 left-[30vw] absolute w-[80px] h-[80px] rounded-[100%] border-3 bg-[#C76735]">
-            <VolumeOff height={45} width={45} onClick={handleVolume} className="ml-[3.7vw] mt-[3.7vw]"/>
+            <VolumeOff
+              height={45}
+              width={45}
+              onClick={handleVolume}
+              className="sm:ml-0 sm:mt-0 ml-[3.7vw] mt-[3.7vw]"
+            />
           </div>
         )}
       </div>

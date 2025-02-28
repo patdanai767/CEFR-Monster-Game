@@ -58,14 +58,14 @@ export default function Member() {
             strokeWidth={1}
             size={40}
             onClick={handleVolume}
-            className="ml-[1.5vw]"
+            className="sm:ml-[0vw] ml-[1.5vw]"
           />
         ) : (
           <VolumeOff
             strokeWidth={1}
             size={40}
             onClick={handleVolume}
-            className="ml-[1.5vw]"
+            className="sm:ml-[0vw] ml-[1.5vw]"
           />
         )}
       </button>
@@ -82,7 +82,7 @@ export default function Member() {
         {members.map((member) => (
           <div key={member.id} className="justify-items-center text-center">
             {/* รูปภาพ */}
-            <div className="h-[14vh] w-[15vh] rounded overflow-hidden">
+            <div className="sm:ml-0 ml-[8vw] h-[14vh] w-[15vh] rounded overflow-hidden">
               <img src={member.image} alt={member.name[0]} className="" />
             </div>
             {/* หมายเลข */}

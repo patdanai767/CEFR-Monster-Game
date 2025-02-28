@@ -63,7 +63,7 @@ function Home() {
             strokeWidth={1}
             size={40}
             onClick={handleVolume}
-            className="ml-[1.5vw]"
+            className="sm:ml-[0vw] ml-[1.5vw]"
           />
         </div>
       ) : (
@@ -72,13 +72,13 @@ function Home() {
             strokeWidth={1}
             size={40}
             onClick={handleVolume}
-            className="ml-[1.5vw]"
+            className="sm:ml-[0vw] ml-[1.5vw]"
           />
         </div>
       )}
       <a href="/member">
         <div className="absolute top-[90%] left-[80%] bg-[#C8EDE0] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
-          <User strokeWidth={1} size={40} className="ml-[1.5vw]" />
+          <User strokeWidth={1} size={40} className="sm:ml-[0vw] ml-[1.5vw]" />
         </div>
       </a>
     </div>

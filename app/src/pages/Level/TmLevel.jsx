@@ -43,7 +43,7 @@ export default function Level() {
             strokeWidth={1}
             size={40}
             onClick={handleVolume}
-            className="ml-[1.5vw]"
+            className="sm:ml-[0vw] ml-[1.5vw]"
           />
         </div>
       ) : (
@@ -52,7 +52,7 @@ export default function Level() {
             strokeWidth={1}
             size={40}
             onClick={handleVolume}
-            className="ml-[1.5vw]"
+            className="sm:ml-[0vw] ml-[1.5vw]"
           />
         </div>
       )}
