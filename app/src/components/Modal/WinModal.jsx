@@ -1,11 +1,16 @@
 import { useParams, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function WinModal({ onNext }) {
   const location = useLocation();
   const pathname = location.pathname.split("/")[1];
   const params = useParams();
+  const [isBoss, setIsBoss] = useState(false);
+
+  useEffect(() => {
+    setIsBoss(Number(params.id) === 10);
+  }, []);
 
   const handleNext = () => {
     onNext();
@@ -36,13 +41,17 @@ export default function WinModal({ onNext }) {
         YOU WIN
       </div>
       <div className="rounded-sm w-3/4 border-3 grid text-[20px] overflow-hidden text-center px-8 py-7 gap-7 bg-[#2E5B3F] border-[#C5E369] text-[#E29F51] text-stroke-black">
-        <motion.a
-          whileTap={{ scale: 0.9 }}
-          className="text-stroke-black"
-          onClick={handleNext}
-        >
-          Next
-        </motion.a>
+        {isBoss ? (
+          ""
+        ) : (
+          <motion.a
+            whileTap={{ scale: 0.9 }}
+            className="text-stroke-black"
+            onClick={handleNext}
+          >
+            Next
+          </motion.a>
+        )}
         <motion.div whileTap={{ scale: 0.9 }} onClick={handleRetry}>
           Retry
         </motion.div>

@@ -251,7 +251,7 @@ export default function GameTime() {
       } else if (Number(params.id) <= 6) {
         setMonsterImage(BeeIdle);
       } else if (Number(params.id) <= 9) {
-        setMonsterImage(BatlIdle);
+        setMonsterImage(BatIdle);
       } else if (Number(params.id) <= 10) {
         setMonsterImage(BossIdle);
       }
@@ -378,7 +378,7 @@ export default function GameTime() {
             } font-game`}
           >
             <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
-              {wordLevel[Quest].word}
+              {wordLevel[Quest]?.word}
             </div>
           </div>
           <motion.div
@@ -398,7 +398,7 @@ export default function GameTime() {
             />
           </motion.div>
           <motion.div
-            initial={{ x: "-100vw", y: 0, opacity: 1 }}
+            initial={{ x: "100vw", y: 0, opacity: 1 }}
             animate={{
               x: 0,
               y: 0,
@@ -423,14 +423,14 @@ export default function GameTime() {
                     onClick={() => Correctornot(ch1)}
                     className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
                   >
-                    {wordLevel[ch1].answer}
+                    {wordLevel[ch1]?.answer}
                   </motion.button>
                   <motion.button
                     onClick={() => Correctornot(ch2)}
                     type="button"
                     className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
                   >
-                    {wordLevel[ch2].answer}
+                    {wordLevel[ch2]?.answer}
                   </motion.button>
                 </>
               )}
