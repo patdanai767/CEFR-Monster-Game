@@ -12,32 +12,32 @@ export default function Member() {
     {
       id: "66010583",
       name: ["นายพิรณัฐ จงรักดี", ""],
-      image: "/src/assets/IdleGet.gif",
+      image: "/IdleGet.gif",
     },
     {
       id: "66010608",
       name: ["นายภวดล เนื้อสะอาด", ""],
-      image: "/src/assets/IdlePhu.gif",
+      image: "/IdlePhu.gif",
     },
     {
       id: "66010725",
       name: ["นางสาววณิชญา", "เรืองรักเรียน"],
-      image: "/src/assets/IdleBow.gif",
+      image: "/IdleBow.gif",
     },
     {
       id: "66010935",
       name: ["นายอิทธิกร แป้นบางนา", ""],
-      image: "/src/assets/IdlePeem.gif",
+      image: "/IdlePeem.gif",
     },
     {
       id: "66011368",
       name: ["นายเตชะไพบูลย์", "สร้อยสระคู"],
-      image: "/src/assets/IdleFord.gif",
+      image: "/IdleFord.gif",
     },
     {
       id: "66011448",
       name: ["นายภัทรดนัย จำรัส", ""],
-      image: "/src/assets/IdlePat.gif",
+      image: "/IdlePat.gif",
     },
   ];
 
@@ -49,9 +49,9 @@ export default function Member() {
       {/* ปุ่มย้อนกลับ */}
       <button
         onClick={handleBack}
-        className="absolute top-[4%] left-[8%] bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[3px] flex justify-center items-center"
+        className="absolute top-[4%] left-[8%] bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[2px] content-center justify-items-center"
       >
-        <ChevronLeft strokeWidth={1.7} size={45} />
+        <ChevronLeft strokeWidth={1} size={45} />
       </button>
 
       {/* หัวข้อ Members Group 2 */}
