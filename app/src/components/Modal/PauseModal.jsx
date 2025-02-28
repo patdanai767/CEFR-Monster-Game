@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Volume2, VolumeOff } from "lucide-react";
 import { useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function PauseModal({ setIsPause, setIsRunning }) {
   const [isVolumeOn, setIsVolumeOn] = useState(true);
@@ -24,27 +25,55 @@ export default function PauseModal({ setIsPause, setIsRunning }) {
     <div className="justify-items-center relative top-[220px] w-full font-game z-[1000]">
       <div>
         {isVolumeOn ? (
-          <div className="-top-10 left-[30vw] absolute w-[80px] h-[80px] rounded-[100%] border-3 bg-[#E29F51]">
-            <Volume2 height={45} width={45} onClick={handleVolume} className="ml-[3.7vw] mt-[3.7vw]"/>
-          </div>
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            className="-top-10 left-[30vw] absolute w-[80px] h-[80px] rounded-[100%] border-3 bg-[#E29F51]"
+          >
+            <Volume2
+              height={45}
+              width={45}
+              onClick={handleVolume}
+              className="ml-[3.7vw] mt-[3.7vw]"
+            />
+          </motion.div>
         ) : (
-          <div className="-top-10 left-[30vw] absolute w-[80px] h-[80px] rounded-[100%] border-3 bg-[#C76735]">
-            <VolumeOff height={45} width={45} onClick={handleVolume} className="ml-[3.7vw] mt-[3.7vw]"/>
-          </div>
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            className="-top-10 left-[30vw] absolute w-[80px] h-[80px] rounded-[100%] border-3 bg-[#C76735]"
+          >
+            <VolumeOff
+              height={45}
+              width={45}
+              onClick={handleVolume}
+              className="ml-[3.7vw] mt-[3.7vw]"
+            />
+          </motion.div>
         )}
       </div>
       <div className="rounded-sm border-3 border-black grid overflow-hidden text-center px-8 py-14 gap-7 bg-[#856360] text-[#E29F51] text-stroke-black">
         <div className="text-[32px] text-[#C8EDE0]">Pause</div>
-        <div onClick={handleResume}>Resume</div>
-        <div onClick={handleRetry}>Retry</div>
+        <motion.div whileTap={{ scale: 0.9 }} onClick={handleResume}>
+          Resume
+        </motion.div>
+        <motion.div whileTap={{ scale: 0.9 }} onClick={handleRetry}>
+          Retry
+        </motion.div>
         {pathname === "gametime" ? (
-          <a href="/tmlevel" className="text-stroke-black">
+          <motion.a
+            whileTap={{ scale: 0.9 }}
+            href="/tmlevel"
+            className="text-stroke-black"
+          >
             Back to menu
-          </a>
+          </motion.a>
         ) : (
-          <a href="/hmlevel" className="text-stroke-black">
+          <motion.a
+            whileTap={{ scale: 0.9 }}
+            href="/hmlevel"
+            className="text-stroke-black"
+          >
             Back to menu
-          </a>
+          </motion.a>
         )}
       </div>
     </div>
