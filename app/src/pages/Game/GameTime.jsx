@@ -283,7 +283,7 @@ export default function GameTime() {
             />
           </motion.div>
           <motion.div
-            initial={{ x: "-100vw", y: 0, opacity: 1 }}
+            initial={{ x: "100vw", y: 0, opacity: 1 }}
             animate={{
               x: 0,
               y: 0,
