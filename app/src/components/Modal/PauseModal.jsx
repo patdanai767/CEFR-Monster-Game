@@ -46,7 +46,7 @@ export default function PauseModal({ setIsPause, setIsRunning }) {
               height={45}
               width={45}
               onClick={handleVolume}
-              className="sm:ml-0 sm:mt-0 ml-[3.4vw] mt-[3.7vw]"
+              className="sm:ml-0 sm:mt-0 ml-[3.4vw]"
             />
           </motion.div>
         )}

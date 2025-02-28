@@ -70,10 +70,10 @@ export default function GameTime() {
   useEffect(() => {
     if (Random === 1) {
       setCh1(Quest);
-      setCh2(Math.floor(Math.random() * 896));
+      setCh2(Math.floor(Math.random() * wordLevel.length));
     } else if (Random === 2) {
       setCh2(Quest);
-      setCh1(Math.floor(Math.random() * 896));
+      setCh1(Math.floor(Math.random() * wordLevel.length));
     }
     let interval = null;
 
@@ -364,7 +364,6 @@ export default function GameTime() {
               {formatTime(time)}
             </motion.div>
           ) : (
-            
             <div
               className={`Heart-box text-center w-full mt-[80px] text-[32px] ${
                 isend ? "" : "hidden"
