@@ -23,16 +23,16 @@ export default function Member() {
     {
       id: "66010935",
       name: ["นายอิทธิกร แป้นบางนา", ""],
-      image: "/member1.jpg",
+      image: "/src/assets/IdlePeem.gif",
     },
     {
       id: "66011368",
       name: ["นายเตชะไพบูลย์", "สร้อยสระคู"],
-      image: "/member1.jpg",
+      image: "/src/assets/IdleFord.gif",
     },
-    { id: "66011448", name: ["นายภัทรดนัย จำรัส", ""], image: "/member1.jpg" },
-    { id: "66010583", name: ["นายพิรณัฐ จงรักดี", ""], image: "/member1.jpg" },
-    { id: "66010608", name: ["นายภวดล เนื้อสะอาด", ""], image: "/member1.jpg" },
+    { id: "66011448", name: ["นายภัทรดนัย จำรัส", ""], image: "/src/assets/IdlePat.gif" },
+    { id: "66010583", name: ["นายพิรณัฐ จงรักดี", ""], image: "/src/assets/IdleGet.gif" },
+    { id: "66010608", name: ["นายภวดล เนื้อสะอาด", ""], image: "/src/assets/IdlePhu.gif" },
   ];
 
   return (
@@ -58,14 +58,14 @@ export default function Member() {
             strokeWidth={1}
             size={40}
             onClick={handleVolume}
-            className="ml-[1.5vw]"
+            className="sm:ml-[0vw] ml-[1.5vw]"
           />
         ) : (
           <VolumeOff
             strokeWidth={1}
             size={40}
             onClick={handleVolume}
-            className="ml-[1.5vw]"
+            className="sm:ml-[0vw] ml-[1.5vw]"
           />
         )}
       </button>
@@ -78,12 +78,12 @@ export default function Member() {
       </div>
 
       {/* Grid แสดงสมาชิก */}
-      <div className="grid grid-cols-2 gap-2 mt-31 px-11">
+      <div className="grid grid-cols-2 gap-2 mt-31 place-items-center ">
         {members.map((member) => (
-          <div key={member.id} className="justify-items-center text-center">
+          <div key={member.id} className="text-center">
             {/* รูปภาพ */}
-            <div className="h-[14vh] w-[15vh] rounded overflow-hidden">
-              <img src={member.image} alt={member.name[0]} className="" />
+            <div className="sm:ml-0 h-[16vh] w-[14vh] overflow-hidden ">
+              <img src={member.image} alt={member.name[0]} className="h-full w-full " />
             </div>
             {/* หมายเลข */}
             <div className=" text-[#C8EDE0] text-[1.75vh] text-stroke-black mt-1 ">
