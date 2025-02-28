@@ -18,7 +18,7 @@ export default function Member() {
     {
       id: "66010725",
       name: ["นางสาววณิชญา", "เรืองรักเรียน"],
-      image: "/member1.jpg",
+      image: "/src/assets/IdleBow.gif",
     },
     {
       id: "66010935",
