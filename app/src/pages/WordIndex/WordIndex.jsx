@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import wordsA1 from "../Game/gameA1A1";
+import wordsA1 from "../Game/gameA1";
 import Pagination from "../../components/Pagination/Pagination";
 import EnemyCard from "../../components/EnemyCard/EnemyCard";
 import { ChevronLeft, Volume2, Search } from "lucide-react";

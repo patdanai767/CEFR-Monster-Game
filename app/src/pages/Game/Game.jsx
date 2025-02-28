@@ -3,6 +3,7 @@ import wordsA1 from "./gameA1";
 import wordsA2 from "./gameA2";
 import wordsB1 from "./gameB1";
 import wordsB2 from "./gameB2";
+import wordsC1 from "./gameC1";
 import LoseModal from "../../components/Modal/LoseModal";
 import { Pause } from "lucide-react";
 import PauseModal from "../../components/Modal/PauseModal";
@@ -19,6 +20,18 @@ import SnailIdle from "/snailIdle.gif"
 import SnailHit from "/snailHit.gif"
 import Snaildead from "/snailDead.gif"
 import SnailAtk from "/snailAttack.gif"
+import BeeIdle from "/bee_idle.gif"
+import BeeHit from "/bee_hit.gif"
+import Beedead from "/bee_dead.gif"
+import BeeAtk from "/bee_attack.gif"
+import BatIdle from "/bat_idle.gif"
+import BatHit from "/bat_hit.gif"
+import Batdead from "/bat_death2.gif"
+import BatAtk from "/bat_attack.gif"
+import BossIdle from "/Toad_Idle.gif"
+import BossHit from "/Toad_Damage.gif"
+import Bossdead from "/Toad_Death.gif"
+import BossAtk from "/Toad_Attack.gif"
 import Heart3 from "/Heart.png";
 import Heart2 from "/Heart-1.png";
 import Heart1 from "/Heart-2.png";
@@ -55,7 +68,17 @@ export default function Game() {
   let Heartvalue = 1;
 
   useEffect(() => {
-    
+    if (
+      (Number(params.id) > 10 && pathname === "gametime") ||
+      (savedlevel[params.id - 1]?.isOpen === false && pathname === "gametime")
+    ) {
+      router("/tmlevel");
+    } else if (
+      (Number(params.id) > 10 && pathname === "game") ||
+      (savedlevel[params.id - 1]?.isOpen === false && pathname === "game")
+    ) {
+      router("/hmlevel");
+    }
     if (Random === 1) {
       setCh1(Quest);
       setCh2(Math.floor(Math.random() * wordLevel.length));
@@ -87,28 +110,48 @@ export default function Game() {
             {
               setMonsterImage(SnailIdle);
             }
+            
+            
         
         }
         else if(Number(params.id) <= 6)
           {
             setwordLevel(wordsB1);
+            if(Winstreak===4)
+                {
+                  setMonsterImage(Beedead);
+                }
+                else
+                {
+                  setMonsterImage(BeeIdle);
+                }
           }
           else if(Number(params.id) <= 9)
             {
               setwordLevel(wordsB2);
+              if(Winstreak===4)
+                {
+                  setMonsterImage(Batdead);
+                }
+                else
+                {
+                  setMonsterImage(BatIdle);
+                }
+            }
+            else if (Number(params.id) <= 10)
+            {
+              setwordLevel(wordsC1);
+              if(Winstreak===4)
+                {
+                  setMonsterImage(Bossdead);
+                }
+                else
+                {
+                  setMonsterImage(BossIdle);
+                }
             }
       
-    if (
-      (Number(params.id) > 10 && pathname === "gametime") ||
-      (savedlevel[params.id - 1].isOpen === false && pathname === "gametime")
-    ) {
-      router("/tmlevel");
-    } else if (
-      (Number(params.id) > 10 && pathname === "game") ||
-      (savedlevel[params.id - 1].isOpen === false && pathname === "game")
-    ) {
-      router("/hmlevel");
-    }
+    
 
     if (isNext) {
       setTimeout(() => {}, 500);
@@ -186,6 +229,18 @@ export default function Game() {
       {
       setMonsterImage(SnailHit);
       }
+      else if(Number(params.id) <= 6)
+        {
+        setMonsterImage(BeeHit);
+        }
+      else if(Number(params.id) <= 9)
+        {
+        setMonsterImage(BatHit);
+        }
+      else if(Number(params.id) <= 10)
+        {
+        setMonsterImage(BossHit);
+        }
     setWinstreak(Winstreak + 1);
     if (Winstreak === 3) {
       setIsWin(false);
@@ -201,6 +256,18 @@ export default function Game() {
           {
           setMonsterImage(Snaildead);
           }
+          else if(Number(params.id) <= 6)
+            {
+            setMonsterImage(Beedead);
+            }
+          else if(Number(params.id) <= 9)
+            {
+            setMonsterImage(Batdead);
+            }
+          else if(Number(params.id) <= 10)
+            {
+            setMonsterImage(Bossdead);
+            }
       setHumanImage(Attack);
       setTimeout(() => {
         setHumanImage(Idle);
@@ -216,6 +283,18 @@ export default function Game() {
             {
               setMonsterImage(SnailIdle);
             }
+            else if(Number(params.id) <= 6)
+              {
+                setMonsterImage(BeeIdle);
+              }
+            else if(Number(params.id) <= 9)
+              {
+                setMonsterImage(BatlIdle);
+              }
+            else if(Number(params.id) <= 10)
+              {
+                setMonsterImage(BossIdle);
+              }
       }, 500);
     }
   };
@@ -233,6 +312,24 @@ export default function Game() {
           setMonsterImage(SnailAtk);
         
         }
+        else if(Number(params.id) <= 6)
+          {
+  
+            setMonsterImage(BeeAtk);
+          
+          }
+        else if(Number(params.id) <= 9)
+          {
+  
+            setMonsterImage(BatAtk);
+          
+          }
+        else if(Number(params.id) <= 10)
+          {
+  
+            setMonsterImage(BossAtk);
+          
+          }
     
     
     
@@ -246,6 +343,20 @@ export default function Game() {
           {
             setMonsterImage(SnailAtk);
           }
+          else if(Number(params.id) <= 6)
+            {
+              setMonsterImage(BeeAtk);
+            }
+          else if(Number(params.id) <= 9)
+            {
+              setMonsterImage(BatAtk);
+            }
+          else if(Number(params.id) <= 10)
+            {
+    
+              setMonsterImage(BossAtk);
+            
+            }
       setHeartImage(Heart0);
       setisend(false);
     } else {
@@ -259,6 +370,18 @@ export default function Game() {
             {
               setMonsterImage(SnailIdle);
             }
+            else if(Number(params.id) <= 6)
+              {
+                setMonsterImage(BeeIdle);
+              }
+            else if(Number(params.id) <= 9)
+              {
+                setMonsterImage(BatIdle);
+              }
+            else if(Number(params.id) <= 10)
+              {
+                setMonsterImage(BossIdle);
+              }
       }, 500);
       if (Heartvalue === 0) {
         if (HeartImage === Heart3) setHeartImage(Heart2);

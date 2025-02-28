@@ -35,6 +35,7 @@ export default function GameTime() {
   const [counts, setCounts] = useState(0);
   const [isWin, setIsWin] = useState(true);
   const [isNext, setIsNext] = useState(false);
+  const [Winstreak, setWinstreak] = useState(1);
   const params = useParams();
   const router = useNavigate();
   const pathname = location.pathname.split("/")[1];
@@ -192,7 +193,8 @@ export default function GameTime() {
           {
           setMonsterImage(SnailHit);
           }
-    if (counts == 2) {
+          setWinstreak(Winstreak + 1);
+    if (Winsteak == 2) {
       setIsWin(false);
       setIsRunning(false);
     }
@@ -252,9 +254,8 @@ export default function GameTime() {
       ) : (
         <PauseModal setIsPause={setIsPause} setIsRunning={setIsRunning} />
       )}
-      className=" bg-no-repeat bg-cover bg-center h-screen justify-center relative"
-      style={{ backgroundImage: `url(${isNext ? nextBgImage : bgImage})` }}
-    >
+       
+    
       <motion.div
         initial={{ x: 0, y: 0, opacity: 1 }}
         animate={
