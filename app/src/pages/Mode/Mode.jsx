@@ -104,12 +104,15 @@ function Mode() {
                 whileTap={{ scale: 0.9 }}
                 className="absolute sm:top-[30vh] top-[22vh]"
               >
-                <div
-                  onClick={handleNextToFlashCardMode}
-                  className=" text-[20px] w-[360px] h-[12vh] bg-[#C5E369]  border-3 flex items-center justify-center"
+                Time attack <Clock fill="#C8EDE0" size={24} className="ml-8" />
+              </motion.div>
+              <motion.div whileTap={{ scale: 0.9 }} className="mt-12 mx-18">
+                <a
+                  href="/word"
+                  className=" text-[20px] w-[360px] h-[68px] bg-green  border-3 flex items-center justify-center"
                 >
-                  Flashcard <WalletCards size={30} className="ml-8" />
-                </div>
+                  Flashcard <WalletCards size={24} className="ml-8" />
+                </a>
               </motion.div>
             </div>
           </div>

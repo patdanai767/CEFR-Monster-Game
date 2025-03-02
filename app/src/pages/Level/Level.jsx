@@ -1,8 +1,8 @@
 import { Volume2, VolumeOff, ChevronLeft, Scale } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
-import { motion } from "framer-motion";
+import Cookies from "js-cookie"
+import { motion, transform, AnimatePresence } from "framer-motion";
 import backgrounds from "../../backgrounds/backgrounds";
 
 export default function Level() {

@@ -1,16 +1,19 @@
-import React, {useState} from 'react'
-import wordsA1 from '../Game/gameA1'
-import Pagination from '../../components/Pagination/Pagination'
-import EnemyCard from '../../components/EnemyCard/EnemyCard'
-import {ChevronLeft,Volume2,Search} from "lucide-react"
-
+import React, { useState } from "react";
+import wordsA1 from "../Game/gameA1";
+import Pagination from "../../components/Pagination/Pagination";
+import EnemyCard from "../../components/EnemyCard/EnemyCard";
+import { ChevronLeft, Volume2, Search } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 function WordIndex() {
+  const router = useNavigate();
   const [searchText, setSearchText] = useState("");
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearchText(value);
   };
-
+ const handleBack = () => {
+  router("/mode");
+};
   const filteredCourses = wordsA1.filter((W) => {
     const matchesWords = W.word
       .toLowerCase()
@@ -28,9 +31,12 @@ function WordIndex() {
   const currentItems = filteredCourses.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
-    <div className='bg-[url(/src/backgrounds/bg-map.jpg)] h-[896px] bg-cover p-4 flex flex-col justify-between'>
-      <a href="/" className='h-[48px] w-[48px] border-[3px] rounded-[2px]  bg-[#E29F51] grid place-items-center'>
-        <ChevronLeft className='h-[40px] w-[40px]'/>
+    <div className="bg-[url(/src/backgrounds/bg-map.jpg)] h-[896px] bg-cover p-4 flex flex-col justify-between">
+      <a
+        href="/mode"
+        className="h-[48px] w-[48px] border-[3px] rounded-[2px]  bg-[#E29F51] grid place-items-center"
+      >
+        <ChevronLeft className="h-[40px] w-[40px]" />
       </a>
       <div>
         <div className="text-[30px] flex justify-center mt-4">EnemyIndex</div>
