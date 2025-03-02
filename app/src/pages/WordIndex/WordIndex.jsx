@@ -6,6 +6,7 @@ import {ChevronLeft,Volume2,Search} from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion";
 
 function WordIndex() {
+  const router = useNavigate();
   const [searchText, setSearchText] = useState("");
   const handleSearch = (e) => {
     const value = e.target.value;
@@ -34,9 +35,12 @@ function WordIndex() {
   
 
   return (
-    <div className='bg-[url(/src/backgrounds/bg-map.jpg)] h-[896px] bg-cover p-4 flex flex-col justify-between'>
-      <a href="/" className='h-[48px] w-[48px] border-[3px] rounded-[2px]  bg-[#E29F51] grid place-items-center'>
-        <ChevronLeft className='h-[40px] w-[40px]'/>
+    <div className="bg-[url(/src/backgrounds/bg-map.jpg)] h-[896px] bg-cover p-4 flex flex-col justify-between">
+      <a
+        href="/mode"
+        className="h-[48px] w-[48px] border-[3px] rounded-[2px]  bg-[#E29F51] grid place-items-center"
+      >
+        <ChevronLeft className="h-[40px] w-[40px]" />
       </a>
       <div>
         <div className="text-[30px] flex justify-center mt-4">WordIndex</div>

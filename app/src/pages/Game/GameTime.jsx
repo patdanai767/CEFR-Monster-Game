@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import wordsA1 from "./gameA1";
+import wordsA2 from "./gameA2";
+import wordsB1 from "./gameB1";
+import wordsB2 from "./gameB2";
+import wordsC1 from "./gameC1";
 import LoseModal from "../../components/Modal/LoseModal";
 import { Pause } from "lucide-react";
 import PauseModal from "../../components/Modal/PauseModal";
@@ -10,19 +14,42 @@ import Attack from "/Attack-01.gif";
 import Wrong from "/wrong.gif";
 import BoarAtk from "/boaratk.gif";
 import Dead from "/Dead.gif";
-import MonsterHit from "/Hit.gif";
+import BoarHit from "/Hit.gif";
+import Boardead from "/Boardead.gif";
+import SnailIdle from "/snailIdle.gif";
+import SnailHit from "/snailHit.gif";
+import Snaildead from "/snailDead.gif";
+import SnailAtk from "/snailAttack.gif";
+import BeeIdle from "/bee_idle.gif";
+import BeeHit from "/bee_hit.gif";
+import Beedead from "/bee_dead.gif";
+import BeeAtk from "/bee_attack.gif";
+import BatIdle from "/bat_idle.gif";
+import BatHit from "/bat_hit.gif";
+import Batdead from "/bat_death2.gif";
+import BatAtk from "/bat_attack.gif";
+import BossIdle from "/Toad_Idle.gif";
+import BossHit from "/Toad_Damage.gif";
+import Bossdead from "/Toad_Death.gif";
+import BossAtk from "/Toad_Attack.gif";
+import Slashsound from "/Swordslash.mp3";
+import DeadHuman from "/Humandead.mp3";
+import Damaged from "/Damaged.mp3";
 import { backgrounds } from "../../constants/background";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { motion } from "framer-motion";
 
 export default function GameTime() {
-  const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
-  const [Quest, setQuest] = useState(Math.floor(Math.random() * 896));
   const [ch1, setCh1] = useState(null);
   const [ch2, setCh2] = useState(null);
+  const [wordLevel, setwordLevel] = useState(wordsA1);
+  const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
+  const [Quest, setQuest] = useState(
+    Math.floor(Math.random() * (wordLevel.length - 1))
+  );
   const [humanImage, setHumanImage] = useState(Idle);
-  const [monsterImage, setMonsterImage] = useState(BoarIdle);
+  const [monsterImage, setMonsterImage] = useState(null);
   const [isend, setisend] = useState(true);
   const [time, setTime] = useState(60);
   const [isPause, setIsPause] = useState(true);
@@ -43,12 +70,58 @@ export default function GameTime() {
   }
 
   useEffect(() => {
+    console.log(counts);
     if (Random === 1) {
       setCh1(Quest);
-      setCh2(Math.floor(Math.random() * 896));
+      let tempCh2;
+      do {
+        tempCh2 = Math.floor(Math.random() * (wordLevel.length - 1));
+      } while (wordLevel[tempCh2].answer === wordLevel[Quest].answer);
+      setCh2(tempCh2);
     } else if (Random === 2) {
       setCh2(Quest);
-      setCh1(Math.floor(Math.random() * 896));
+      let tempCh1;
+      do {
+        tempCh1 = Math.floor(Math.random() * (wordLevel.length - 1));
+      } while (wordLevel[tempCh1].answer === wordLevel[Quest].answer);
+      setCh1(tempCh1);
+    }
+
+    if (Number(params.id) <= 2) {
+      setwordLevel(wordsA1);
+      if (counts === 3) {
+        setMonsterImage(Boardead);
+      } else {
+        setMonsterImage(BoarIdle);
+      }
+    } else if (Number(params.id) <= 4) {
+      setwordLevel(wordsA2);
+      if (counts === 3) {
+        setMonsterImage(Snaildead);
+      } else {
+        setMonsterImage(SnailIdle);
+      }
+    } else if (Number(params.id) <= 6) {
+      setwordLevel(wordsB1);
+      if (counts === 3) {
+        setMonsterImage(Beedead);
+      } else {
+        setMonsterImage(BeeIdle);
+      }
+    } else if (Number(params.id) <= 9) {
+      setwordLevel(wordsB2);
+      if (counts === 3) {
+        setMonsterImage(Batdead);
+      } else {
+        setMonsterImage(BatIdle);
+      }
+    } else if (Number(params.id) <= 10) {
+      setwordLevel(wordsC1);
+      if (counts === 3) {
+        setMonsterImage(Bossdead);
+      } else {
+        setMonsterImage(BossIdle);
+      }
     }
     let interval = null;
 
@@ -102,7 +175,6 @@ export default function GameTime() {
       return "00:00";
     }
   };
-
   const handleNextLevel = () => {
     setChangeBg(true);
     setIsNext(true);
@@ -115,29 +187,40 @@ export default function GameTime() {
       setChangeBg(false);
     }, 400);
   };
+  function slash() {
+    new Audio(Slashsound).play();
+  }
+  function damaged() {
+    new Audio(Damaged).play();
+  }
+  function Hdead() {
+    new Audio(DeadHuman).play();
+  }
 
   const Next = () => {
     const newRandom = Math.floor(Math.random() * 2) + 1;
-    const newQuest = Math.floor(Math.random() * 896);
+    const newQuest = Math.floor(Math.random() * (wordLevel.length - 1));
+    setRandom(newRandom);
+    setQuest(newQuest);
     let newCh1, newCh2;
 
     if (newRandom === 1) {
-      newCh1 = newQuest;
-      newCh2 = Math.floor(Math.random() * 896);
+      setCh1(newQuest);
+      do {
+        newCh2 = Math.floor(Math.random() * (wordLevel.length - 1));
+      } while (wordLevel[newCh2].answer === wordLevel[newQuest].answer);
+      setCh2(newCh2);
     } else if (newRandom === 2) {
-      newCh2 = newQuest;
-      newCh1 = Math.floor(Math.random() * 896);
+      setCh2(newQuest);
+      do {
+        newCh1 = Math.floor(Math.random() * (wordLevel.length - 1));
+      } while (wordLevel[newCh1].answer === wordLevel[newQuest].answer);
+      setCh1(newCh1);
     }
-
-    setRandom(newRandom);
-    setQuest(newQuest);
-    setCh1(newCh1);
-    setCh2(newCh2);
   };
 
   const Correctornot = (choice) => {
     if (choice === Quest) {
-      setCounts(counts + 1);
       CorrectAnim();
       setTimeout(() => {
         Next();
@@ -151,29 +234,91 @@ export default function GameTime() {
   };
 
   const CorrectAnim = () => {
+    setCounts(counts + 1);
+
     setHumanImage(Attack);
-    setMonsterImage(MonsterHit);
-    if (counts == 2) {
+    slash();
+
+    if (Number(params.id) <= 2) {
+      setMonsterImage(BoarHit);
+    } else if (Number(params.id) <= 4) {
+      setMonsterImage(SnailHit);
+    } else if (Number(params.id) <= 6) {
+      setMonsterImage(BeeHit);
+    } else if (Number(params.id) <= 9) {
+      setMonsterImage(BatHit);
+    } else if (Number(params.id) <= 10) {
+      setMonsterImage(BossHit);
+    }
+
+    if (counts === 2) {
       setIsWin(false);
       setIsRunning(false);
+      if (Number(params.id) <= 2) {
+        setMonsterImage(Boardead);
+      } else if (Number(params.id) <= 4) {
+        setMonsterImage(Snaildead);
+      } else if (Number(params.id) <= 6) {
+        setMonsterImage(Beedead);
+      } else if (Number(params.id) <= 9) {
+        setMonsterImage(Batdead);
+      } else if (Number(params.id) <= 10) {
+        setMonsterImage(Bossdead);
+      }
+      setHumanImage(Attack);
+      setTimeout(() => {
+        setHumanImage(Idle);
+      }, 500);
+    } else {
+      setTimeout(() => {
+        setHumanImage(Idle);
+        if (Number(params.id) <= 2) {
+          setMonsterImage(BoarIdle);
+        } else if (Number(params.id) <= 4) {
+          setMonsterImage(SnailIdle);
+        } else if (Number(params.id) <= 6) {
+          setMonsterImage(BeeIdle);
+        } else if (Number(params.id) <= 9) {
+          setMonsterImage(BatlIdle);
+        } else if (Number(params.id) <= 10) {
+          setMonsterImage(BossIdle);
+        }
+      }, 500);
     }
-    setTimeout(() => {
-      setHumanImage(Idle);
-      setMonsterImage(BoarIdle);
-    }, 500);
   };
 
   const WrongAnim = () => {
     if (time > 0) {
       setTime((prevTime) => prevTime - 5);
+      damaged();
     } else {
       timer = 0;
     }
     setHumanImage(Wrong);
-    setMonsterImage(BoarAtk);
+    if (Number(params.id) <= 2) {
+      setMonsterImage(BoarAtk);
+    } else if (Number(params.id) <= 4) {
+      setMonsterImage(SnailAtk);
+    } else if (Number(params.id) <= 6) {
+      setMonsterImage(BeeAtk);
+    } else if (Number(params.id) <= 9) {
+      setMonsterImage(BatAtk);
+    } else if (Number(params.id) <= 10) {
+      setMonsterImage(BossAtk);
+    }
     setTimeout(() => {
       setHumanImage(Idle);
-      setMonsterImage(BoarIdle);
+      if (Number(params.id) <= 2) {
+        setMonsterImage(BoarIdle);
+      } else if (Number(params.id) <= 4) {
+        setMonsterImage(SnailIdle);
+      } else if (Number(params.id) <= 6) {
+        setMonsterImage(BeeIdle);
+      } else if (Number(params.id) <= 9) {
+        setMonsterImage(BatlIdle);
+      } else if (Number(params.id) <= 10) {
+        setMonsterImage(BossIdle);
+      }
     }, 500);
   };
 
@@ -181,6 +326,7 @@ export default function GameTime() {
     if (timer == 0) {
       setisend(false);
       setHumanImage(Dead);
+      Hdead();
     }
   };
 
@@ -257,7 +403,7 @@ export default function GameTime() {
             } font-game`}
           >
             <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
-              {wordsA1[Quest].word}
+              {wordLevel[Quest]?.word}
             </div>
           </div>
           <motion.div
@@ -302,14 +448,14 @@ export default function GameTime() {
                     onClick={() => Correctornot(ch1)}
                     className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
                   >
-                    {wordsA1[ch1].answer}
+                    {wordLevel[ch1]?.answer}
                   </motion.button>
                   <motion.button
                     onClick={() => Correctornot(ch2)}
                     type="button"
                     className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
                   >
-                    {wordsA1[ch2].answer}
+                    {wordLevel[ch2]?.answer}
                   </motion.button>
                 </>
               )}

@@ -102,7 +102,8 @@ function Home() {
           <User strokeWidth={1} size={40} className="sm:ml-[0vw] ml-[1.5vw]" />
         </div>
       </a>
-    </div>
+        </div>
+
   );
 }
 

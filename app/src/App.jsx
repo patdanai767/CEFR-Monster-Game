@@ -6,7 +6,7 @@ import Level from "./pages/Level/Level";
 import TmLevel from "./pages/Level/TmLevel";
 import GameTime from "./pages/Game/GameTime";
 import Member from "./pages/Member/Member";
-import WordIndex from "./pages/WordIndex/WordIndex";
+import WordIndex from "./pages/WordIndex/WordIndex"
 
 function App() {
   return (
