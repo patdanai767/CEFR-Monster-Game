@@ -42,17 +42,16 @@ import Damaged from "/Damaged.mp3";
 import { backgrounds } from "../../constants/background";
 import Homemu from "/Homemu.wav";
 import { useNavigate, useParams } from "react-router-dom";
+<<<<<<<<< Temporary merge branch 1
+import Cookies from "js-cookie"
+=========
 import { motion } from "framer-motion";
-import Cookies from "js-cookie";
+>>>>>>>>> Temporary merge branch 2
 
 export default function Game() {
   const [ch1, setCh1] = useState(null);
   const [ch2, setCh2] = useState(null);
-  const [wordLevel, setwordLevel] = useState(wordsA1);
-  const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
-  const [Quest, setQuest] = useState(
-    Math.floor(Math.random() * (wordLevel.length - 1))
-  );
+  const [wordLevel,setwordLevel] = useState(wordsA1)
   const [humanImage, setHumanImage] = useState(Idle);
   const [monsterImage, setMonsterImage] = useState(null);
   const [HeartImage, setHeartImage] = useState(Heart3);
@@ -71,6 +70,27 @@ export default function Game() {
   let Heartvalue = 1;
 
   useEffect(() => {
+    
+    if (Random === 1) {
+      setCh1(Quest);
+      setCh2(Math.floor(Math.random() * 896));
+    } else if (Random === 2) {
+      setCh2(Quest);
+      setCh1(Math.floor(Math.random() * 896));
+    }
+    if(Number(params.id) <= 3)
+      {
+        setwordLevel(wordsA1);
+      }
+      else if(Number(params.id) <= 6)
+        {
+          setwordLevel(wordsA2);
+        }
+        else if(Number(params.id) <= 8)
+          {
+            setwordLevel(wordsB1);
+          }
+      
     if (
       (Number(params.id) > 10 && pathname === "gametime") ||
       (savedlevel[params.id - 1]?.isOpen === false && pathname === "gametime")
@@ -82,57 +102,8 @@ export default function Game() {
     ) {
       router("/hmlevel");
     }
-    if (Random === 1) {
-      setCh1(Quest);
-      let tempCh2;
-      do {
-        tempCh2 = Math.floor(Math.random() * (wordLevel.length - 1));
-      } while (wordLevel[tempCh2].answer === wordLevel[Quest].answer);
-      setCh2(tempCh2);
-    } else if (Random === 2) {
-      setCh2(Quest);
-      let tempCh1;
-      do {
-        tempCh1 = Math.floor(Math.random() * (wordLevel.length - 1));
-      } while (wordLevel[tempCh1].answer === wordLevel[Quest].answer);
-      setCh1(tempCh1);
-    }
-    if (Number(params.id) <= 2) {
-      setwordLevel(wordsA1);
-      if (Winstreak === 4) {
-        setMonsterImage(Boardead);
-      } else {
-        setMonsterImage(BoarIdle);
-      }
-    } else if (Number(params.id) <= 4) {
-      setwordLevel(wordsA2);
-      if (Winstreak === 4) {
-        setMonsterImage(Snaildead);
-      } else {
-        setMonsterImage(SnailIdle);
-      }
-    } else if (Number(params.id) <= 6) {
-      setwordLevel(wordsB1);
-      if (Winstreak === 4) {
-        setMonsterImage(Beedead);
-      } else {
-        setMonsterImage(BeeIdle);
-      }
-    } else if (Number(params.id) <= 9) {
-      setwordLevel(wordsB2);
-      if (Winstreak === 4) {
-        setMonsterImage(Batdead);
-      } else {
-        setMonsterImage(BatIdle);
-      }
-    } else if (Number(params.id) <= 10) {
-      setwordLevel(wordsC1);
-      if (Winstreak === 4) {
-        setMonsterImage(Bossdead);
-      } else {
-        setMonsterImage(BossIdle);
-      }
-    }
+<<<<<<<<< Temporary merge branch 1
+=========
 
     if (isNext) {
       setTimeout(() => {}, 500);
@@ -144,7 +115,10 @@ export default function Game() {
       setNextBgImage(nextBg);
     }
   }, [Random, Quest, isNext, isWin, params.id, changeBg]);
+>>>>>>>>> Temporary merge branch 2
 
+  }, [Random, Quest ,wordLevel]);
+  
   const handleSetting = () => {
     setIsPause(!isPause);
   };
@@ -342,25 +316,74 @@ export default function Game() {
         transition={{ duration: 0.4, ease: "easeInOut" }}
         className="grid bg-no-repeat bg-cover bg-center h-screen justify-center relative"
         style={{ backgroundImage: `url(${bgImage})` }}
-      >
-        {isend ? (
-          <motion.div
-            whileTap={{ scale: 0.9 }}
-            onClick={handleSetting}
-            className={`${
-              isPause && isWin
-                ? "left-[80%] top-[4%] absolute border-[3px] bg-yellow rounded-sm w-[48px] h-[48px] content-center justify-items-center"
-                : "hidden"
-            }`}
-          >
-            <Pause size={37} />
-          </motion.div>
-        ) : (
-          <LoseModal />
-        )}
-        {isWin ? null : <WinModal onNext={handleNextLevel} />}
-        {isPause ? "" : <PauseModal setIsPause={setIsPause} />}
+      />
+      {isend ? (
+        <motion.div
+          whileTap={{ scale: 0.9 }}
+          onClick={handleSetting}
+          className={`${
+            isPause && isWin
+              ? "left-[80%] top-[4%] absolute border-[3px] bg-yellow rounded-sm w-[48px] h-[48px] content-center justify-items-center"
+              : "hidden"
+          }`}
+        >
+          <Pause size={37} />
+        </motion.div>
+      ) : (
+        <LoseModal />
+      )}
+      {isWin ? null : <WinModal onNext={handleNextLevel} />}
+      {isPause ? "" : <PauseModal setIsPause={setIsPause} />}
 
+<<<<<<<<< Temporary merge branch 1
+      <div className="h-[70vh] font-bold text-[#E29F51] font-game">
+        <div className="w-full  flex justify-center p-[90px] right-[0.5px] h-[10px]">
+          <img className="w-[134px] h-[36px]" src={HeartImage} alt="Heart" />
+        </div>
+        <div
+          className={`${
+            isend && isPause && isWin ? "" : "invisible"
+          } font-game`}
+        >
+          <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
+            {wordLevel[Quest].word}
+          </div>
+        </div>
+        <div className="absolute left-[5vw] top-[40%]">
+          <img
+            className="h-[30vh] w-[55vw] object-cover"
+            src={humanImage}
+            alt="Human"
+          />
+        </div>
+        <div className="absolute left-[50vw] top-[55%]">
+          <img className="h-[15vh] w-[50vw]" src={monsterImage} alt="Monster" />
+        </div>
+      </div>
+      <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
+        <div className="box2 h-[30vh]">
+          <div className="w-full inline-flex gap-5 justify-center pt-5">
+            {ch1 !== null && ch2 !== null && Quest !== null && (
+              <>
+                <button
+                  onClick={() => Correctornot(ch1)}
+                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
+                >
+                  {wordLevel[ch1].answer}
+                </button>
+                <button
+                  onClick={() => Correctornot(ch2)}
+                  type="button"
+                  className="w-[160px] h-[65px] bg-[#E29F51] text-center border-2 text-2xl"
+                >
+                  {wordLevel[ch2].answer}
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+=========
         <motion.div className="h-[70vh] font-bold text-[#E29F51] font-game">
           <motion.div
             initial={{ x: 0, y: "-100vh", opacity: 1 }}
@@ -380,7 +403,7 @@ export default function Game() {
             } font-game`}
           >
             <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
-              {wordLevel[Quest].word}
+              {wordsA1[Quest].word}
             </div>
           </div>
           <motion.div
@@ -426,7 +449,7 @@ export default function Game() {
                     onClick={() => Correctornot(ch1)}
                     className="w-[160px] h-[65px] bg-yellow text-center border-2 text-2xl"
                   >
-                    {wordLevel[ch1].answer}
+                    {wordsA1[ch1].answer}
                   </motion.button>
                   <motion.button
                     whileTap={{ scale: 0.9 }}
@@ -434,7 +457,7 @@ export default function Game() {
                     type="button"
                     className="w-[160px] h-[65px] bg-yellow text-center border-2 text-2xl"
                   >
-                    {wordLevel[ch2].answer}
+                    {wordsA1[ch2].answer}
                   </motion.button>
                 </>
               )}
@@ -442,6 +465,7 @@ export default function Game() {
           </div>
         </div>
       </motion.div>
+>>>>>>>>> Temporary merge branch 2
     </div>
   );
 }

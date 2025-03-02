@@ -25,27 +25,21 @@ export default function PauseModal({ setIsPause, setIsRunning }) {
     <div className="justify-items-center relative top-[220px] w-full font-game z-[1000]">
       <div>
         {isVolumeOn ? (
-          <motion.div
-            whileTap={{ scale: 0.9 }}
-            className="-top-10 left-[30vw] absolute w-[80px] h-[80px] rounded-[100%] border-3 bg-[#E29F51]"
-          >
+          <motion.div whileTap={{ scale: 0.9 }} className="sm:left-[40%] sm:justify-items-center content-center -top-10 left-[30vw] absolute w-[80px] h-[80px] rounded-[100%] border-3 bg-[#E29F51]">
             <Volume2
               height={45}
               width={45}
               onClick={handleVolume}
-              className="ml-[3.7vw] mt-[3.7vw]"
+              className="sm:ml-0 sm:mt-0 ml-[3.7vw] mt-[3.7vw]"
             />
           </motion.div>
         ) : (
-          <motion.div
-            whileTap={{ scale: 0.9 }}
-            className="-top-10 left-[30vw] absolute w-[80px] h-[80px] rounded-[100%] border-3 bg-[#C76735]"
-          >
+          <motion.div whileTap={{ scale: 0.9 }} className="-top-10 left-[30vw] absolute w-[80px] h-[80px] rounded-[100%] border-3 bg-[#C76735]">
             <VolumeOff
               height={45}
               width={45}
               onClick={handleVolume}
-              className="ml-[3.7vw] mt-[3.7vw]"
+              className="sm:ml-0 sm:mt-0 ml-[3.7vw] mt-[3.7vw]"
             />
           </motion.div>
         )}

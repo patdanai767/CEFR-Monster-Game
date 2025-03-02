@@ -56,36 +56,36 @@ export default function Level() {
         className="relative overflow-hidden bg-no-repeat h-screen bg-cover font-game"
         style={{ backgroundImage: "url('/backgroundlevel.png')" }}
       >
-        {/* back button */}
+        {/* ปุ่มย้อนกลับ */}
         <motion.div
           whileTap={{ scale: 0.9 }}
           onClick={handleBack}
-          className="absolute top-[32px] left-[32px] bg-yellow w-[48px] h-[48px] rounded-[4px] border-[2px] bg-contain bg-center content-center justify-items-center"
+          className="absolute top-[4%] left-[8%] bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[2px] content-center justify-items-center"
         >
           <ChevronLeft strokeWidth={1} size={45} />
         </motion.div>
         {isVolumeOn ? (
           <motion.div
             whileTap={{ scale: 0.9 }}
-            className="absolute top-[90%] left-7 bg-yellow w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center"
+            className="absolute top-[90%] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center"
           >
             <Volume2
               strokeWidth={1}
               size={40}
               onClick={handleVolume}
-              className="ml-[1.5vw]"
+              className="sm:ml-[0vw] ml-[1.5vw]"
             />
           </motion.div>
         ) : (
           <motion.div
             whileTap={{ scale: 0.9 }}
-            className="absolute top-[90%] left-7 bg-orange w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center"
+            className="absolute top-[90%] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center"
           >
             <VolumeOff
               strokeWidth={1}
               size={40}
               onClick={handleVolume}
-              className="ml-[1.5vw]"
+              className="sm:ml-[0vw] ml-[1.5vw]"
             />
           </motion.div>
         )}
@@ -96,7 +96,11 @@ export default function Level() {
                 onClick={() => handleLevel(level.id, level.isOpen)}
                 key={level.id}
                 className={`absolute w-[56px] h-[56px] rounded 
-            ${level.isOpen ? "bg-yellow text-black" : "bg-brown text-black"} 
+            ${
+              level.isOpen
+                ? "bg-[#C8EDE0] text-black"
+                : "bg-[#856360] text-black"
+            } 
             font-bold flex justify-center items-center text-xl`}
                 style={{ left: level.x, top: level.y }}
               >
