@@ -800,7 +800,10 @@ const wordsB1 = [
   { id: 796, word: "Yard", answer: "สนาม" },
   { id: 797, word: "Young", answer: "หนุ่มสาว" },
   { id: 798, word: "Youth", answer: "วัยรุ่น" },
-  { id: 799, word: "Zebra", answer: "ม้าลาย" },
-  { id: 800, word: "Zero", answer: "ศูนย์" }
 ];
+
+export const updatedWordsB1 = wordsB1.map((item) => ({
+  ...item,
+  img: item.img || "/skulls/SkullB1.gif" 
+}));
 export default wordsB1;

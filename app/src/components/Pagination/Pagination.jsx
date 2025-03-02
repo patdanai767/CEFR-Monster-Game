@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronLeft,ChevronRight,ChevronFirst,ChevronLast } from "lucide-react";
 
-const Pagination = ({ totalPages, currentPage, onPageChange }) => {
+const Pagination = ({ totalPages, currentPage, onPageChange,}) => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    
   }, [currentPage]); // เมื่อ currentPage เปลี่ยน ให้เลื่อนกลับไปด้านบน
 
   const getPageNumbers = () => {

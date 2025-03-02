@@ -1,29 +1,23 @@
 import React, { useState, useEffect } from "react";
-import {
-  Clock,
-  WalletCards,
-  Heart,
-  ChevronLeft,
-  HandHelping,
-} from "lucide-react";
+import { Clock, WalletCards, Heart, ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Volume2, VolumeOff } from "lucide-react";
 import { motion } from "framer-motion";
+import ReactHowler from "react-howler";
+import { useMusic } from "../../provider/MusicProvide";
 
 function Mode() {
+  const { isVolumeOn, setIsVolumeOn } = useMusic();
+  const [isTap, setIsTap] = useState(false);
   const router = useNavigate();
-
-  const handleBack = () => {
-    router("/");
-  };
-
-  const [isVolumeOn, setIsVolumeOn] = useState(true);
 
   const handleVolume = () => {
     setIsVolumeOn(!isVolumeOn);
   };
 
-  const [isTap, setIsTap] = useState(false);
+  const handleBack = () => {
+    router("/");
+  };
 
   const handleNextToHeartMode = () => {
     setIsTap(true);
@@ -85,7 +79,7 @@ function Mode() {
                 <motion.div
                   whileTap={{ scale: 0.9 }}
                   onClick={handleNextToHeartMode}
-                  className="text-[20px] w-[360px] h-[12vh] bg-[#E29F51]  border-3 flex items-center justify-center"
+                  className="text-[20px] w-[352px] h-[12vh] bg-[#E29F51]  border-3 flex items-center justify-center"
                 >
                   Heart mode <Heart fill="red" size={30} className="ml-8" />
                 </motion.div>
@@ -94,7 +88,7 @@ function Mode() {
                 <motion.div
                   whileTap={{ scale: 0.9 }}
                   onClick={handleNextToTimeMode}
-                  className=" text-[20px] w-[360px] h-[12vh] bg-[#E29F51]  border-3 flex items-center justify-center"
+                  className="text-[20px] w-[352px] h-[12vh] bg-[#E29F51]  border-3 flex items-center justify-center"
                 >
                   Time attack{" "}
                   <Clock fill="#C8EDE0" size={30} className="ml-8" />
@@ -106,7 +100,7 @@ function Mode() {
               >
                 <div
                   onClick={handleNextToFlashCardMode}
-                  className=" text-[20px] w-[360px] h-[12vh] bg-[#C5E369]  border-3 flex items-center justify-center"
+                  className=" text-[20px] w-[352px] h-[12vh] bg-[#C5E369]  border-3 flex items-center justify-center"
                 >
                   Flashcard <WalletCards size={30} className="ml-8" />
                 </div>
