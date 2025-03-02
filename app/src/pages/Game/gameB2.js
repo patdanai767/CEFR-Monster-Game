@@ -1,3 +1,5 @@
+import SkullB2 from "../../assets/SkullB2.gif"
+
 const wordsB2 = [
     { id: 0, word: "Abandon", answer: "ละทิ้ง" },
     { id: 1, word: "Absolute", answer: "แน่นอน" },
@@ -1424,3 +1426,8 @@ const wordsB2 = [
     { id: 1422, word: "Zone", answer: "เขต" }
   ];
 export default wordsB2;
+
+export const updatedWordsB2 = wordsB2.map((item) => ({
+  ...item,
+  img: item.img || SkullB2
+}));

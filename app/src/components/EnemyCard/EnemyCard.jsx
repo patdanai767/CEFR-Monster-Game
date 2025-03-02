@@ -12,7 +12,7 @@ function EnemyCard({id,word,answer,img}) {
           <div className='h-[100px] w-[100px]'><img src={img} alt="enemy" /></div>
           <div className={`break-words w-[140px] text-center text-[12px] ${isOpen1 ? 'hidden' : ''}`}>{word}</div>
           {isOpen1 && (
-              <div onClick={toggleCard}>{answer}</div>     
+              <div onClick={toggleCard} className='font-bold'>{answer}</div>     
                 )}
         </div>
     </div>
