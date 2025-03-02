@@ -70,7 +70,6 @@ export default function GameTime() {
   }
 
   useEffect(() => {
-    console.log(counts);
     if (Random === 1) {
       setCh1(Quest);
       let tempCh2;

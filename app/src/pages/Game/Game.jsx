@@ -426,7 +426,7 @@ export default function Game() {
                     onClick={() => Correctornot(ch1)}
                     className="w-[160px] h-[65px] bg-yellow text-center border-2 text-2xl"
                   >
-                    {wordLevel[ch1].answer}
+                    {wordLevel[ch1]?.answer}
                   </motion.button>
                   <motion.button
                     whileTap={{ scale: 0.9 }}
@@ -434,7 +434,7 @@ export default function Game() {
                     type="button"
                     className="w-[160px] h-[65px] bg-yellow text-center border-2 text-2xl"
                   >
-                    {wordLevel[ch2].answer}
+                    {wordLevel[ch2]?.answer}
                   </motion.button>
                 </>
               )}
