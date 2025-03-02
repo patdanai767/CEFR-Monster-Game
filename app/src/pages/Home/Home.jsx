@@ -38,6 +38,13 @@ function Home() {
     }, 500);
   };
 
+  const handleMember = () => {
+    setIsTap(true);
+    setTimeout(() => {
+      navigate("/member");
+    }, 500);
+  };
+
   useEffect(() => {
     if (!storagetm) {
       Cookies.remove("tmlevel");
@@ -80,30 +87,36 @@ function Home() {
           </div>
         </motion.div>
       </motion.div>
-      {isVolumeOn ? (
-        <div className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
-          <Volume2
-            strokeWidth={1}
-            size={40}
-            onClick={handleVolume}
-            className="sm:ml-[0vw] ml-[1.5vw]"
-          />
-        </div>
-      ) : (
-        <div className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
-          <VolumeOff
-            strokeWidth={1}
-            size={40}
-            onClick={handleVolume}
-            className="sm:ml-[0vw] ml-[1.5vw]"
-          />
-        </div>
-      )}
-      <a href="/member">
-        <div className="absolute top-[90%] left-[80%] bg-[#C8EDE0] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
+      <motion.div
+        initial={{ x: 0, opacity: 1 }}
+        animate={isTap ? { x: 0, opacity: 0 } : { x: 0, opacity: 1 }}
+      >
+        {isVolumeOn ? (
+          <div className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
+            <Volume2
+              strokeWidth={1}
+              size={40}
+              onClick={handleVolume}
+              className="sm:ml-[0vw] ml-[1.5vw]"
+            />
+          </div>
+        ) : (
+          <div className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center">
+            <VolumeOff
+              strokeWidth={1}
+              size={40}
+              onClick={handleVolume}
+              className="sm:ml-[0vw] ml-[1.5vw]"
+            />
+          </div>
+        )}
+        <div
+          onClick={handleMember}
+          className="absolute top-[90%] left-[80%] bg-[#C8EDE0] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center"
+        >
           <User strokeWidth={1} size={40} className="sm:ml-[0vw] ml-[1.5vw]" />
         </div>
-      </a>
+      </motion.div>
     </div>
   );
 }

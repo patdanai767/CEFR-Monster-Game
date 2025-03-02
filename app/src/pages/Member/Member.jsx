@@ -1,5 +1,6 @@
 import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function Member() {
   const router = useNavigate();
@@ -42,11 +43,11 @@ export default function Member() {
   ];
 
   return (
-    <div
+    <motion.div
       className="bg-no-repeat relative h-screen bg-cover bg-center font-game p-4"
       style={{ backgroundImage: "url('/BackgroundMember.jpg')" }}
     >
-      {/* ปุ่มย้อนกลับ */}
+      {/* handle back */}
       <button
         onClick={handleBack}
         className="absolute top-[4%] left-[8%] bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[2px] content-center justify-items-center"
@@ -54,37 +55,46 @@ export default function Member() {
         <ChevronLeft strokeWidth={1} size={45} />
       </button>
 
-      {/* หัวข้อ Members Group 2 */}
-      <div className="flex justify-center">
-        <h1 className=" absolute top-21 text-[20px] text-[#C8EDE0] font-game text-stroke-black mt-4  border-black">
-          Members Group 2
-        </h1>
-      </div>
+      {/* Members Group 2 */}
+      <motion.div
+        initial={{ x: "100vw", y: 0, opacity: 1 }}
+        animate={{
+          x: 0,
+          y: 0,
+          opacity: 1,
+        }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+      >
+        <div className="flex justify-center">
+          <h1 className=" absolute top-21 text-[20px] text-[#C8EDE0] font-game text-stroke-black mt-4  border-black">
+            Members Group 2
+          </h1>
+        </div>
+        
+        <div className="grid grid-cols-2 gap-2 mt-31 place-items-center ">
+          {members.map((member) => (
+            <div key={member.id} className="text-center">
+              {/* image */}
+              <div className="sm:ml-0 h-[16vh] w-[14vh] overflow-hidden ">
+                <img
+                  src={member.image}
+                  alt={member.name[0]}
+                  className="h-full w-full "
+                />
+              </div>
+              {/* number id */}
+              <div className=" text-[#C8EDE0] text-[1.75vh] text-stroke-black mt-1 ">
+                {member.id}
+              </div>
 
-      {/* Grid แสดงสมาชิก */}
-      <div className="grid grid-cols-2 gap-2 mt-31 place-items-center ">
-        {members.map((member) => (
-          <div key={member.id} className="text-center">
-            {/* รูปภาพ */}
-            <div className="sm:ml-0 h-[16vh] w-[14vh] overflow-hidden ">
-              <img
-                src={member.image}
-                alt={member.name[0]}
-                className="h-full w-full "
-              />
+              {/* name */}
+              <div className="text-[#C8EDE0] font-gameth text-[14px] text-stroke-black ">
+                {member.name[0]} <br /> {member.name[1]}
+              </div>
             </div>
-            {/* หมายเลข */}
-            <div className=" text-[#C8EDE0] text-[1.75vh] text-stroke-black mt-1 ">
-              {member.id}
-            </div>
-
-            {/* ชื่อ */}
-            <div className="text-[#C8EDE0] font-gameth text-[14px] text-stroke-black ">
-              {member.name[0]} <br /> {member.name[1]}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+          ))}
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
