@@ -867,7 +867,11 @@ const wordsA2 = [
   { id: 865, word: "Yet", answer: "ยัง" },
   { id: 866, word: "Yours", answer: "ของคุณ" },
   { id: 867, word: "Zero", answer: "ศูนย์" }
-  
-  ];
-  export default wordsA2;
-  
+
+];
+export default wordsA2;
+
+export const updatedWordsA2 = wordsA2.map((item) => ({
+  ...item,
+  img: item.img || "/skulls/SkullA2.gif" // ถ้ามีอยู่แล้วใช้ของเดิม ถ้าไม่มีให้ใส่ค่าใหม่
+}));

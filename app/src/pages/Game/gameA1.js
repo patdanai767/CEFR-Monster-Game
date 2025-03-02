@@ -945,3 +945,8 @@ const wordsA1 = [
     { id: 896, word: "Yourself", answer: "ตัวคุณเอง" }
 ];
 export default wordsA1;
+
+export const updatedWordsA1 = wordsA1.map((item) => ({
+    ...item,
+    img: item.img || "/skulls/SkullA1.gif"
+}));

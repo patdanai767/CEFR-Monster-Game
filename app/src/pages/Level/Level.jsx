@@ -99,7 +99,19 @@ export default function Level() {
                 className={`absolute w-[56px] h-[56px] rounded 
             ${
               level.isOpen
-                ? "bg-[#C8EDE0] text-black"
+                ? `${
+                    level.isWin
+                      ? `${
+                          level.id === 10
+                            ? "bg-red text-yellow"
+                            : "bg-yellow text-black"
+                        }`
+                      : `${
+                          level.id === 10
+                            ? "bg-red text-yellow"
+                            : "bg-green text-black"
+                        }`
+                  }`
                 : "bg-[#856360] text-black"
             } 
             font-bold flex justify-center items-center text-xl`}

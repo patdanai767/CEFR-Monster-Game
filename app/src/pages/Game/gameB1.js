@@ -801,4 +801,9 @@ const wordsB1 = [
   { id: 797, word: "Young", answer: "หนุ่มสาว" },
   { id: 798, word: "Youth", answer: "วัยรุ่น" },
 ];
+
+export const updatedWordsB1 = wordsB1.map((item) => ({
+  ...item,
+  img: item.img || "/skulls/SkullB1.gif" 
+}));
 export default wordsB1;

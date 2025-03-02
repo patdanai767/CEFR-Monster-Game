@@ -154,7 +154,11 @@ export default function GameTime() {
 
     if (isWin == false) {
       const updatedTm = savedlevel.map((level) =>
-        level.id === Number(params.id) + 1 ? { ...level, isOpen: true } : level
+        level.id === Number(params.id)
+          ? { ...level, isWin: true }
+          : level.id === Number(params.id) + 1
+          ? { ...level, isOpen: true }
+          : level
       );
       Cookies.set("tmlevel", JSON.stringify(updatedTm));
     }

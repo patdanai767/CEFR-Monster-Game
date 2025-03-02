@@ -12,16 +12,16 @@ function Home() {
   const { isVolumeOn, setIsVolumeOn } = useMusic();
 
   const levels = [
-    { id: 1, x: "76%", y: "88%", isOpen: true },
-    { id: 2, x: "33%", y: "80%", isOpen: false },
-    { id: 3, x: "9%", y: "72%", isOpen: false },
-    { id: 4, x: "27%", y: "63%", isOpen: false },
-    { id: 5, x: "64%", y: "54%", isOpen: false },
-    { id: 6, x: "15%", y: "46%", isOpen: false },
-    { id: 7, x: "63%", y: "37.9%", isOpen: false },
-    { id: 8, x: "43%", y: "24.5%", isOpen: false },
-    { id: 9, x: "67%", y: "16.5%", isOpen: false },
-    { id: 10, x: "32%", y: "8.5%", isOpen: false },
+    { id: 1, x: "76%", y: "88%", isOpen: true, isWin: false },
+    { id: 2, x: "33%", y: "80%", isOpen: false, isWin: false },
+    { id: 3, x: "9%", y: "72%", isOpen: false, isWin: false },
+    { id: 4, x: "27%", y: "63%", isOpen: false, isWin: false },
+    { id: 5, x: "64%", y: "54%", isOpen: false, isWin: false },
+    { id: 6, x: "15%", y: "46%", isOpen: false, isWin: false },
+    { id: 7, x: "63%", y: "37.9%", isOpen: false, isWin: false },
+    { id: 8, x: "43%", y: "24.5%", isOpen: false, isWin: false },
+    { id: 9, x: "67%", y: "16.5%", isOpen: false, isWin: false },
+    { id: 10, x: "32%", y: "8.5%", isOpen: false, isWin: false },
   ];
 
   const handleVolume = () => {

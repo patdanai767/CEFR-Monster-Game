@@ -96,8 +96,24 @@ export default function Level() {
                 whileTap={{ scale: 0.9 }}
                 onClick={() => handleLevel(level.id, level.isOpen)}
                 key={level.id}
-                className={`absolute w-[56px] h-[56px] rounded 
-            ${level.isOpen ? "bg-mint text-black" : "bg-brown text-black"} 
+                className={`absolute w-[56px] h-[56px] rounded
+            ${
+              level.isOpen
+              ? `${
+                level.isWin
+                  ? `${
+                      level.id === 10
+                        ? "bg-red text-yellow"
+                        : "bg-mint text-black"
+                    }`
+                  : `${
+                      level.id === 10
+                        ? "bg-red text-yellow"
+                        : "bg-green text-black"
+                    }`
+              }`
+            : "bg-[#856360] text-black"
+            } 
             font-bold flex justify-center items-center shadow-md text-2xl`}
                 style={{ left: level.x, top: level.y }}
               >

@@ -210,7 +210,7 @@ export default function Game() {
     setHumanImage(Attack);
 
     slash();
-    
+
     if (Number(params.id) <= 2) {
       setMonsterImage(BoarHit);
     } else if (Number(params.id) <= 4) {
@@ -226,7 +226,11 @@ export default function Game() {
     if (Winstreak === 3) {
       setIsWin(false);
       const updatedHm = savedlevel.map((level) =>
-        level.id === Number(params.id) + 1 ? { ...level, isOpen: true } : level
+        level.id === Number(params.id)
+          ? { ...level, isWin: true }
+          : level.id === Number(params.id) + 1
+          ? { ...level, isOpen: true }
+          : level
       );
       Cookies.set("hmlevel", JSON.stringify(updatedHm));
 
@@ -425,7 +429,7 @@ export default function Game() {
                     onClick={() => Correctornot(ch1)}
                     className="w-[160px] h-[65px] bg-yellow text-center border-2 text-2xl"
                   >
-                    {wordLevel[ch1].answer}
+                    {wordLevel[ch1]?.answer}
                   </motion.button>
                   <motion.button
                     whileTap={{ scale: 0.9 }}
@@ -433,7 +437,7 @@ export default function Game() {
                     type="button"
                     className="w-[160px] h-[65px] bg-yellow text-center border-2 text-2xl"
                   >
-                    {wordLevel[ch2].answer}
+                    {wordLevel[ch2]?.answer}
                   </motion.button>
                 </>
               )}
