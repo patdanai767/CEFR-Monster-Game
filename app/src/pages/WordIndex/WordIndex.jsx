@@ -54,9 +54,13 @@ function WordIndex() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 place-items-center">
-          {currentItems.map((val) => (
-            <EnemyCard id={val.id} word={val.word} answer={val.answer} />
+        <div className='grid grid-cols-2 place-items-center'>
+        {currentItems.map((val) => (
+            <EnemyCard
+              id = {val.id}
+              word = {val.word}
+              answer = {val.answer}
+            />
           ))}
         </div>
       </div>
