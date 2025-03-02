@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Volume2, VolumeOff } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";

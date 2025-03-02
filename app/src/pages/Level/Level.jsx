@@ -1,5 +1,5 @@
 import { Volume2, VolumeOff, ChevronLeft, Scale } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { motion } from "framer-motion";
@@ -12,6 +12,10 @@ export default function Level() {
   const { isVolumeOn, setIsVolumeOn } = useMusic();
   const [isTap, setIsTap] = useState(false);
   const [currentLevel, setCurrentLevel] = useState(null);
+
+  useEffect(() => {
+    if (Cookies.get("hmlevel") === undefined || Cookies.get("tmlevel") === undefined) {router("/")};
+  }, []);
 
   const handleVolume = () => {
     setIsVolumeOn(!isVolumeOn);

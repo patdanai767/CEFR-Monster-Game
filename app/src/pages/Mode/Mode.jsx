@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Clock, WalletCards, Heart, ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Volume2, VolumeOff } from "lucide-react";
 import { motion } from "framer-motion";
-import ReactHowler from "react-howler";
 import { useMusic } from "../../provider/MusicProvide";
+import Cookies from "js-cookie";
 
 function Mode() {
   const { isVolumeOn, setIsVolumeOn } = useMusic();
   const [isTap, setIsTap] = useState(false);
   const router = useNavigate();
+
+  useEffect(() => {
+    if (Cookies.get("hmlevel") === undefined || Cookies.get("tmlevel") === undefined) {router("/")};
+  },[])
 
   const handleVolume = () => {
     setIsVolumeOn(!isVolumeOn);

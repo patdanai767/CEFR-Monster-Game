@@ -13,6 +13,10 @@ export default function Level() {
   const [currentLevel, setCurrentLevel] = useState(null);
   const { isVolumeOn, setIsVolumeOn } = useMusic();
 
+  useEffect(() => {
+    if (Cookies.get("hmlevel") === undefined || Cookies.get("tmlevel") === undefined) {router("/")};
+  }, []);
+
   const handleVolume = () => {
     setIsVolumeOn(!isVolumeOn);
   };
@@ -99,20 +103,20 @@ export default function Level() {
                 className={`absolute w-[56px] h-[56px] rounded
             ${
               level.isOpen
-              ? `${
-                level.isWin
-                  ? `${
-                      level.id === 10
-                        ? "bg-red text-yellow"
-                        : "bg-mint text-black"
-                    }`
-                  : `${
-                      level.id === 10
-                        ? "bg-red text-yellow"
-                        : "bg-green text-black"
-                    }`
-              }`
-            : "bg-[#856360] text-black"
+                ? `${
+                    level.isWin
+                      ? `${
+                          level.id === 10
+                            ? "bg-red text-yellow"
+                            : "bg-mint text-black"
+                        }`
+                      : `${
+                          level.id === 10
+                            ? "bg-red text-yellow"
+                            : "bg-green text-black"
+                        }`
+                  }`
+                : "bg-[#856360] text-black"
             } 
             font-bold flex justify-center items-center shadow-md text-2xl`}
                 style={{ left: level.x, top: level.y }}

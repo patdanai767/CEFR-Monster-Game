@@ -81,6 +81,14 @@ export default function Game() {
     ) {
       router("/hmlevel");
     }
+
+    if (
+      Cookies.get("hmlevel") === undefined ||
+      Cookies.get("tmlevel") === undefined
+    ) {
+      router("/");
+    }
+
     if (Random === 1) {
       setCh1(Quest);
       let tempCh2;
@@ -96,35 +104,38 @@ export default function Game() {
       } while (wordLevel[tempCh1].answer === wordLevel[Quest].answer);
       setCh1(tempCh1);
     }
-    if (Number(params.id) <= 2) {
+
+    console.log(wordLevel.length - 1);
+
+    if (Number(params.id) <= 2 && Number(params.id) >= 0) {
       setwordLevel(wordsA1);
-      if (Winstreak === 4) {
+      if (Winstreak === 11) {
         setMonsterImage(Boardead);
       } else {
         setMonsterImage(BoarIdle);
       }
-    } else if (Number(params.id) <= 4) {
+    } else if (Number(params.id) <= 4 && Number(params.id) >= 3) {
       setwordLevel(wordsA2);
-      if (Winstreak === 4) {
+      if (Winstreak === 11) {
         setMonsterImage(Snaildead);
       } else {
         setMonsterImage(SnailIdle);
       }
-    } else if (Number(params.id) <= 6) {
+    } else if (Number(params.id) <= 6 && Number(params.id) >= 5) {
       setwordLevel(wordsB1);
-      if (Winstreak === 4) {
+      if (Winstreak === 11) {
         setMonsterImage(Beedead);
       } else {
         setMonsterImage(BeeIdle);
       }
-    } else if (Number(params.id) <= 9) {
+    } else if (Number(params.id) <= 9 && Number(params.id) >= 7) {
       setwordLevel(wordsB2);
-      if (Winstreak === 4) {
+      if (Winstreak === 11) {
         setMonsterImage(Batdead);
       } else {
         setMonsterImage(BatIdle);
       }
-    } else if (Number(params.id) <= 10) {
+    } else if (Number(params.id) <= 10 && Number(params.id) >= 9) {
       setwordLevel(wordsC1);
       if (Winstreak === 4) {
         setMonsterImage(Bossdead);
@@ -173,8 +184,6 @@ export default function Game() {
   const Next = () => {
     const newRandom = Math.floor(Math.random() * 2) + 1;
     const newQuest = Math.floor(Math.random() * (wordLevel.length - 1));
-    setRandom(newRandom);
-    setQuest(newQuest);
     let newCh1, newCh2;
 
     if (newRandom === 1) {
@@ -190,7 +199,13 @@ export default function Game() {
       } while (wordLevel[newCh1].answer === wordLevel[newQuest].answer);
       setCh1(newCh1);
     }
+
+    setRandom(newRandom);
+    setQuest(newQuest);
+    setCh1(newCh1);
+    setCh2(newCh2);
   };
+
   const Correctornot = (choice) => {
     if (choice === Quest) {
       CorrectAnim();
@@ -223,7 +238,7 @@ export default function Game() {
       setMonsterImage(BossHit);
     }
     setWinstreak(Winstreak + 1);
-    if (Winstreak === 3) {
+    if (Winstreak === 10) {
       setIsWin(false);
       const updatedHm = savedlevel.map((level) =>
         level.id === Number(params.id)
@@ -327,7 +342,7 @@ export default function Game() {
 
   return (
     <div
-      className=" bg-no-repeat bg-cover bg-center h-screen justify-center relative"
+      className=" bg-no-repeat bg-cover bg-center h-screen justify-center relative overflow-hidden"
       style={{ backgroundImage: `url(${isNext ? nextBgImage : bgImage})` }}
     >
       <motion.div
@@ -352,11 +367,11 @@ export default function Game() {
             onClick={handleSetting}
             className={`${
               isPause && isWin
-                ? "left-[80%] top-[4%] absolute border-[3px] bg-yellow rounded-sm w-[48px] h-[48px] content-center justify-items-center"
+                ? "left-[80%] top-[4%] absolute border-[2px] bg-yellow rounded-sm w-[48px] h-[48px]"
                 : "hidden"
             }`}
           >
-            <Pause size={37} />
+            <Pause strokeWidth={1} size={44} />
           </motion.div>
         ) : (
           <LoseModal />
@@ -364,7 +379,7 @@ export default function Game() {
         {isWin ? null : <WinModal onNext={handleNextLevel} />}
         {isPause ? "" : <PauseModal setIsPause={setIsPause} />}
 
-        <motion.div className="h-[70vh] font-bold text-[#E29F51] font-game">
+        <div className="h-[70vh] font-bold text-[#E29F51] font-game">
           <motion.div
             initial={{ x: 0, y: "-100vh", opacity: 1 }}
             animate={{
@@ -375,7 +390,11 @@ export default function Game() {
             transition={{ duration: 0.7, ease: "easeInOut" }}
             className="w-full  flex justify-center p-[90px] right-[0.5px] h-[10px]"
           >
-            <img className="w-[134px] h-[36px]" src={HeartImage} alt="Heart" />
+            <img
+              className={isWin ? `w-[134px] h-[36px]` : "hidden"}
+              src={HeartImage}
+              alt="Heart"
+            />
           </motion.div>
           <div
             className={`${
@@ -383,7 +402,7 @@ export default function Game() {
             } font-game`}
           >
             <div className="mt-[9px] text-[32px]  text-center text-stroke-black">
-              {wordLevel[Quest].word}
+              {wordLevel[Quest]?.word}
             </div>
           </div>
           <motion.div
@@ -418,7 +437,7 @@ export default function Game() {
               alt="Monster"
             />
           </motion.div>
-        </motion.div>
+        </div>
         <div className={`${isend && isPause && isWin ? "" : "hidden"}`}>
           <div className="box2 h-[30vh]">
             <div className="w-full inline-flex gap-5 justify-center pt-5">

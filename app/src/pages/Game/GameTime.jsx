@@ -43,7 +43,7 @@ import { motion } from "framer-motion";
 export default function GameTime() {
   const [ch1, setCh1] = useState(null);
   const [ch2, setCh2] = useState(null);
-  const [wordLevel, setwordLevel] = useState(wordsA1);
+  const [wordLevel, setwordLevel] = useState(wordsB1);
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
   const [Quest, setQuest] = useState(
     Math.floor(Math.random() * (wordLevel.length - 1))
@@ -70,7 +70,14 @@ export default function GameTime() {
   }
 
   useEffect(() => {
-    console.log(counts);
+    if (
+      Cookies.get("hmlevel") === undefined ||
+      Cookies.get("tmlevel") === undefined
+    ) {
+      router("/");
+    }
+
+    counts;
     if (Random === 1) {
       setCh1(Quest);
       let tempCh2;
@@ -89,35 +96,35 @@ export default function GameTime() {
 
     if (Number(params.id) <= 2) {
       setwordLevel(wordsA1);
-      if (counts === 3) {
+      if (counts === 10) {
         setMonsterImage(Boardead);
       } else {
         setMonsterImage(BoarIdle);
       }
     } else if (Number(params.id) <= 4) {
       setwordLevel(wordsA2);
-      if (counts === 3) {
+      if (counts === 10) {
         setMonsterImage(Snaildead);
       } else {
         setMonsterImage(SnailIdle);
       }
     } else if (Number(params.id) <= 6) {
       setwordLevel(wordsB1);
-      if (counts === 3) {
+      if (counts === 10) {
         setMonsterImage(Beedead);
       } else {
         setMonsterImage(BeeIdle);
       }
     } else if (Number(params.id) <= 9) {
       setwordLevel(wordsB2);
-      if (counts === 3) {
+      if (counts === 10) {
         setMonsterImage(Batdead);
       } else {
         setMonsterImage(BatIdle);
       }
     } else if (Number(params.id) <= 10) {
       setwordLevel(wordsC1);
-      if (counts === 3) {
+      if (counts === 10) {
         setMonsterImage(Bossdead);
       } else {
         setMonsterImage(BossIdle);
@@ -255,7 +262,7 @@ export default function GameTime() {
       setMonsterImage(BossHit);
     }
 
-    if (counts === 2) {
+    if (counts === 9) {
       setIsWin(false);
       setIsRunning(false);
       if (Number(params.id) <= 2) {
@@ -319,7 +326,7 @@ export default function GameTime() {
       } else if (Number(params.id) <= 6) {
         setMonsterImage(BeeIdle);
       } else if (Number(params.id) <= 9) {
-        setMonsterImage(BatlIdle);
+        setMonsterImage(BatIdle);
       } else if (Number(params.id) <= 10) {
         setMonsterImage(BossIdle);
       }
@@ -341,7 +348,7 @@ export default function GameTime() {
 
   return (
     <div
-      className=" bg-no-repeat bg-cover bg-center h-screen justify-center relative"
+      className=" bg-no-repeat bg-cover bg-center h-screen justify-center relative overflow-hidden"
       style={{ backgroundImage: `url(${isNext ? nextBgImage : bgImage})` }}
     >
       <motion.div
@@ -366,23 +373,18 @@ export default function GameTime() {
             onClick={handleSetting}
             className={`${
               isPause && isWin
-                ? "left-[80%] top-[4%] absolute border-[3px] bg-[#E29F51] rounded-sm w-[48px] h-[48px] content-center justify-items-center"
+                ? "left-[80%] top-[4%] absolute border-[2px] bg-yellow rounded-sm w-[48px] h-[48px]"
                 : "hidden"
             }`}
           >
-            <Pause size={37} />
+            <Pause strokeWidth={1} size={44} />
           </motion.div>
         ) : (
           <LoseModal />
         )}
-        {isPause ? (
-          ""
-        ) : (
-          <PauseModal setIsPause={setIsPause} setIsRunning={setIsRunning} />
-        )}
-
         {isWin ? "" : <WinModal onNext={handleNextLevel} />}
-        <div className="box1 h-[70vh] font-bold text-[#E29F51] font-game text-stroke-black">
+        {isPause ? "" : <PauseModal setIsPause={setIsPause} />}
+        <div className="h-[70vh] font-bold text-[#E29F51] font-game">
           {time >= 10 ? (
             <motion.div
               initial={{ x: 0, y: "-100vh", opacity: 1 }}
@@ -392,7 +394,7 @@ export default function GameTime() {
                 opacity: 1,
               }}
               transition={{ duration: 0.7, ease: "easeInOut" }}
-              className={`Heart-box text-center w-full mt-[80px] text-[32px] ${
+              className={`text-center w-full mt-[80px] text-[32px] text-outline-3 ${
                 isWin ? "text-[#C8EDE0]" : "hidden"
               }`}
             >
@@ -400,7 +402,7 @@ export default function GameTime() {
             </motion.div>
           ) : (
             <div
-              className={`Heart-box text-center w-full mt-[80px] text-[32px] ${
+              className={`text-center w-full mt-[80px] text-[32px] text-outline-3 ${
                 isend ? "" : "hidden"
               }`}
             >

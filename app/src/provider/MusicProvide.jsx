@@ -23,10 +23,10 @@ export const MusicProvider = ({ children }) => {
       pathname === "member" ||
       pathname === "Word"
     ) {
-      setMusic("/music/Homemu.wav");
+      setMusic("/music/farmmusic.mp3");
     }
     Cookies.set("volume", isVolumeOn);
-    console.log(isVolumeOn);
+    (isVolumeOn);
   }, [isVolumeOn]);
 
   return (

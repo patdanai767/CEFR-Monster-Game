@@ -2,16 +2,26 @@ import React, { useState, useEffect, useMemo } from "react";
 import { sortedWords } from "../../components/WordList/WordList";
 import Pagination from "../../components/Pagination/Pagination";
 import EnemyCard from "../../components/EnemyCard/EnemyCard";
-import { ChevronLeft, Volume2, Search, CircleHelp } from "lucide-react";
+import {
+  ChevronLeft,
+  Volume2,
+  VolumeOff,
+  Search,
+  CircleHelp,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import SkullA1 from "/skulls/SkullA1.gif";
 import SkullA2 from "/skulls/SkullA2.gif";
 import SkullB1 from "/skulls/SkullB1.gif";
 import SkullB2 from "/skulls/SkullB2.gif";
 import SkullC1 from "/skulls/SkullC1.gif";
+import { useMusic } from "../../provider/MusicProvide";
+import Cookies from "js-cookie";
 
 function WordIndex() {
   const [searchText, setSearchText] = useState("");
+  const { isVolumeOn, setIsVolumeOn } = useMusic();
+
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearchText(value);
@@ -24,6 +34,7 @@ function WordIndex() {
   }, [searchText, sortedWords]);
 
   useEffect(() => {
+    if (Cookies.get("hmlevel") === undefined || Cookies.get("tmlevel") === undefined) {router("/")};
     setCurrentPage(1);
   }, [searchText]);
 
@@ -40,13 +51,18 @@ function WordIndex() {
   const handleHelp = () => {
     setHelp(!help);
   };
+
+  const handleVolume = () => {
+    setIsVolumeOn(!isVolumeOn);
+  };
+
   return (
     <div className="bg-[url(/src/backgrounds/bg-map.jpg)] h-[896px] bg-cover p-4 flex flex-col justify-between">
       <a
         href="/mode"
-        className="h-[48px] w-[48px] border-[3px] rounded-[2px]  bg-[#E29F51] grid place-items-center"
+        className="h-[48px] rounded-[4px] w-[48px] border-[2px]  bg-[#E29F51] grid place-items-center"
       >
-        <ChevronLeft className="h-[40px] w-[40px]" />
+        <ChevronLeft strokeWidth={1} className="h-[40px] w-[40px]" />
       </a>
       <div>
         <div className="text-[30px] flex justify-center mt-4 text-[#C5E369] text-outline-2 ">
@@ -54,7 +70,7 @@ function WordIndex() {
         </div>
 
         <div className="border-2 h-[30px] rounded-[12px] m-4 bg-black/50 flex">
-          <input
+          <motion.input
             type="text"
             value={searchText}
             onChange={handleSearch}
@@ -101,9 +117,25 @@ function WordIndex() {
       </div>
 
       <div className="flex justify-between">
-        <div className="h-[56px] w-[56px] border-[2px] bg-[#E29F51] rounded-full grid place-items-center">
-          <Volume2 />
-        </div>
+        {isVolumeOn ? (
+          <div className="h-[56px] w-[56px] border-[2px] bg-[#E29F51] rounded-full grid place-items-center">
+            <Volume2
+              strokeWidth={1}
+              size={40}
+              onClick={handleVolume}
+              className="sm:ml-[0vw] ml-[1.5vw]"
+            />
+          </div>
+        ) : (
+          <div className="h-[56px] w-[56px] border-[2px] bg-[#E29F51] rounded-full grid place-items-center">
+            <VolumeOff
+              strokeWidth={1}
+              size={40}
+              onClick={handleVolume}
+              className="sm:ml-[0vw] ml-[1.5vw]"
+            />
+          </div>
+        )}
         <CircleHelp
           className="h-[56px] w-[56px] fill-[#E29F51] stroke-[1px]"
           onClick={handleHelp}
@@ -120,6 +152,7 @@ function WordIndex() {
             onClick={handleHelp}
           >
             <div className="h-[80vh] w-[90vw] border-2 bg-[#f7eab2] flex flex-col justify-between items-center py-4">
+              <div className="text-[16px]">CEFR LEVEL</div>
               <div className="flex">
                 <div className="text-center text-[12px]  w-[40vw]">
                   <img src={SkullA1} alt="SkullA1" />

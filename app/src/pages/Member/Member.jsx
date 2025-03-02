@@ -1,5 +1,7 @@
 import { ChevronLeft } from "lucide-react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function Member() {
   const router = useNavigate();
@@ -40,6 +42,10 @@ export default function Member() {
       image: "/IdlePat.gif",
     },
   ];
+
+  useEffect(() => {
+    if (Cookies.get("hmlevel") === undefined || Cookies.get("tmlevel") === undefined) {router("/")};
+  }, []);
 
   return (
     <div
