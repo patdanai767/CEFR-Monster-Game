@@ -278,7 +278,7 @@ const wordsB2 = [
     { id: 276, word: "Corporation", answer: "บริษัท" },
     { id: 277, word: "Corridor", answer: "ทางเดิน" },
     { id: 278, word: "Council", answer: "สภา" },
-    { id: 279, word: "Counter", answer: "เคาน์เตอร์" },
+    { id: 279, word: "Counter", answer: "สวนกลับ" },
     { id: 280, word: "County", answer: "เขต" },
     { id: 281, word: "Courage", answer: "ความกล้า" },
     { id: 282, word: "Coverage", answer: "การรายงาน" },

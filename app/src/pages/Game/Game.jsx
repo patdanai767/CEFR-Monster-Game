@@ -37,6 +37,8 @@ import Heart2 from "/Heart-1.png";
 import Heart1 from "/Heart-2.png";
 import Heart0 from "/Heart-3.png";
 import Slashsound from "/Swordslash.mp3";
+import DeadHuman from "/Humandead.mp3";
+import Damaged from "/Damaged.mp3";
 import { backgrounds } from "../../constants/background";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -48,7 +50,7 @@ export default function Game() {
   const [wordLevel, setwordLevel] = useState(wordsA1);
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
   const [Quest, setQuest] = useState(
-    Math.floor(Math.random() * wordLevel.length)
+    Math.floor(Math.random() * (wordLevel.length - 1))
   );
   const [humanImage, setHumanImage] = useState(Idle);
   const [monsterImage, setMonsterImage] = useState(null);
@@ -65,7 +67,6 @@ export default function Game() {
   const bgImage = backgrounds.find((bg) => bg.id === Number(params.id))?.bg;
   const [nextBgImage, setNextBgImage] = useState(null);
   const [changeBg, setChangeBg] = useState(false);
-
   let Heartvalue = 1;
 
   useEffect(() => {
@@ -82,10 +83,18 @@ export default function Game() {
     }
     if (Random === 1) {
       setCh1(Quest);
-      setCh2(Math.floor(Math.random() * wordLevel.length));
+      let tempCh2;
+      do {
+        tempCh2 = Math.floor(Math.random() * (wordLevel.length - 1));
+      } while (wordLevel[tempCh2].answer === wordLevel[Quest].answer);
+      setCh2(tempCh2);
     } else if (Random === 2) {
       setCh2(Quest);
-      setCh1(Math.floor(Math.random() * wordLevel.length));
+      let tempCh1;
+      do {
+        tempCh1 = Math.floor(Math.random() * (wordLevel.length - 1));
+      } while (wordLevel[tempCh1].answer === wordLevel[Quest].answer);
+      setCh1(tempCh1);
     }
     if (Number(params.id) <= 2) {
       setwordLevel(wordsA1);
@@ -155,24 +164,32 @@ export default function Game() {
   function slash() {
     new Audio(Slashsound).play();
   }
-
+  function damaged() {
+    new Audio(Damaged).play();
+  }
+  function Hdead() {
+    new Audio(DeadHuman).play();
+  }
   const Next = () => {
     const newRandom = Math.floor(Math.random() * 2) + 1;
-    const newQuest = Math.floor(Math.random() * wordLevel.length);
+    const newQuest = Math.floor(Math.random() * (wordLevel.length - 1));
+    setRandom(newRandom);
+    setQuest(newQuest);
     let newCh1, newCh2;
 
     if (newRandom === 1) {
-      newCh1 = newQuest;
-      newCh2 = Math.floor(Math.random() * wordLevel.length);
+      setCh1(newQuest);
+      do {
+        newCh2 = Math.floor(Math.random() * (wordLevel.length - 1));
+      } while (wordLevel[newCh2].answer === wordLevel[newQuest].answer);
+      setCh2(newCh2);
     } else if (newRandom === 2) {
-      newCh2 = newQuest;
-      newCh1 = Math.floor(Math.random() * wordLevel.length);
+      setCh2(newQuest);
+      do {
+        newCh1 = Math.floor(Math.random() * (wordLevel.length - 1));
+      } while (wordLevel[newCh1].answer === wordLevel[newQuest].answer);
+      setCh1(newCh1);
     }
-
-    setRandom(newRandom);
-    setQuest(newQuest);
-    setCh1(newCh1);
-    setCh2(newCh2);
   };
   const Correctornot = (choice) => {
     if (choice === Quest) {
@@ -191,7 +208,9 @@ export default function Game() {
 
   const CorrectAnim = () => {
     setHumanImage(Attack);
+
     slash();
+    
     if (Number(params.id) <= 2) {
       setMonsterImage(BoarHit);
     } else if (Number(params.id) <= 4) {
@@ -210,6 +229,7 @@ export default function Game() {
         level.id === Number(params.id) + 1 ? { ...level, isOpen: true } : level
       );
       Cookies.set("hmlevel", JSON.stringify(updatedHm));
+
       if (Number(params.id) <= 2) {
         setMonsterImage(Boardead);
       } else if (Number(params.id) <= 4) {
@@ -245,6 +265,12 @@ export default function Game() {
 
   const WrongAnim = () => {
     Heartvalue -= 1;
+    if (HeartImage === Heart3 || HeartImage === Heart2) {
+      damaged();
+    } else if (HeartImage === Heart1) {
+      Hdead();
+    }
+
     setHumanImage(Wrong);
     if (Number(params.id) <= 2) {
       setMonsterImage(BoarAtk);
