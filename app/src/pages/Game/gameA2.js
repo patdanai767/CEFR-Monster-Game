@@ -1,5 +1,7 @@
+import SkullA2 from "../../assets/SkullA2.gif"
+
 const wordsA2 = [
-  { id: 0, word: "Ability", answer: "ความสามารถ" },
+  { id: 0, word: "Ability", answer: "ความสามารถ"},
   { id: 1, word: "Able", answer: "สามารถ" },
   { id: 2, word: "Abroad", answer: "ต่างประเทศ" },
   { id: 3, word: "Accept", answer: "ยอมรับ" },
@@ -871,3 +873,7 @@ const wordsA2 = [
   ];
   export default wordsA2;
   
+  export const updatedWordsA2 = wordsA2.map((item) => ({
+      ...item,
+      img: item.img || SkullA2 // ถ้ามีอยู่แล้วใช้ของเดิม ถ้าไม่มีให้ใส่ค่าใหม่
+    }));

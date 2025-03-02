@@ -1,3 +1,5 @@
+import SkullB1 from "../../assets/SkullB1.gif"
+
 const wordsB1 = [
     { id: 0, word: "Absolutely", answer: "อย่างแน่นอน" },
     { id: 1, word: "Academic", answer: "ทางการศึกษา" },
@@ -804,3 +806,8 @@ const wordsB1 = [
   { id: 800, word: "Zero", answer: "ศูนย์" }
 ];
 export default wordsB1;
+
+export const updatedWordsB1 = wordsB1.map((item) => ({
+  ...item,
+  img: item.img || SkullB1 
+}));

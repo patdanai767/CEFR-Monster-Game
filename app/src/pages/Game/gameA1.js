@@ -1,12 +1,14 @@
+import SkullA1 from "../../assets/SkullA1.gif"
+
 const wordsA1 = [
     // A
-    { id: 0, word: "About", answer: "เกี่ยวกับ" },
-    { id: 1, word: "Above", answer: "ข้างบน" },
-    { id: 2, word: "Across", answer: "ข้าม" },
-    { id: 3, word: "Action", answer: "การกระทำ" },
-    { id: 4, word: "Activity", answer: "กิจกรรม" },
-    { id: 5, word: "Actor", answer: "นักแสดงชาย" },
-    { id: 6, word: "Actress", answer: "นักแสดงหญิง" },
+    { id: 0, word: "About", answer: "เกี่ยวกับ", img:SkullA1},
+    { id: 1, word: "Above", answer: "ข้างบน" , img:SkullA1},
+    { id: 2, word: "Across", answer: "ข้าม" , img:SkullA1},
+    { id: 3, word: "Action", answer: "การกระทำ" , img:SkullA1},
+    { id: 4, word: "Activity", answer: "กิจกรรม" , },
+    { id: 5, word: "Actor", answer: "นักแสดงชาย" , },
+    { id: 6, word: "Actress", answer: "นักแสดงหญิง" , },
     { id: 7, word: "Add", answer: "เพิ่ม" },
     { id: 8, word: "Address", answer: "ที่อยู่" },
     { id: 9, word: "Adult", answer: "ผู้ใหญ่" },
@@ -945,3 +947,8 @@ const wordsA1 = [
     { id: 896, word: "Yourself", answer: "ตัวคุณเอง" }
 ];
 export default wordsA1;
+
+export const updatedWordsA1 = wordsA1.map((item) => ({
+    ...item,
+    img: item.img || SkullA1 
+  }));
