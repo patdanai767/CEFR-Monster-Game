@@ -1,16 +1,21 @@
 import { Volume2, VolumeOff, ChevronLeft } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { motion } from "framer-motion";
 import backgrounds from "../../backgrounds/backgrounds";
+import { useMusic } from "../../provider/MusicProvide";
 
 export default function Level() {
   const router = useNavigate();
   const storagetm = JSON.parse(Cookies.get("tmlevel"));
-  const [isVolumeOn, setIsVolumeOn] = useState(true);
   const [isTap, setIsTap] = useState(false);
   const [currentLevel, setCurrentLevel] = useState(null);
+  const { isVolumeOn, setIsVolumeOn } = useMusic();
+
+  useEffect(() => {
+    if (Cookies.get("hmlevel") === undefined || Cookies.get("tmlevel") === undefined) {router("/")};
+  }, []);
 
   const handleVolume = () => {
     setIsVolumeOn(!isVolumeOn);
@@ -25,7 +30,7 @@ export default function Level() {
       setIsTap(true);
       setCurrentLevel(level);
       setTimeout(() => {
-        router(`/gametime/${level}`);
+        window.location.href = `/gametime/${level}`;
       }, 400);
       return;
     }
@@ -37,74 +42,90 @@ export default function Level() {
   return (
     /*background*/
     <div
-    className="relative overflow-hidden bg-no-repeat h-screen bg-cover font-game"
-    style={{ backgroundImage: `url(${backgrounds[levelNumber]})` }}
-  >
-    <motion.div
-      initial={{ x: 0, y: 0, opacity: 1 }}
-      animate={
-        isTap
-          ? {
-              x: "-100vw",
-              y: 0,
-              opacity: 1,
-              transition: { duration: 0.4 },
-            }
-          : { x: 0, y: 0, opacity: 1 }
-      }
-      transition={{ duration: 0.4, ease: "easeInOut" }}
       className="relative overflow-hidden bg-no-repeat h-screen bg-cover font-game"
-      style={{ backgroundImage: "url('/backgroundlevel.png')" }}
+      style={{ backgroundImage: `url(${backgrounds[levelNumber]})` }}
     >
-      {/* ปุ่มย้อนกลับ */}
       <motion.div
-        whileTap={{ scale: 0.9 }}
-        onClick={handleBack}
-        className="absolute top-[4%] left-[8%] bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[2px] content-center justify-items-center"
+        initial={{ x: 0, y: 0, opacity: 1 }}
+        animate={
+          isTap
+            ? {
+                x: "-100vw",
+                y: 0,
+                opacity: 1,
+                transition: { duration: 0.4 },
+              }
+            : { x: 0, y: 0, opacity: 1 }
+        }
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="relative overflow-hidden bg-no-repeat h-screen bg-cover font-game"
+        style={{ backgroundImage: "url('/backgroundlevel.png')" }}
       >
-        <ChevronLeft strokeWidth={1} size={45} />
-      </motion.div>
-      {isVolumeOn ? (
+        {/* ปุ่มย้อนกลับ */}
         <motion.div
           whileTap={{ scale: 0.9 }}
-          className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] bg-contain bg-center content-center justify-items-center"
+          onClick={handleBack}
+          className="absolute top-[4%] left-[8%] bg-[#E29F51] w-[48px] h-[48px] rounded-[4px] border-[2px] content-center justify-items-center"
         >
-          <Volume2
-            strokeWidth={1}
-            size={40}
-            onClick={handleVolume}
-            className="sm:ml-[0vw] ml-[1.5vw]"
-          />
+          <ChevronLeft strokeWidth={1} size={45} />
         </motion.div>
-      ) : (
-        <motion.div
-          whileTap={{ scale: 0.9 }}
-          className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] bg-contain bg-center content-center justify-items-center"
-        >
-          <VolumeOff
-            strokeWidth={1}
-            size={40}
-            onClick={handleVolume}
-            className="sm:ml-[0vw] ml-[1.5vw]"
-          />
-        </motion.div>
-      )}
-      {storagetm
-        ? storagetm.map((level) => (
-            <motion.div
-              whileTap={{ scale: 0.9 }}
-              onClick={() => handleLevel(level.id, level.isOpen)}
-              key={level.id}
-              className={`absolute w-[56px] h-[56px] rounded 
-            ${level.isOpen ? "bg-mint text-black" : "bg-brown text-black"} 
+        {isVolumeOn ? (
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] bg-contain bg-center content-center justify-items-center"
+          >
+            <Volume2
+              strokeWidth={1}
+              size={40}
+              onClick={handleVolume}
+              className="sm:ml-[0vw] ml-[1.5vw]"
+            />
+          </motion.div>
+        ) : (
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            className="absolute top-[90%] left-[8%] bg-[#C76735] w-[56px] h-[56px] rounded-full border-[2px] bg-contain bg-center content-center justify-items-center"
+          >
+            <VolumeOff
+              strokeWidth={1}
+              size={40}
+              onClick={handleVolume}
+              className="sm:ml-[0vw] ml-[1.5vw]"
+            />
+          </motion.div>
+        )}
+        {storagetm
+          ? storagetm.map((level) => (
+              <motion.a
+                whileTap={{ scale: 0.9 }}
+                onClick={() => handleLevel(level.id, level.isOpen)}
+                key={level.id}
+                className={`absolute w-[56px] h-[56px] rounded
+            ${
+              level.isOpen
+                ? `${
+                    level.isWin
+                      ? `${
+                          level.id === 10
+                            ? "bg-red text-yellow"
+                            : "bg-mint text-black"
+                        }`
+                      : `${
+                          level.id === 10
+                            ? "bg-red text-yellow"
+                            : "bg-green text-black"
+                        }`
+                  }`
+                : "bg-[#856360] text-black"
+            } 
             font-bold flex justify-center items-center shadow-md text-2xl`}
-              style={{ left: level.x, top: level.y }}
-            >
-              {level.id}
-            </motion.div>
-          ))
-        : ""}
-    </motion.div>
+                style={{ left: level.x, top: level.y }}
+              >
+                {level.id}
+              </motion.a>
+            ))
+          : ""}
+      </motion.div>
     </div>
   );
 }

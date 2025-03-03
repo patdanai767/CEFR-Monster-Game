@@ -1,29 +1,27 @@
-import React, { useState, useEffect } from "react";
-import {
-  Clock,
-  WalletCards,
-  Heart,
-  ChevronLeft,
-  HandHelping,
-} from "lucide-react";
+import { useEffect, useState } from "react";
+import { Clock, WalletCards, Heart, ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Volume2, VolumeOff } from "lucide-react";
 import { motion } from "framer-motion";
+import { useMusic } from "../../provider/MusicProvide";
+import Cookies from "js-cookie";
 
 function Mode() {
+  const { isVolumeOn, setIsVolumeOn } = useMusic();
+  const [isTap, setIsTap] = useState(false);
   const router = useNavigate();
 
-  const handleBack = () => {
-    router("/");
-  };
-
-  const [isVolumeOn, setIsVolumeOn] = useState(true);
+  useEffect(() => {
+    if (Cookies.get("hmlevel") === undefined || Cookies.get("tmlevel") === undefined) {router("/")};
+  },[])
 
   const handleVolume = () => {
     setIsVolumeOn(!isVolumeOn);
   };
 
-  const [isTap, setIsTap] = useState(false);
+  const handleBack = () => {
+    router("/");
+  };
 
   const handleNextToHeartMode = () => {
     setIsTap(true);
@@ -85,7 +83,7 @@ function Mode() {
                 <motion.div
                   whileTap={{ scale: 0.9 }}
                   onClick={handleNextToHeartMode}
-                  className="text-[20px] w-[360px] h-[12vh] bg-[#E29F51]  border-3 flex items-center justify-center"
+                  className="text-[20px] w-[352px] h-[12vh] bg-[#E29F51]  border-3 flex items-center justify-center"
                 >
                   Heart mode <Heart fill="red" size={30} className="ml-8" />
                 </motion.div>
@@ -94,7 +92,7 @@ function Mode() {
                 <motion.div
                   whileTap={{ scale: 0.9 }}
                   onClick={handleNextToTimeMode}
-                  className=" text-[20px] w-[360px] h-[12vh] bg-[#E29F51]  border-3 flex items-center justify-center"
+                  className="text-[20px] w-[352px] h-[12vh] bg-[#E29F51]  border-3 flex items-center justify-center"
                 >
                   Time attack{" "}
                   <Clock fill="#C8EDE0" size={30} className="ml-8" />
@@ -106,7 +104,7 @@ function Mode() {
               >
                 <div
                   onClick={handleNextToFlashCardMode}
-                  className=" text-[20px] w-[360px] h-[12vh] bg-[#C5E369]  border-3 flex items-center justify-center"
+                  className=" text-[20px] w-[352px] h-[12vh] bg-[#C5E369]  border-3 flex items-center justify-center"
                 >
                   Flashcard <WalletCards size={30} className="ml-8" />
                 </div>
@@ -130,7 +128,7 @@ function Mode() {
       ) : (
         <motion.div
           whileTap={{ scale: 0.9 }}
-          className="absolute top-[90%] left-[8%] bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center"
+          className="absolute top-[90%] left-[8%] bg-[#C76735] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center"
         >
           <VolumeOff
             strokeWidth={1}

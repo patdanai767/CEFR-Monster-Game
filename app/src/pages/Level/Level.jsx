@@ -1,16 +1,21 @@
 import { Volume2, VolumeOff, ChevronLeft, Scale } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { motion } from "framer-motion";
 import backgrounds from "../../backgrounds/backgrounds";
+import { useMusic } from "../../provider/MusicProvide";
 
 export default function Level() {
   const router = useNavigate();
   const storagetm = JSON.parse(Cookies.get("hmlevel"));
-  const [isVolumeOn, setIsVolumeOn] = useState(true);
+  const { isVolumeOn, setIsVolumeOn } = useMusic();
   const [isTap, setIsTap] = useState(false);
   const [currentLevel, setCurrentLevel] = useState(null);
+
+  useEffect(() => {
+    if (Cookies.get("hmlevel") === undefined || Cookies.get("tmlevel") === undefined) {router("/")};
+  }, []);
 
   const handleVolume = () => {
     setIsVolumeOn(!isVolumeOn);
@@ -25,7 +30,7 @@ export default function Level() {
       setIsTap(true);
       setCurrentLevel(level);
       setTimeout(() => {
-        router(`/game/${level}`);
+        window.location.href = `/game/${level}`;
       }, 400);
       return;
     }
@@ -79,7 +84,7 @@ export default function Level() {
         ) : (
           <motion.div
             whileTap={{ scale: 0.9 }}
-            className="absolute top-[90%] left-7 bg-[#E29F51] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center"
+            className="absolute top-[90%] left-7 bg-[#C76735] w-[56px] h-[56px] rounded-full border-[2px] content-center justify-items-center"
           >
             <VolumeOff
               strokeWidth={1}
@@ -98,7 +103,19 @@ export default function Level() {
                 className={`absolute w-[56px] h-[56px] rounded 
             ${
               level.isOpen
-                ? "bg-[#C8EDE0] text-black"
+                ? `${
+                    level.isWin
+                      ? `${
+                          level.id === 10
+                            ? "bg-red text-yellow"
+                            : "bg-yellow text-black"
+                        }`
+                      : `${
+                          level.id === 10
+                            ? "bg-red text-yellow"
+                            : "bg-green text-black"
+                        }`
+                  }`
                 : "bg-[#856360] text-black"
             } 
             font-bold flex justify-center items-center text-xl`}
