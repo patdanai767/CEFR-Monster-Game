@@ -70,6 +70,7 @@ export default function GameTime() {
   }
 
   useEffect(() => {
+    let wordLevel = [];
     if (
       Cookies.get("hmlevel") === undefined ||
       Cookies.get("tmlevel") === undefined
@@ -77,7 +78,48 @@ export default function GameTime() {
       router("/");
     }
 
-    counts;
+    if (Number(params.id) <= 2 && Number(params.id) >= 0) {
+      wordLevel = wordsA1;
+      setwordLevel(wordLevel);
+      if (counts === 10) {
+        setMonsterImage(Boardead);
+      } else {
+        setMonsterImage(BoarIdle);
+      }
+    } else if (Number(params.id) <= 4 && Number(params.id) >= 3) {
+      wordLevel = wordsA2;
+      setwordLevel(wordLevel);
+      if (counts === 10) {
+        setMonsterImage(Snaildead);
+      } else {
+        setMonsterImage(SnailIdle);
+      }
+    } else if (Number(params.id) <= 6 && Number(params.id) >= 5) {
+      wordLevel = wordsB1;
+      setwordLevel(wordLevel);
+      if (counts === 10) {
+        setMonsterImage(Beedead);
+      } else {
+        setMonsterImage(BeeIdle);
+      }
+    } else if (Number(params.id) <= 9 && Number(params.id) >= 7) {
+      wordLevel = wordsB2;
+      setwordLevel(wordLevel);
+      if (counts === 10) {
+        setMonsterImage(Batdead);
+      } else {
+        setMonsterImage(BatIdle);
+      }
+    } else if (Number(params.id) <= 10) {
+      wordLevel = wordsC1;
+      setwordLevel(wordLevel);
+      if (counts === 10) {
+        setMonsterImage(Bossdead);
+      } else {
+        setMonsterImage(BossIdle);
+      }
+    }
+
     if (Random === 1) {
       setCh1(Quest);
       let tempCh2;
@@ -94,42 +136,6 @@ export default function GameTime() {
       setCh1(tempCh1);
     }
 
-    if (Number(params.id) <= 2) {
-      setwordLevel(wordsA1);
-      if (counts === 10) {
-        setMonsterImage(Boardead);
-      } else {
-        setMonsterImage(BoarIdle);
-      }
-    } else if (Number(params.id) <= 4) {
-      setwordLevel(wordsA2);
-      if (counts === 10) {
-        setMonsterImage(Snaildead);
-      } else {
-        setMonsterImage(SnailIdle);
-      }
-    } else if (Number(params.id) <= 6) {
-      setwordLevel(wordsB1);
-      if (counts === 10) {
-        setMonsterImage(Beedead);
-      } else {
-        setMonsterImage(BeeIdle);
-      }
-    } else if (Number(params.id) <= 9) {
-      setwordLevel(wordsB2);
-      if (counts === 10) {
-        setMonsterImage(Batdead);
-      } else {
-        setMonsterImage(BatIdle);
-      }
-    } else if (Number(params.id) <= 10) {
-      setwordLevel(wordsC1);
-      if (counts === 10) {
-        setMonsterImage(Bossdead);
-      } else {
-        setMonsterImage(BossIdle);
-      }
-    }
     let interval = null;
 
     if (time && isRunning > 0) {

@@ -47,7 +47,7 @@ import Cookies from "js-cookie";
 export default function Game() {
   const [ch1, setCh1] = useState(null);
   const [ch2, setCh2] = useState(null);
-  const [wordLevel, setwordLevel] = useState(wordsA1);
+  const [wordLevel, setwordLevel] = useState(wordsB1);
   const [Random, setRandom] = useState(Math.floor(Math.random() * 2) + 1);
   const [Quest, setQuest] = useState(
     Math.floor(Math.random() * (wordLevel.length - 1))
@@ -70,6 +70,7 @@ export default function Game() {
   let Heartvalue = 1;
 
   useEffect(() => {
+    let wordLevel = [];
     if (
       (Number(params.id) > 10 && pathname === "gametime") ||
       (savedlevel[params.id - 1]?.isOpen === false && pathname === "gametime")
@@ -89,6 +90,48 @@ export default function Game() {
       router("/");
     }
 
+    if (Number(params.id) <= 2 && Number(params.id) >= 0) {
+      wordLevel = wordsA1;
+      setwordLevel(wordLevel);
+      if (Winstreak === 11) {
+        setMonsterImage(Boardead);
+      } else {
+        setMonsterImage(BoarIdle);
+      }
+    } else if (Number(params.id) <= 4 && Number(params.id) >= 3) {
+      wordLevel = wordsA2;
+      setwordLevel(wordLevel);
+      if (Winstreak === 11) {
+        setMonsterImage(Snaildead);
+      } else {
+        setMonsterImage(SnailIdle);
+      }
+    } else if (Number(params.id) <= 6 && Number(params.id) >= 5) {
+      wordLevel = wordsB1;
+      setwordLevel(wordLevel);
+      if (Winstreak === 11) {
+        setMonsterImage(Beedead);
+      } else {
+        setMonsterImage(BeeIdle);
+      }
+    } else if (Number(params.id) <= 9 && Number(params.id) >= 7) {
+      wordLevel = wordsB2;
+      setwordLevel(wordLevel);
+      if (Winstreak === 11) {
+        setMonsterImage(Batdead);
+      } else {
+        setMonsterImage(BatIdle);
+      }
+    } else if (Number(params.id) <= 10) {
+      wordLevel = wordsC1;
+      setwordLevel(wordLevel);
+      if (Winstreak === 4) {
+        setMonsterImage(Bossdead);
+      } else {
+        setMonsterImage(BossIdle);
+      }
+    }
+
     if (Random === 1) {
       setCh1(Quest);
       let tempCh2;
@@ -103,45 +146,6 @@ export default function Game() {
         tempCh1 = Math.floor(Math.random() * (wordLevel.length - 1));
       } while (wordLevel[tempCh1].answer === wordLevel[Quest].answer);
       setCh1(tempCh1);
-    }
-
-    console.log(wordLevel.length - 1);
-
-    if (Number(params.id) <= 2 && Number(params.id) >= 0) {
-      setwordLevel(wordsA1);
-      if (Winstreak === 11) {
-        setMonsterImage(Boardead);
-      } else {
-        setMonsterImage(BoarIdle);
-      }
-    } else if (Number(params.id) <= 4 && Number(params.id) >= 3) {
-      setwordLevel(wordsA2);
-      if (Winstreak === 11) {
-        setMonsterImage(Snaildead);
-      } else {
-        setMonsterImage(SnailIdle);
-      }
-    } else if (Number(params.id) <= 6 && Number(params.id) >= 5) {
-      setwordLevel(wordsB1);
-      if (Winstreak === 11) {
-        setMonsterImage(Beedead);
-      } else {
-        setMonsterImage(BeeIdle);
-      }
-    } else if (Number(params.id) <= 9 && Number(params.id) >= 7) {
-      setwordLevel(wordsB2);
-      if (Winstreak === 11) {
-        setMonsterImage(Batdead);
-      } else {
-        setMonsterImage(BatIdle);
-      }
-    } else if (Number(params.id) <= 10 && Number(params.id) >= 9) {
-      setwordLevel(wordsC1);
-      if (Winstreak === 4) {
-        setMonsterImage(Bossdead);
-      } else {
-        setMonsterImage(BossIdle);
-      }
     }
 
     if (isNext) {
@@ -274,7 +278,7 @@ export default function Game() {
         } else if (Number(params.id) <= 6) {
           setMonsterImage(BeeIdle);
         } else if (Number(params.id) <= 9) {
-          setMonsterImage(BatlIdle);
+          setMonsterImage(BatIdle);
         } else if (Number(params.id) <= 10) {
           setMonsterImage(BossIdle);
         }
@@ -388,10 +392,10 @@ export default function Game() {
               opacity: 1,
             }}
             transition={{ duration: 0.7, ease: "easeInOut" }}
-            className="w-full  flex justify-center p-[90px] right-[0.5px] h-[10px]"
+            className="w-full flex justify-center p-[90px] right-[0.5px] h-[10px]"
           >
             <img
-              className={isWin ? `w-[134px] h-[36px]` : "hidden"}
+              className={isWin && isend ? `w-[134px] h-[36px]` : "hidden"}
               src={HeartImage}
               alt="Heart"
             />

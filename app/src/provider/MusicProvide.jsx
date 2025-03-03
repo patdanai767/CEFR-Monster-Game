@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import Howler from "react-howler";
 import Cookies from "js-cookie";
 
-// Create a context for global music control
 const MusicContext = createContext();
 
 export const MusicProvider = ({ children }) => {
@@ -26,7 +25,7 @@ export const MusicProvider = ({ children }) => {
       setMusic("/music/farmmusic.mp3");
     }
     Cookies.set("volume", isVolumeOn);
-    (isVolumeOn);
+    console.log(isVolumeOn)
   }, [isVolumeOn]);
 
   return (
@@ -34,7 +33,7 @@ export const MusicProvider = ({ children }) => {
       value={{ isVolumeOn, setIsVolumeOn, playing, setPlaying }}
     >
       <Howler
-        src={music} // Replace with your file
+        src={music}
         playing={playing}
         loop={true}
         mute={!isVolumeOn}

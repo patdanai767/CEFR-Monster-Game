@@ -127,7 +127,7 @@ function WordIndex() {
             />
           </div>
         ) : (
-          <div className="h-[56px] w-[56px] border-[2px] bg-[#E29F51] rounded-full grid place-items-center">
+          <div className="h-[56px] w-[56px] border-[2px] bg-[#C76735] rounded-full grid place-items-center">
             <VolumeOff
               strokeWidth={1}
               size={40}
