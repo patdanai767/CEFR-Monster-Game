@@ -16,6 +16,6 @@
 **Figma** 🟰 <a href="https://www.figma.com/design/s2xvXQAH9ELRKhOnV6Cjf3/CEFR_Monster?node-id=0-1&t=M0fgVpZDkzhMlNhD-1">CEFR-Monster-Figma</a>
 
 <p align="center">
-  <i>Enjoy my website introduction of our group.</i>
+  <i>Enjoy our introductory website of our group.</i>
   <a href="https://patdanai767.github.io/CV.html">Click me</a>
 </p>
